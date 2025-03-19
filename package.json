@@ -6,7 +6,9 @@
     "start": "vite --port 3000",
     "build": "vite build && tsc",
     "serve": "vite preview",
-    "test": "vitest run"
+    "test": "vitest run",
+    "lint:fix": "npx eslint --fix",
+    "type-check": "tsc"
   },
   "dependencies": {
     "@tanstack/react-router": "^1.114.3",
