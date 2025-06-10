@@ -12,7 +12,9 @@
   "dependencies": {
     "@tanstack/react-router": "^1.114.3",
     "@tanstack/react-router-devtools": "^1.114.3",
+    "@tanstack/react-store": "^0.7.1",
     "@tanstack/router-plugin": "^1.114.3",
+    "classnames": "^2.5.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "sass-embedded": "^1.89.1"
@@ -32,6 +34,7 @@
     "globals": "^16.2.0",
     "jsdom": "^26.0.0",
     "prettier": "^3.5.3",
+    "stylelint-scss": "^6.12.0",
     "typescript": "^5.7.2",
     "typescript-eslint": "^8.33.1",
     "vite": "^6.1.0",

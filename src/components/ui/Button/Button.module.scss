@@ -1,0 +1,16 @@
+@use "@/styles/variables";
+
+.button {
+  padding: 10px 24px;
+  cursor: pointer;
+  font-weight: bold;
+  outline: none;
+  border: none;
+  border-radius: 10px;
+  font-family: Inter, sans-serif;
+
+  &--primary {
+    background: variables.$accentColor1;
+    color: variables.$mainColor;
+  }
+}

@@ -1,0 +1,17 @@
+@use "@/styles/variables";
+
+body {
+  margin: 0;
+  font-family: Inter, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: variables.$mainColor;
+  color: variables.$textColor1;
+  min-height: 200vh;
+  padding-top: 80px;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}

@@ -5,6 +5,7 @@ import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
 import pluginReact from 'eslint-plugin-react';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
 import globals from 'globals';
+import scssPlugin from 'stylelint-scss';
 import tseslint from 'typescript-eslint';
 
 export default defineConfig([
@@ -12,6 +13,11 @@ export default defineConfig([
     files: ['**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
     plugins: { js },
     extends: ['js/recommended'],
+  },
+  {
+    plugins: {
+      'stylelint-scss': scssPlugin,
+    },
   },
   {
     files: ['**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],

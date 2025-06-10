@@ -1,3 +1,5 @@
-.page {
+@use "@/styles/variables";
 
+.page {
+  color: variables.$textColor1;
 }
