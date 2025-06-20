@@ -7,11 +7,15 @@ type TButtonProps = {
   styleType?: 'primary' | 'secondary';
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
-export const Button = ({ styleType = 'primary', ...props }: TButtonProps) => {
+export const Button = ({
+  styleType = 'primary',
+  className,
+  ...props
+}: TButtonProps) => {
   return (
     <button
       className={classNames(
-        props.className,
+        className,
         styles.button,
         styles[`button--${styleType}`],
       )}
