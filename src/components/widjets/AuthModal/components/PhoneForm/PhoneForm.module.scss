@@ -10,18 +10,3 @@
   display: flex;
   justify-content: flex-end;
 }
-
-.rolesWrapper {
-  display: flex;
-  gap: 24px;
-}
-
-.role {
-  cursor: pointer;
-  color: variables.$textColor2;
-}
-
-.activeRole {
-  color: variables.$mainColor;
-  font-weight: bold;
-}

@@ -6,6 +6,7 @@ export type TUserState = {
 
 export type TUserActions = {
   getUser: (phone: string) => Promise<void>;
+  setUser: (user: TUser) => void;
 };
 
 export type TUserStore = TUserState & TUserActions;
@@ -15,5 +16,6 @@ export type TUser = {
   email?: string;
   phone: string;
   role: Roles;
+  loggedIn: number;
   id: string;
 };

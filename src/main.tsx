@@ -1,4 +1,5 @@
 import './styles.scss';
+import '@ant-design/v5-patch-for-react-19';
 
 import { createRouter, RouterProvider } from '@tanstack/react-router';
 import React from 'react';

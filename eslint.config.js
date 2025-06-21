@@ -38,7 +38,7 @@ export default defineConfig([
   {
     rules: {
       ...eslintConfigPrettier.rules,
-      'no-unused-vars': 'warn',
+      'no-unused-vars': 'off',
       'no-undef': 'warn',
       '@typescript-eslint/no-explicit-any': 'warn',
     },

@@ -1,0 +1,37 @@
+@use "@/styles/variables";
+
+.calendar {
+  display: flex;
+  gap: 24px;
+  overflow-x: scroll;
+  padding: 32px 0 32px;
+}
+
+.day {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: variables.$textColor2;
+  color: variables.$textColor3;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+
+  &Current {
+    background: variables.$accentColor1;
+  }
+
+  &Disabled {
+    background: variables.$textColor2;
+    opacity: 0.2;
+    cursor: not-allowed;
+  }
+
+  &:hover {
+    background: variables.$textColor1;
+  }
+}

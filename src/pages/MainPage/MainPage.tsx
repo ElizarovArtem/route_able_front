@@ -1,17 +1,24 @@
+import { useNavigate } from '@tanstack/react-router';
 import React from 'react';
-import { useShallow } from 'zustand/react/shallow';
 
 import { UiButton } from '@/components/ui/UiButton/UiButton.tsx';
+import { useSelector } from '@/hooks/useSelector.ts';
 import { authSelector } from '@/store/authStore.ts';
-import { useStore } from '@/store/useStore.ts';
+import { userSelector } from '@/store/usersStore.ts';
 
 import styles from './MainPage.module.scss';
 
 export const MainPage = () => {
-  const { setIsAuthModalOpen } = useStore(useShallow(authSelector));
+  const navigation = useNavigate();
+  const { setIsAuthModalOpen } = useSelector(authSelector);
+  const { user } = useSelector(userSelector);
 
   const onStartClick = () => {
-    setIsAuthModalOpen(true);
+    if (user) {
+      navigation({ to: '/menu' });
+    } else {
+      setIsAuthModalOpen(true);
+    }
   };
 
   return (

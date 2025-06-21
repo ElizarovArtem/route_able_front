@@ -1,51 +1,34 @@
-import classNames from 'classnames';
-import React, { useState } from 'react';
+import React from 'react';
 import { useShallow } from 'zustand/react/shallow';
 
 import { UiButton } from '@/components/ui/UiButton/UiButton.tsx';
 import { UiInput } from '@/components/ui/UiInput/UiInput.tsx';
 import { AuthContentType } from '@/constants/auth.ts';
-import { Roles } from '@/constants/user.ts';
 import { authSelector } from '@/store/authStore.ts';
-import { useStore } from '@/store/useStore.ts';
+import { rootStore } from '@/store/rootStore.ts';
 
 import styles from './PhoneForm.module.scss';
 
 type TPhoneFormProps = {
+  phone: string;
+  setPhone: (phone: string) => void;
   setContentType: (value: AuthContentType) => void;
 };
 
-export const PhoneForm = ({ setContentType }: TPhoneFormProps) => {
-  const [phone, setPhone] = useState('');
-  const [role, setRole] = useState<Roles>(Roles.Ward);
-
-  const { getCode } = useStore(useShallow(authSelector));
+export const PhoneForm = ({
+  setContentType,
+  setPhone,
+  phone,
+}: TPhoneFormProps) => {
+  const { getCode } = rootStore(useShallow(authSelector));
 
   const onGetCodeClick = async () => {
-    await getCode(phone, role);
+    await getCode(phone);
     setContentType(AuthContentType.code);
   };
 
   return (
     <div className={styles.content}>
-      <div className={styles.rolesWrapper}>
-        <span
-          className={classNames(styles.role, {
-            [styles.activeRole]: role === Roles.Ward,
-          })}
-          onClick={() => setRole(Roles.Ward)}
-        >
-          Я - посетитель спортивного зала
-        </span>
-        <span
-          className={classNames(styles.role, {
-            [styles.activeRole]: role === Roles.Trainer,
-          })}
-          onClick={() => setRole(Roles.Trainer)}
-        >
-          Я - тренер
-        </span>
-      </div>
       <UiInput
         value={phone}
         onChange={(e) => setPhone(e.currentTarget.value)}

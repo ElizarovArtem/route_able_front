@@ -1,31 +1,22 @@
 import React, { useState } from 'react';
-import { useShallow } from 'zustand/react/shallow';
 
-import { UiButton } from '@/components/ui/UiButton/UiButton.tsx';
-import { UiInput } from '@/components/ui/UiInput/UiInput.tsx';
 import { UiModal } from '@/components/ui/UiModal/UiModal.tsx';
+import { CodeForm } from '@/components/widjets/AuthModal/components/CodeForm/CodeForm.tsx';
 import { PhoneForm } from '@/components/widjets/AuthModal/components/PhoneForm/PhoneForm.tsx';
 import { AuthContentType } from '@/constants/auth.ts';
+import { useSelector } from '@/hooks/useSelector.ts';
 import { authSelector } from '@/store/authStore.ts';
-import { useStore } from '@/store/useStore.ts';
 
 export const AuthModal = () => {
   const [phone, setPhone] = useState('');
-  const [code, setCode] = useState('');
   const [contentType, setContentType] = useState<AuthContentType>(
     AuthContentType.phone,
   );
-  const { isAuthModalOpen, setIsAuthModalOpen, login } = useStore(
-    useShallow(authSelector),
-  );
+  const { isAuthModalOpen, setIsAuthModalOpen } = useSelector(authSelector);
 
   const onModalClose = () => {
     setIsAuthModalOpen(false);
-  };
-
-  const onSendCodeClick = async () => {
-    await login(code, phone);
-    onModalClose();
+    setContentType(AuthContentType.phone);
   };
 
   return (
@@ -37,17 +28,14 @@ export const AuthModal = () => {
       footer={null}
     >
       {contentType === AuthContentType.phone && (
-        <PhoneForm setContentType={setContentType} />
+        <PhoneForm
+          phone={phone}
+          setPhone={setPhone}
+          setContentType={setContentType}
+        />
       )}
       {contentType === AuthContentType.code && (
-        <>
-          <UiInput
-            value={code}
-            onChange={(e) => setCode(e.currentTarget.value)}
-            placeholder="Введите код"
-          />
-          <UiButton onClick={onSendCodeClick}>Отправить код</UiButton>
-        </>
+        <CodeForm phone={phone} onModalClose={onModalClose} />
       )}
     </UiModal>
   );

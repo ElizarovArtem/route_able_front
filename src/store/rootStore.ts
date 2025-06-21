@@ -5,7 +5,7 @@ import { createAuthSlice } from '@/store/authStore.ts';
 import { createUserSlice } from '@/store/usersStore.ts';
 import type { TRootStore } from '@/types/store.ts';
 
-export const useStore = create<TRootStore>()(
+export const rootStore = create<TRootStore>()(
   devtools(
     (set, get, store) => ({
       ...createAuthSlice(set, get, store),
