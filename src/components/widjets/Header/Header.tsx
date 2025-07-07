@@ -13,8 +13,8 @@ export const Header = () => {
   const { user } = useSelector(userSelector);
   const router = useRouter();
 
-  const onLogout = () => {
-    logout();
+  const onLogout = async () => {
+    await logout();
     router.invalidate();
   };
 

@@ -4,9 +4,9 @@ type TAuthState = {
 };
 
 type TAuthActions = {
-  getCode: (phone: string) => Promise<void>;
+  requestCode: (phone: string) => Promise<void>;
   login: (code: string, phone: string) => Promise<void>;
-  logout: () => void;
+  logout: () => Promise<void>;
   setIsAuthModalOpen: (isAuthModalOpen: boolean) => void;
   checkAuth: () => Promise<void>;
 };

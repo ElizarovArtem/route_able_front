@@ -1,5 +1,8 @@
 import classNames from 'classnames';
-import React, { useEffect, useMemo, useRef } from 'react';
+import { format } from 'date-fns';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+
+import { DayInfoModal } from '@/pages/LkPage/components/Calendar/components/DayInfoModal/DayInfoModal.tsx';
 
 import styles from './Calendar.module.scss';
 
@@ -9,6 +12,8 @@ export const Calendar = () => {
   const currentDayRef = useRef<HTMLDivElement | null>(null);
   const currentDay = new Date().getDate();
 
+  const [selectedDay, setSelectedDay] = useState<string | null>(null);
+
   const daysElements = useMemo(() => {
     const daysCount = new Date(
       new Date().getFullYear(),
@@ -16,8 +21,20 @@ export const Calendar = () => {
       0,
     ).getDate();
 
+    const onDayClick = (date: number) => {
+      if (currentDay === date) return;
+
+      setSelectedDay(
+        format(
+          new Date(new Date().getFullYear(), new Date().getMonth(), date),
+          'yyyy-MM-dd',
+        ),
+      );
+    };
+
     return new Array(daysCount).fill(0).map((_, i) => (
       <div
+        onClick={() => onDayClick(i + CORRECTION_INDEX)}
         className={classNames(styles.day, {
           [styles.dayCurrent]: i === currentDay - CORRECTION_INDEX,
           [styles.dayDisabled]: i > currentDay - CORRECTION_INDEX,
@@ -38,5 +55,15 @@ export const Calendar = () => {
     }
   }, []);
 
-  return <div className={styles.calendar}>{daysElements}</div>;
+  return (
+    <div className={styles.calendar}>
+      {daysElements}
+
+      <DayInfoModal
+        selectedDay={selectedDay}
+        onCancel={() => setSelectedDay(null)}
+        footer={null}
+      />
+    </div>
+  );
 };

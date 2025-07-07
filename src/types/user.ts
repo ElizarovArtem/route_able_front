@@ -14,8 +14,8 @@ export type TUserStore = TUserState & TUserActions;
 export type TUser = {
   name?: string;
   email?: string;
+  note?: string;
   phone: string;
   role: Roles;
-  loggedIn: number;
   id: string;
 };

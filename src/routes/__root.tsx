@@ -1,3 +1,4 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { createRootRoute, Outlet } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
 import React from 'react';
@@ -7,17 +8,21 @@ import { Layout } from '@/components/common/Layout/Layout.tsx';
 import { AuthModal } from '@/components/widjets/AuthModal/AuthModal.tsx';
 import { Header } from '@/components/widjets/Header/Header.tsx';
 
+const queryClient = new QueryClient();
+
 export const Route = createRootRoute({
   component: () => (
     <>
-      <Layout>
-        <Header />
-        <Outlet />
-      </Layout>
+      <QueryClientProvider client={queryClient}>
+        <Layout>
+          <Header />
+          <Outlet />
+        </Layout>
 
-      <CheckAuth />
-      <AuthModal />
-      <TanStackRouterDevtools />
+        <CheckAuth />
+        <AuthModal />
+        <TanStackRouterDevtools />
+      </QueryClientProvider>
     </>
   ),
 });

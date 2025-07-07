@@ -20,10 +20,10 @@ export const PhoneForm = ({
   setPhone,
   phone,
 }: TPhoneFormProps) => {
-  const { getCode } = rootStore(useShallow(authSelector));
+  const { requestCode } = rootStore(useShallow(authSelector));
 
   const onGetCodeClick = async () => {
-    await getCode(phone);
+    await requestCode(phone);
     setContentType(AuthContentType.code);
   };
 
@@ -33,6 +33,8 @@ export const PhoneForm = ({
         value={phone}
         onChange={(e) => setPhone(e.currentTarget.value)}
         placeholder="Введите номер"
+        size="large"
+        type="number"
       />
       <div className={styles.buttonWrapper}>
         <UiButton onClick={onGetCodeClick}>Получить код</UiButton>

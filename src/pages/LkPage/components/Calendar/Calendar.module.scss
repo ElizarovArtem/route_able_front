@@ -4,7 +4,19 @@
   display: flex;
   gap: 24px;
   overflow-x: scroll;
-  padding: 32px 0 32px;
+  padding: 32px 12px 32px;
+  background: #232333;
+  border-radius: variables.$borderRadius8px;
+  box-shadow: variables.$boxShadow;
+
+  &::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: variables.$borderRadius8px;
+    background: variables.$accentColor1;
+  }
 }
 
 .day {
@@ -20,6 +32,7 @@
   font-weight: bold;
   cursor: pointer;
   transition: 0.3s;
+  box-shadow: variables.$boxShadow;
 
   &Current {
     background: variables.$accentColor1;
