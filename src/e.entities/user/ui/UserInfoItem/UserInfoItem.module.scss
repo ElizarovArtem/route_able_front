@@ -1,0 +1,11 @@
+@use '@/a.app/styles/variables';
+
+.infoItem {
+  display: flex;
+  flex-direction: column;
+  gap: variables.$spacingXS;
+
+  &Title {
+    color: variables.$textColor2;
+  }
+}

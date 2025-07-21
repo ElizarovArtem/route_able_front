@@ -1,0 +1,1 @@
+export { MealsInfo } from './ui';

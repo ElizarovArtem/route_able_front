@@ -1,0 +1,27 @@
+@use  '@/a.app/styles/variables';
+;
+
+.info {
+  background: #232333;
+  box-shadow: variables.$boxShadow;
+  border-radius: variables.$borderRadius8px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 20px;
+  gap: variables.$spacingS;
+}
+
+.note {
+  grid-column-start: 1;
+  grid-column-end: 4;
+}
+
+.avatarWrapper {
+  grid-row-start: 1;
+  grid-row-end: 3;
+}
+
+.gridTextItem {
+  grid-column-start: 2;
+  grid-column-end: 4;
+}

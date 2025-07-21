@@ -8,7 +8,15 @@ import vitePluginImp from 'vite-plugin-imp';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    TanStackRouterVite({ autoCodeSplitting: true }),
+    TanStackRouterVite({
+      target: 'react',
+      autoCodeSplitting: true,
+      routesDirectory: resolve(__dirname, 'src/a.app/routes'),
+      generatedRouteTree: resolve(
+        __dirname,
+        'src/a.app/entrypoint/routeTree.gen.ts',
+      ),
+    }),
     viteReact(),
     vitePluginImp({
       libList: [
