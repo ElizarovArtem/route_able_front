@@ -4,4 +4,4 @@ dist
 dist-ssr
 *.local
 .idea
-db.json
+.env
