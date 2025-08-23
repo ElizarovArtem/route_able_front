@@ -1,1 +1,1 @@
-export { AddMeal } from './AddMeal/AddMeal.tsx';
+export { AddMealModal } from './AddMeal/AddMealModal.tsx';

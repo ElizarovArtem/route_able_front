@@ -1,16 +1,19 @@
 import { format } from 'date-fns';
-import React from 'react';
+import React, { useState } from 'react';
 
-import { AddMeal } from '@/d.features/meal';
+import { AddMealModal } from '@/d.features/meal';
 import {
   MealsList,
   MealsSummaryPerDay,
   useGetMealByDay,
 } from '@/e.entities/meal';
+import { UiButton } from '@/f.shared/ui';
 
 import styles from './MealsInfo.module.scss';
 
 export const MealsInfo = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const date = format(new Date(), 'yyyy-MM-dd');
 
   const { data, refetch } = useGetMealByDay(date);
@@ -19,7 +22,18 @@ export const MealsInfo = () => {
     <div className={styles.info}>
       <MealsSummaryPerDay data={data?.summary || null} />
       <MealsList data={data?.meals || []} />
-      <AddMeal refetch={refetch} />
+      <div className={styles.buttonWrapper}>
+        <UiButton onClick={() => setIsModalOpen(true)}>
+          Добавить прием пищи
+        </UiButton>
+      </div>
+
+      <AddMealModal
+        refetch={refetch}
+        open={isModalOpen}
+        onCancel={() => setIsModalOpen(false)}
+        setIsOpen={setIsModalOpen}
+      />
     </div>
   );
 };

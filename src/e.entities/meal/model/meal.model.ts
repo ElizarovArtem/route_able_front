@@ -1,7 +1,6 @@
 export type TMeal = {
   id: string;
   date: string;
-  mealType: MealType;
   name: string;
   calories: number;
   protein: number;
@@ -9,9 +8,10 @@ export type TMeal = {
   carbs: number;
 };
 
-export enum MealType {
-  BREAKFAST = 'breakfast',
-  LUNCH = 'lunch',
-  DINNER = 'dinner',
-  SNACK = 'snack',
+export enum NutritionType {
+  calories = 'calories',
+  carbs = 'carbs',
+  fat = 'fat',
+  protein = 'protein',
+  name = 'name',
 }

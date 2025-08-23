@@ -1,9 +1,11 @@
 export type TUser = {
   name?: string;
   email?: string;
-  note?: string;
+  about?: string;
   phone: string;
-  role: Roles;
+  roles: Roles;
+  isCoach: boolean;
+  avatar?: string;
   id: string;
 };
 

@@ -1,62 +1,20 @@
 import React from 'react';
 
-import type { TGetDayMealsSummaryRes, TMeal } from '@/e.entities/meal';
+import type { TGetDayMealsSummaryRes } from '@/e.entities/meal';
 
-import { MealListItem } from './MealListItem.tsx';
+import { MealListItem } from './MealList.Item.tsx';
 import styles from './MealsList.module.scss';
 
 type TMealsListProps = {
   data: TGetDayMealsSummaryRes['meals'];
 };
 
-type TPreparedData = {
-  breakfast: TMeal[];
-  lunch: TMeal[];
-  dinner: TMeal[];
-  snack: TMeal[];
-};
-
 export const MealsList = ({ data }: TMealsListProps) => {
-  const { breakfast, dinner, snack, lunch } = data.reduce<TPreparedData>(
-    (acc, value) => {
-      acc[value.mealType].push(value);
-
-      return acc;
-    },
-    {
-      breakfast: [],
-      lunch: [],
-      dinner: [],
-      snack: [],
-    },
-  );
-
   return (
     <div className={styles.list}>
-      {breakfast.length > 0 && (
-        <div className={styles.mealItem}>
-          <div className={styles.mealItemTitle}>Завтрак</div>
-          {breakfast?.map((meal) => <MealListItem key={meal.id} meal={meal} />)}
-        </div>
-      )}
-      {lunch.length > 0 && (
-        <div className={styles.mealItem}>
-          <div className={styles.mealItemTitle}>Обед</div>
-          {lunch?.map((meal) => <MealListItem key={meal.id} meal={meal} />)}
-        </div>
-      )}
-      {dinner.length > 0 && (
-        <div className={styles.mealItem}>
-          <div className={styles.mealItemTitle}>Ужин</div>
-          {dinner?.map((meal) => <MealListItem key={meal.id} meal={meal} />)}
-        </div>
-      )}
-      {snack.length > 0 && (
-        <div className={styles.mealItem}>
-          <div className={styles.mealItemTitle}>Перекус</div>
-          {snack?.map((meal) => <MealListItem key={meal.id} meal={meal} />)}
-        </div>
-      )}
+      {data.map((meal) => (
+        <MealListItem key={meal.id} meal={meal} />
+      ))}
     </div>
   );
 };

@@ -6,3 +6,8 @@
   border-radius: variables.$borderRadius8px;
   padding: 20px;
 }
+
+.buttonWrapper {
+  display: flex;
+  justify-content: center;
+}

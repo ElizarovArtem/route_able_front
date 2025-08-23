@@ -6,7 +6,7 @@ export type TCreateMealReq = Partial<Omit<TMeal, 'date' | 'name' | 'id'>> & {
   name: string;
 };
 
-export const createMeaApi = async (data: TCreateMealReq) => {
+export const createMealApi = async (data: TCreateMealReq) => {
   const response = await api.post('/meals', data);
 
   return response.data;

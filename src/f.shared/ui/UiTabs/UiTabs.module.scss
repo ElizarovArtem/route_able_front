@@ -1,0 +1,15 @@
+@use  '@/a.app/styles/variables';
+
+.uiTabs [class*='ant-tabs'][class*='ant-tabs-tab'][class*='ant-tabs-tab-active'] [class*='ant-tabs-tab-btn'] {
+  color: variables.$mainColor;
+  font-weight: bold;
+}
+
+.uiTabs [class*='ant-tabs'][class*='ant-tabs-tab']:hover {
+  color: variables.$mainColor;
+}
+
+.uiTabs [class*='ant-tabs-ink-bar'][class*='ant-tabs-ink-bar-animated'] {
+  background: variables.$mainColor;
+  transition: none;
+}

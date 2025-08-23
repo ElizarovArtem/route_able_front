@@ -1,0 +1,7 @@
+@use '@/a.app/styles/variables';
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: variables.$spacingS;
+}

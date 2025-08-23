@@ -41,4 +41,5 @@ export const createUserSlice: StateCreator<TRootStore, [], [], TUserStore> = (
 
 export const userSelector = (store: TRootStore) => ({
   user: store.user,
+  setUser: store.setUser,
 });

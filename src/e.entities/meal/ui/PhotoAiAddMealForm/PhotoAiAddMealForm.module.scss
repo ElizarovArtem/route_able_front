@@ -1,0 +1,7 @@
+@use '@/a.app/styles/variables';
+
+.aiPhotoForm {
+  display: flex;
+  flex-direction: column;
+  gap: variables.$spacingM;
+}

@@ -1,6 +1,8 @@
-import { Image } from 'antd';
+import { Image, type ImageProps } from 'antd';
 import React from 'react';
 
-export const UserAvatar = () => {
-  return <Image width={200} height={200} src="" fallback="/logo192.png" />;
+type TUserAvatarProps = {} & ImageProps;
+
+export const UserAvatar = (props: TUserAvatarProps) => {
+  return <Image {...props} fallback="/logo192.png" />;
 };

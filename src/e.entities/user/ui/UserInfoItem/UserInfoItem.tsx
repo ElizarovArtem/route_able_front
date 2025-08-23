@@ -18,7 +18,7 @@ export const UserInfoItem = ({
 
   return (
     <div className={classNames(styles.infoItem, className)}>
-      <div>{title}</div>
+      <div className={styles.infoItemTitle}>{title}</div>
       <div>{value}</div>
     </div>
   );

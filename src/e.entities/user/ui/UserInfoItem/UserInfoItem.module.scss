@@ -3,9 +3,15 @@
 .infoItem {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: variables.$spacingXS;
+  background: #232333;
+  box-shadow: variables.$boxShadow;
+  padding: variables.$spacingXS;
+  border-radius: variables.$borderRadius8px;
 
   &Title {
     color: variables.$textColor2;
+    font-weight: bold;
   }
 }

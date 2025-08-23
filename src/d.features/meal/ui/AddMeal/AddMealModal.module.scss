@@ -1,0 +1,16 @@
+@use '@/a.app/styles/variables';
+
+.suggestions {
+  display: flex;
+  gap: variables.$spacingM;
+
+  &Title {
+    font-weight: bold;
+  }
+}
+
+.buttonsWrapper {
+  display: flex;
+  justify-content: flex-end;
+  gap: variables.$spacingM;
+}
