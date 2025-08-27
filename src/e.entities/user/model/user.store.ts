@@ -4,17 +4,17 @@ import type { StateCreator } from 'zustand/index';
 import type { TRootStore } from '@/a.app/store/store.ts';
 import { localStorage } from '@/f.shared/lib/localStorage.ts';
 
-import type { TUser } from './user.model.ts';
+import type { User } from './user.model.ts';
 
 // Types
 
 export type TUserState = {
-  user: TUser | null;
+  user: User | null;
 };
 
 export type TUserActions = {
   getUser: (phone: string) => Promise<void>;
-  setUser: (user: TUser) => void;
+  setUser: (user: User) => void;
 };
 
 export type TUserStore = TUserState & TUserActions;

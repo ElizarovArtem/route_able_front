@@ -1,6 +1,7 @@
 import { useNavigate } from '@tanstack/react-router';
 import React from 'react';
 
+import { CoachesList } from '@/c.widgets/user';
 import { authSelector } from '@/d.features/user';
 import { userSelector } from '@/e.entities/user';
 import { useSelector } from '@/f.shared/lib';
@@ -23,12 +24,21 @@ export const MainPage = () => {
 
   return (
     <div className={styles.page}>
-      <h1 className={styles.title}>
-        Выведи свой тренировочный процесс на новый уровень осознанности
-      </h1>
-      <UiButton className={styles.button} onClick={onStartClick}>
-        Начать
-      </UiButton>
+      {!user && (
+        <>
+          <h1 className={styles.title}>
+            Выведи свой тренировочный процесс на новый уровень осознанности
+          </h1>
+          <UiButton className={styles.button} onClick={onStartClick}>
+            Начать
+          </UiButton>
+        </>
+      )}
+      {user && (
+        <>
+          <CoachesList />
+        </>
+      )}
     </div>
   );
 };

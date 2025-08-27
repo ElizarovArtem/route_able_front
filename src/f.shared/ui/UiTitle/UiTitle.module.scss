@@ -1,0 +1,26 @@
+@use '@/a.app/styles/variables';
+
+.uiTitle {
+  font-weight: bold;
+  font-size: 16px;
+
+  &_s {
+    font-size: 12px;
+  }
+
+  &_m {
+    font-size: 16px;
+  }
+
+  &_l {
+    font-size: 20px;
+  }
+
+  &_xl {
+    font-size: 24px;
+  }
+
+  &_xxl {
+    font-size: 64px;
+  }
+}

@@ -7,7 +7,7 @@ import {
   type TUpdateUserFormData,
   updateUserFormResolver,
 } from '@/d.features/user/model/user.update-user-resolver.ts';
-import { Roles, type TUser, userSelector } from '@/e.entities/user';
+import { Roles, type User, userSelector } from '@/e.entities/user';
 import { useSelector } from '@/f.shared/lib';
 import { FormInput, UiButton, UiModal } from '@/f.shared/ui';
 import { FormCheckbox } from '@/f.shared/ui/UiCheckbox/UiCheckbox.tsx';
@@ -31,7 +31,7 @@ export const UpdateUserModal = ({
   const { setUser, user } = useSelector(userSelector);
 
   const { mutate } = useUpdateUser({
-    onSuccess: (data: TUser) => {
+    onSuccess: (data: User) => {
       setUser(data);
       setOpenModal(false);
     },

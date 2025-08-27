@@ -2,7 +2,7 @@ import { type AxiosResponse } from 'axios';
 import type { StateCreator } from 'zustand';
 
 import type { TRootStore } from '@/a.app/store/store.ts';
-import type { TUser } from '@/e.entities/user';
+import type { User } from '@/e.entities/user';
 import { api } from '@/f.shared/api';
 
 // Types
@@ -42,7 +42,7 @@ export const createAuthSlice: StateCreator<TRootStore, [], [], TAuthStore> = (
   login: async (code: string, phone) => {
     const user = await api.post<
       { phone: string; code: string },
-      AxiosResponse<{ user: TUser }>
+      AxiosResponse<{ user: User }>
     >(
       '/auth/login',
       {

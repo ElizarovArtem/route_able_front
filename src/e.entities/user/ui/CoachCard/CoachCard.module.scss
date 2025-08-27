@@ -1,0 +1,12 @@
+@use '@/a.app/styles/variables';
+
+.coachCard {
+  display: flex;
+  gap: variables.$spacingM;
+}
+
+.coachInfoWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: variables.$spacingS;
+}

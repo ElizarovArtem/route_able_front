@@ -1,1 +1,1 @@
-export { UserInfo } from './ui';
+export { CoachesList, UserInfo } from './ui';

@@ -1,4 +1,4 @@
-export { Roles, type TUser } from './model/user.model.ts';
+export { Roles, type User } from './model/user.model.ts';
 export {
   createUserSlice,
   type TUserStore,
