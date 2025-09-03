@@ -3,6 +3,23 @@
 .coachCard {
   display: flex;
   gap: variables.$spacingM;
+  cursor: pointer;
+  padding: variables.$spacingS;
+  transition: 0.2s;
+  border-radius: variables.$borderRadius8px;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.16);
+  }
+
+  &:not(:last-child) {
+    border-bottom: 1px solid variables.$backgroundColor1;
+  }
+}
+
+.coachCardLink {
+  text-decoration: none;
+  color: variables.$textColor1;
 }
 
 .coachInfoWrapper {

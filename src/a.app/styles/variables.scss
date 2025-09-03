@@ -3,6 +3,7 @@ $mainColor: #1A1C2C;
 $accentColor1: #7BF2DA;
 
 $backgroundColor1: #232333;
+$backgroundColor2: rgba(255, 255, 255, 0.16);
 
 $textColor1: #FFFFFF;
 $textColor2: #A0A0B2;
@@ -10,8 +11,9 @@ $textColor3: #1A1C2C;
 
 $borderRadius8px: 8px;
 
-$boxShadow: 0 0 16px rgba(255, 255, 255, 0.16);
+$boxShadow: 0 0 16px $backgroundColor2;
 
 $spacingXS: 8px;
 $spacingS: 16px;
-$spacingM: 24px;
+$spacingM: 20px;
+$spacingL: 24px;

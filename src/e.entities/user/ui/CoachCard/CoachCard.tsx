@@ -1,3 +1,4 @@
+import { Link } from '@tanstack/react-router';
 import { Image } from 'antd';
 import React from 'react';
 
@@ -12,16 +13,22 @@ type CoachCardProps = {
 
 export const CoachCard = ({ coach }: CoachCardProps) => {
   return (
-    <div className={styles.coachCard}>
-      <Image
-        width={150}
-        height={150}
-        src={`${config.API_URL}/uploads/${coach?.avatar}`}
-        fallback="/no_photo.png"
-      />
-      <div className={styles.coachInfoWrapper}>
-        <div>{coach.about}</div>
+    <Link
+      to={'/coach/$coachId'}
+      params={{ coachId: coach.id }}
+      className={styles.coachCardLink}
+    >
+      <div className={styles.coachCard}>
+        <Image
+          width={150}
+          height={150}
+          src={`${config.API_URL}/uploads/${coach?.avatar}`}
+          fallback="/no_photo.png"
+        />
+        <div className={styles.coachInfoWrapper}>
+          <div>{coach.about}</div>
+        </div>
       </div>
-    </div>
+    </Link>
   );
 };

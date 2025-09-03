@@ -1,0 +1,6 @@
+@use '@/a.app/styles/variables';
+
+.sendMessageWrapper {
+  display: flex;
+  gap: variables.$spacingS;
+}

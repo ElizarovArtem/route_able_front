@@ -90,7 +90,7 @@ export const AddMealModal = ({
   const tabs = useMemo((): TabsProps['items'] => {
     return [
       {
-        key: 'manual',
+        key: TabsKeys.manual,
         label: 'Ручной ввод',
         children: (
           <ManualAddMealForm
@@ -100,12 +100,12 @@ export const AddMealModal = ({
         ),
       },
       {
-        key: 'text',
+        key: TabsKeys.text,
         label: 'Текстовое опредение',
         children: <TextAiAddMealForm setAiSuggestion={setAiSuggestion} />,
       },
       {
-        key: 'photo',
+        key: TabsKeys.photo,
         label: 'Определение по фото',
         children: <PhotoAiAddMealForm setAiSuggestion={setAiSuggestion} />,
       },

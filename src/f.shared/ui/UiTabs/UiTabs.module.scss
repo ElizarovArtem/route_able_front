@@ -13,3 +13,20 @@
   background: variables.$mainColor;
   transition: none;
 }
+
+.uiTabs.inverse [class*='ant-tabs'][class*='ant-tabs-tab'][class*='ant-tabs-tab-active'] [class*='ant-tabs-tab-btn'] {
+  color: variables.$accentColor1;
+}
+
+.uiTabs.inverse [class*='ant-tabs'][class*='ant-tabs-tab']:hover {
+  color: variables.$textColor1;
+}
+
+.uiTabs.inverse [class*='ant-tabs-ink-bar'][class*='ant-tabs-ink-bar-animated'] {
+  background: variables.$accentColor1;
+  transition: none;
+}
+
+.uiTabs.inverse [class*='ant-tabs']:before {
+  border-bottom-color: variables.$mainColor;
+}

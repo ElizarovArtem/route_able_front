@@ -14,3 +14,9 @@
   font-size: 52px;
   padding: 42px;
 }
+
+.menuButtons {
+  display: flex;
+  gap: variables.$spacingS;
+  padding: variables.$spacingM 0;
+}

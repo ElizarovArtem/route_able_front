@@ -22,6 +22,10 @@ export const MainPage = () => {
     }
   };
 
+  const onLkLinkClick = () => {
+    navigation({ to: '/lk' });
+  };
+
   return (
     <div className={styles.page}>
       {!user && (
@@ -36,6 +40,9 @@ export const MainPage = () => {
       )}
       {user && (
         <>
+          <div className={styles.menuButtons}>
+            <UiButton onClick={onLkLinkClick}>Личный кабинет</UiButton>
+          </div>
           <CoachesList />
         </>
       )}

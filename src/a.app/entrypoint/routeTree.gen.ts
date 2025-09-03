@@ -11,19 +11,14 @@
 // Import Routes
 
 import { Route as rootRoute } from './../routes/__root'
-import { Route as TrainersImport } from './../routes/trainers'
 import { Route as MenuImport } from './../routes/menu'
 import { Route as PrivateRouteImport } from './../routes/_private/route'
 import { Route as IndexImport } from './../routes/index'
+import { Route as CoachCoachIdImport } from './../routes/coach/$coachId'
+import { Route as ClientClientIdImport } from './../routes/client/$clientId'
 import { Route as PrivateLkImport } from './../routes/_private/lk'
 
 // Create/Update Routes
-
-const TrainersRoute = TrainersImport.update({
-  id: '/trainers',
-  path: '/trainers',
-  getParentRoute: () => rootRoute,
-} as any)
 
 const MenuRoute = MenuImport.update({
   id: '/menu',
@@ -39,6 +34,18 @@ const PrivateRouteRoute = PrivateRouteImport.update({
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const CoachCoachIdRoute = CoachCoachIdImport.update({
+  id: '/coach/$coachId',
+  path: '/coach/$coachId',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ClientClientIdRoute = ClientClientIdImport.update({
+  id: '/client/$clientId',
+  path: '/client/$clientId',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -73,19 +80,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MenuImport
       parentRoute: typeof rootRoute
     }
-    '/trainers': {
-      id: '/trainers'
-      path: '/trainers'
-      fullPath: '/trainers'
-      preLoaderRoute: typeof TrainersImport
-      parentRoute: typeof rootRoute
-    }
     '/_private/lk': {
       id: '/_private/lk'
       path: '/lk'
       fullPath: '/lk'
       preLoaderRoute: typeof PrivateLkImport
       parentRoute: typeof PrivateRouteImport
+    }
+    '/client/$clientId': {
+      id: '/client/$clientId'
+      path: '/client/$clientId'
+      fullPath: '/client/$clientId'
+      preLoaderRoute: typeof ClientClientIdImport
+      parentRoute: typeof rootRoute
+    }
+    '/coach/$coachId': {
+      id: '/coach/$coachId'
+      path: '/coach/$coachId'
+      fullPath: '/coach/$coachId'
+      preLoaderRoute: typeof CoachCoachIdImport
+      parentRoute: typeof rootRoute
     }
   }
 }
@@ -108,16 +122,18 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '': typeof PrivateRouteRouteWithChildren
   '/menu': typeof MenuRoute
-  '/trainers': typeof TrainersRoute
   '/lk': typeof PrivateLkRoute
+  '/client/$clientId': typeof ClientClientIdRoute
+  '/coach/$coachId': typeof CoachCoachIdRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '': typeof PrivateRouteRouteWithChildren
   '/menu': typeof MenuRoute
-  '/trainers': typeof TrainersRoute
   '/lk': typeof PrivateLkRoute
+  '/client/$clientId': typeof ClientClientIdRoute
+  '/coach/$coachId': typeof CoachCoachIdRoute
 }
 
 export interface FileRoutesById {
@@ -125,16 +141,30 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_private': typeof PrivateRouteRouteWithChildren
   '/menu': typeof MenuRoute
-  '/trainers': typeof TrainersRoute
   '/_private/lk': typeof PrivateLkRoute
+  '/client/$clientId': typeof ClientClientIdRoute
+  '/coach/$coachId': typeof CoachCoachIdRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '' | '/menu' | '/trainers' | '/lk'
+  fullPaths:
+    | '/'
+    | ''
+    | '/menu'
+    | '/lk'
+    | '/client/$clientId'
+    | '/coach/$coachId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '' | '/menu' | '/trainers' | '/lk'
-  id: '__root__' | '/' | '/_private' | '/menu' | '/trainers' | '/_private/lk'
+  to: '/' | '' | '/menu' | '/lk' | '/client/$clientId' | '/coach/$coachId'
+  id:
+    | '__root__'
+    | '/'
+    | '/_private'
+    | '/menu'
+    | '/_private/lk'
+    | '/client/$clientId'
+    | '/coach/$coachId'
   fileRoutesById: FileRoutesById
 }
 
@@ -142,14 +172,16 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   PrivateRouteRoute: typeof PrivateRouteRouteWithChildren
   MenuRoute: typeof MenuRoute
-  TrainersRoute: typeof TrainersRoute
+  ClientClientIdRoute: typeof ClientClientIdRoute
+  CoachCoachIdRoute: typeof CoachCoachIdRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   PrivateRouteRoute: PrivateRouteRouteWithChildren,
   MenuRoute: MenuRoute,
-  TrainersRoute: TrainersRoute,
+  ClientClientIdRoute: ClientClientIdRoute,
+  CoachCoachIdRoute: CoachCoachIdRoute,
 }
 
 export const routeTree = rootRoute
@@ -165,7 +197,8 @@ export const routeTree = rootRoute
         "/",
         "/_private",
         "/menu",
-        "/trainers"
+        "/client/$clientId",
+        "/coach/$coachId"
       ]
     },
     "/": {
@@ -180,12 +213,15 @@ export const routeTree = rootRoute
     "/menu": {
       "filePath": "menu.tsx"
     },
-    "/trainers": {
-      "filePath": "trainers.tsx"
-    },
     "/_private/lk": {
       "filePath": "_private/lk.tsx",
       "parent": "/_private"
+    },
+    "/client/$clientId": {
+      "filePath": "client/$clientId.tsx"
+    },
+    "/coach/$coachId": {
+      "filePath": "coach/$coachId.tsx"
     }
   }
 }

@@ -5,7 +5,7 @@
   flex-direction: column;
   gap: variables.$spacingM;
   padding: 20px;
-  background: #232333;
+  background: variables.$backgroundColor1;
   box-shadow: variables.$boxShadow;
   border-radius: variables.$borderRadius8px;
 }

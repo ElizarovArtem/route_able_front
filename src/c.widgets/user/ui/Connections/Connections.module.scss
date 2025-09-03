@@ -1,13 +1,8 @@
-@use '@/a.app/styles/variables';
+@use  '@/a.app/styles/variables';
 
-.info {
+.connectionsWrapper {
   background: variables.$backgroundColor1;
   box-shadow: variables.$boxShadow;
   border-radius: variables.$borderRadius8px;
-  padding: 20px;
-}
-
-.buttonWrapper {
-  display: flex;
-  justify-content: center;
+  padding: variables.$spacingM;
 }

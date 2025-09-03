@@ -1,0 +1,26 @@
+@use '@/a.app/styles/variables';
+
+.chatWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: variables.$spacingS;
+  padding: variables.$spacingS;
+}
+
+.messages {
+  display: flex;
+  flex-direction: column;
+  gap: variables.$spacingS;
+  max-height: 60vh;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    height: 4px;
+    width: 2px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: variables.$borderRadius8px;
+    background: variables.$accentColor1;
+  }
+}

@@ -1,8 +1,7 @@
 @use  '@/a.app/styles/variables';
-;
 
 .info {
-  background: #232333;
+  background: variables.$backgroundColor1;
   box-shadow: variables.$boxShadow;
   border-radius: variables.$borderRadius8px;
   display: grid;

@@ -1,0 +1,31 @@
+@use '@/a.app/styles/variables';
+
+.messageWrapper {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.authorMessage {
+  justify-content: flex-end;
+}
+
+.message {
+  display: flex;
+  flex-direction: column;
+  gap: variables.$spacingXS;
+  padding: variables.$spacingS;
+  color: variables.$textColor1;
+  border-radius: variables.$borderRadius8px;
+  background: variables.$backgroundColor2;
+  flex: 0.5;
+}
+
+.userName {
+  color: variables.$textColor2;
+}
+
+.authorMessage .message {
+  background: variables.$accentColor1;
+  color: variables.$mainColor;
+  font-weight: bold;
+}
