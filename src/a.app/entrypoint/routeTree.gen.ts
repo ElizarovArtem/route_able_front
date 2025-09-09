@@ -14,9 +14,9 @@ import { Route as rootRoute } from './../routes/__root'
 import { Route as MenuImport } from './../routes/menu'
 import { Route as PrivateRouteImport } from './../routes/_private/route'
 import { Route as IndexImport } from './../routes/index'
-import { Route as CoachCoachIdImport } from './../routes/coach/$coachId'
-import { Route as ClientClientIdImport } from './../routes/client/$clientId'
 import { Route as PrivateLkImport } from './../routes/_private/lk'
+import { Route as PrivateCoachCoachIdImport } from './../routes/_private/coach/$coachId'
+import { Route as PrivateClientClientIdImport } from './../routes/_private/client/$clientId'
 
 // Create/Update Routes
 
@@ -37,21 +37,21 @@ const IndexRoute = IndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const CoachCoachIdRoute = CoachCoachIdImport.update({
-  id: '/coach/$coachId',
-  path: '/coach/$coachId',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const ClientClientIdRoute = ClientClientIdImport.update({
-  id: '/client/$clientId',
-  path: '/client/$clientId',
-  getParentRoute: () => rootRoute,
-} as any)
-
 const PrivateLkRoute = PrivateLkImport.update({
   id: '/lk',
   path: '/lk',
+  getParentRoute: () => PrivateRouteRoute,
+} as any)
+
+const PrivateCoachCoachIdRoute = PrivateCoachCoachIdImport.update({
+  id: '/coach/$coachId',
+  path: '/coach/$coachId',
+  getParentRoute: () => PrivateRouteRoute,
+} as any)
+
+const PrivateClientClientIdRoute = PrivateClientClientIdImport.update({
+  id: '/client/$clientId',
+  path: '/client/$clientId',
   getParentRoute: () => PrivateRouteRoute,
 } as any)
 
@@ -87,19 +87,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivateLkImport
       parentRoute: typeof PrivateRouteImport
     }
-    '/client/$clientId': {
-      id: '/client/$clientId'
+    '/_private/client/$clientId': {
+      id: '/_private/client/$clientId'
       path: '/client/$clientId'
       fullPath: '/client/$clientId'
-      preLoaderRoute: typeof ClientClientIdImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof PrivateClientClientIdImport
+      parentRoute: typeof PrivateRouteImport
     }
-    '/coach/$coachId': {
-      id: '/coach/$coachId'
+    '/_private/coach/$coachId': {
+      id: '/_private/coach/$coachId'
       path: '/coach/$coachId'
       fullPath: '/coach/$coachId'
-      preLoaderRoute: typeof CoachCoachIdImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof PrivateCoachCoachIdImport
+      parentRoute: typeof PrivateRouteImport
     }
   }
 }
@@ -108,10 +108,14 @@ declare module '@tanstack/react-router' {
 
 interface PrivateRouteRouteChildren {
   PrivateLkRoute: typeof PrivateLkRoute
+  PrivateClientClientIdRoute: typeof PrivateClientClientIdRoute
+  PrivateCoachCoachIdRoute: typeof PrivateCoachCoachIdRoute
 }
 
 const PrivateRouteRouteChildren: PrivateRouteRouteChildren = {
   PrivateLkRoute: PrivateLkRoute,
+  PrivateClientClientIdRoute: PrivateClientClientIdRoute,
+  PrivateCoachCoachIdRoute: PrivateCoachCoachIdRoute,
 }
 
 const PrivateRouteRouteWithChildren = PrivateRouteRoute._addFileChildren(
@@ -123,8 +127,8 @@ export interface FileRoutesByFullPath {
   '': typeof PrivateRouteRouteWithChildren
   '/menu': typeof MenuRoute
   '/lk': typeof PrivateLkRoute
-  '/client/$clientId': typeof ClientClientIdRoute
-  '/coach/$coachId': typeof CoachCoachIdRoute
+  '/client/$clientId': typeof PrivateClientClientIdRoute
+  '/coach/$coachId': typeof PrivateCoachCoachIdRoute
 }
 
 export interface FileRoutesByTo {
@@ -132,8 +136,8 @@ export interface FileRoutesByTo {
   '': typeof PrivateRouteRouteWithChildren
   '/menu': typeof MenuRoute
   '/lk': typeof PrivateLkRoute
-  '/client/$clientId': typeof ClientClientIdRoute
-  '/coach/$coachId': typeof CoachCoachIdRoute
+  '/client/$clientId': typeof PrivateClientClientIdRoute
+  '/coach/$coachId': typeof PrivateCoachCoachIdRoute
 }
 
 export interface FileRoutesById {
@@ -142,8 +146,8 @@ export interface FileRoutesById {
   '/_private': typeof PrivateRouteRouteWithChildren
   '/menu': typeof MenuRoute
   '/_private/lk': typeof PrivateLkRoute
-  '/client/$clientId': typeof ClientClientIdRoute
-  '/coach/$coachId': typeof CoachCoachIdRoute
+  '/_private/client/$clientId': typeof PrivateClientClientIdRoute
+  '/_private/coach/$coachId': typeof PrivateCoachCoachIdRoute
 }
 
 export interface FileRouteTypes {
@@ -163,8 +167,8 @@ export interface FileRouteTypes {
     | '/_private'
     | '/menu'
     | '/_private/lk'
-    | '/client/$clientId'
-    | '/coach/$coachId'
+    | '/_private/client/$clientId'
+    | '/_private/coach/$coachId'
   fileRoutesById: FileRoutesById
 }
 
@@ -172,16 +176,12 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   PrivateRouteRoute: typeof PrivateRouteRouteWithChildren
   MenuRoute: typeof MenuRoute
-  ClientClientIdRoute: typeof ClientClientIdRoute
-  CoachCoachIdRoute: typeof CoachCoachIdRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   PrivateRouteRoute: PrivateRouteRouteWithChildren,
   MenuRoute: MenuRoute,
-  ClientClientIdRoute: ClientClientIdRoute,
-  CoachCoachIdRoute: CoachCoachIdRoute,
 }
 
 export const routeTree = rootRoute
@@ -196,9 +196,7 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/_private",
-        "/menu",
-        "/client/$clientId",
-        "/coach/$coachId"
+        "/menu"
       ]
     },
     "/": {
@@ -207,7 +205,9 @@ export const routeTree = rootRoute
     "/_private": {
       "filePath": "_private/route.tsx",
       "children": [
-        "/_private/lk"
+        "/_private/lk",
+        "/_private/client/$clientId",
+        "/_private/coach/$coachId"
       ]
     },
     "/menu": {
@@ -217,11 +217,13 @@ export const routeTree = rootRoute
       "filePath": "_private/lk.tsx",
       "parent": "/_private"
     },
-    "/client/$clientId": {
-      "filePath": "client/$clientId.tsx"
+    "/_private/client/$clientId": {
+      "filePath": "_private/client/$clientId.tsx",
+      "parent": "/_private"
     },
-    "/coach/$coachId": {
-      "filePath": "coach/$coachId.tsx"
+    "/_private/coach/$coachId": {
+      "filePath": "_private/coach/$coachId.tsx",
+      "parent": "/_private"
     }
   }
 }

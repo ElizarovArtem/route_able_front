@@ -15,6 +15,7 @@ export const Header = () => {
 
   const onLogout = async () => {
     await logout();
+    router.navigate({ to: '/', replace: true });
     router.invalidate();
   };
 

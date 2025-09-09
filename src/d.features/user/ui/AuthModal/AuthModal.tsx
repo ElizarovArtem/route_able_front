@@ -13,6 +13,7 @@ export const AuthModal = () => {
   const { isAuthModalOpen, setIsAuthModalOpen } = useSelector(authSelector);
 
   const onModalClose = () => {
+    setPhone('');
     setIsAuthModalOpen(false);
     setContentType(AuthContentType.phone);
   };

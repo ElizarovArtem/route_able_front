@@ -1,0 +1,5 @@
+@use  '@/a.app/styles/variables';
+
+.avatar {
+  border-radius: variables.$borderRadius8px;
+}

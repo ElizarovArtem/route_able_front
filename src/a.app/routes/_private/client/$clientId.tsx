@@ -3,7 +3,7 @@ import { z } from 'zod';
 
 import { ClientPage } from '@/b.pages/user/ui';
 
-export const Route = createFileRoute('/client/$clientId')({
+export const Route = createFileRoute('/_private/client/$clientId')({
   validateSearch: z.object({
     chatId: z.string().optional(),
   }),

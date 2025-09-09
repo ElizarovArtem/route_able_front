@@ -8,9 +8,6 @@ import styles from './MenuPage.module.scss';
 export const MenuPage = () => {
   return (
     <div className={styles.page}>
-      <Link to="/trainers">
-        <UiButton type="default">Список тренеров</UiButton>
-      </Link>
       <Link to="/lk">
         <UiButton type="default">Личный кабинет</UiButton>
       </Link>

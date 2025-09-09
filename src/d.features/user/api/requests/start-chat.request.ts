@@ -8,7 +8,7 @@ export type StartChatRequest = {
 
 export type StartChatResponse = {
   id: string;
-  traineeCoachId: string;
+  clientCoachId: string;
 };
 
 export const startChat = async (

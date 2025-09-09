@@ -12,11 +12,11 @@ enum TabsKeys {
 export const ClientPage = () => {
   const [currentTab, setCurrentTab] = useState<TabsKeys>(TabsKeys.chat);
   const clientId = useParams({
-    from: '/client/$clientId',
+    from: '/_private/client/$clientId',
     select: (params) => params.clientId,
   });
   const chatId = useSearch({
-    from: '/client/$clientId',
+    from: '/_private/client/$clientId',
     select: (search) => search.chatId,
   });
 

@@ -14,12 +14,17 @@
   transition: none;
 }
 
+.uiTabs.inverse [class*='ant-tabs'][class*='ant-tabs-tab'] {
+  color: variables.$textColor1;
+  font-weight: bold;
+}
+
 .uiTabs.inverse [class*='ant-tabs'][class*='ant-tabs-tab'][class*='ant-tabs-tab-active'] [class*='ant-tabs-tab-btn'] {
   color: variables.$accentColor1;
 }
 
 .uiTabs.inverse [class*='ant-tabs'][class*='ant-tabs-tab']:hover {
-  color: variables.$textColor1;
+  color: variables.$accentColor1;
 }
 
 .uiTabs.inverse [class*='ant-tabs-ink-bar'][class*='ant-tabs-ink-bar-animated'] {

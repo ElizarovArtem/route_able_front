@@ -1,0 +1,20 @@
+@use  '@/a.app/styles/variables';
+
+.coachPageWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: variables.$spacingM;
+}
+
+.about {
+  display: flex;
+  gap: variables.$spacingM;
+  border-bottom: 1px solid variables.$textColor1;
+  padding-bottom: variables.$spacingM;
+}
+
+.aboutInfo {
+  display: flex;
+  flex-direction: column;
+  gap: variables.$spacingS;
+}

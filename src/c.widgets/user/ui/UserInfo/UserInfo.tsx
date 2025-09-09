@@ -17,7 +17,7 @@ export const UserInfo = () => {
   return (
     <div className={styles.info}>
       <div className={styles.avatarWrapper}>
-        <UserAvatar src={`${config.API_URL}/uploads/${user?.avatar}`} />
+        <UserAvatar src={user?.avatar} />
       </div>
       <UserInfoItem
         title="Имя"

@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import {
   getConnections,
   type GetConnectionsResponse,
-} from '@/e.entities/user/api/requests/get-connections.request.ts';
+} from '../requests/get-connections.request.ts';
 
 export const useGetConnections = () => {
   return useQuery<GetConnectionsResponse[]>({

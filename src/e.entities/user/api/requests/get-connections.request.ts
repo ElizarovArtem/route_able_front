@@ -9,7 +9,7 @@ export type GetConnectionsResponse = {
     name: string;
     avatarUrl: string;
   };
-  traineeCoachId: string;
+  clientCoachId: string;
 };
 
 export const getConnections = async (): Promise<GetConnectionsResponse[]> => {
