@@ -1,0 +1,20 @@
+@use  '@/a.app/styles/variables';
+
+.connectionCard {
+  display: flex;
+  gap: variables.$spacingM;
+  background: variables.$backgroundColor2;
+  padding: variables.$spacingS;
+  border-radius: variables.$borderRadius8px;
+}
+
+.infoWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: variables.$spacingXS;
+}
+
+.link {
+  text-decoration: none;
+  color: variables.$textColor1;
+}

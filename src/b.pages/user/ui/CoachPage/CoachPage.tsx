@@ -5,8 +5,8 @@ import React, { useMemo, useState } from 'react';
 import { Chat } from '@/c.widgets/user';
 import { PaySubscription } from '@/d.features/user/ui/PaySubscription/PaySubscription.tsx';
 import { useGetRelation } from '@/e.entities/user/api/queries/useGetRelation.ts';
-import { UserAvatar } from '@/e.entities/user/ui/UserAvatar/UserAvatar.tsx';
 import { UiTabs } from '@/f.shared/ui';
+import { UiAvatar } from '@/f.shared/ui/UiAvatar/UiAvatar.tsx';
 
 import styles from './CoachPage.module.scss';
 
@@ -52,7 +52,7 @@ export const CoachPage = () => {
   return (
     <div className={styles.coachPageWrapper}>
       <div className={styles.about}>
-        <UserAvatar width={200} height={200} src={data?.partner.avatar || ''} />
+        <UiAvatar width={200} height={200} src={data?.partner.avatar || ''} />
         <div className={styles.aboutInfo}>
           <div>{data?.partner.name}</div>
           <div>{data?.partner.about}</div>

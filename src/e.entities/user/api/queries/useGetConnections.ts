@@ -2,14 +2,13 @@ import { useQuery } from '@tanstack/react-query';
 
 import {
   getConnections,
-  type GetConnectionsResponse,
+  type GetConnectionsResponseItem,
 } from '../requests/get-connections.request.ts';
 
 export const useGetConnections = () => {
-  return useQuery<GetConnectionsResponse[]>({
+  return useQuery<GetConnectionsResponseItem[]>({
     queryKey: ['connections'],
     queryFn: () => getConnections(),
-    staleTime: 1000 * 60 * 5,
-    refetchInterval: 1000 * 60 * 5,
+    staleTime: Infinity,
   });
 };

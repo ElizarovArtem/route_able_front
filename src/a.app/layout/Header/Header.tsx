@@ -1,3 +1,4 @@
+import { useQueryClient } from '@tanstack/react-query';
 import { Link, useRouter } from '@tanstack/react-router';
 import React from 'react';
 
@@ -12,11 +13,12 @@ export const Header = () => {
   const { logout, setIsAuthModalOpen } = useSelector(authSelector);
   const { user } = useSelector(userSelector);
   const router = useRouter();
+  const client = useQueryClient();
 
   const onLogout = async () => {
     await logout();
     router.navigate({ to: '/', replace: true });
-    router.invalidate();
+    client.resetQueries();
   };
 
   return (

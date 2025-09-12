@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 
 import { UpdateUserModal } from '@/d.features/user/ui/UpdateUserModal/UpdateUserModal.tsx';
 import { Roles, UserInfoItem, userSelector } from '@/e.entities/user';
-import { UserAvatar } from '@/e.entities/user/ui/UserAvatar/UserAvatar.tsx';
 import { config } from '@/f.shared/config';
 import { useSelector } from '@/f.shared/lib';
 import { UiButton } from '@/f.shared/ui';
+import { UiAvatar } from '@/f.shared/ui/UiAvatar/UiAvatar.tsx';
 
 import styles from './UserInfo.module.scss';
 
@@ -17,7 +17,7 @@ export const UserInfo = () => {
   return (
     <div className={styles.info}>
       <div className={styles.avatarWrapper}>
-        <UserAvatar src={user?.avatar} />
+        <UiAvatar src={user?.avatar} />
       </div>
       <UserInfoItem
         title="Имя"

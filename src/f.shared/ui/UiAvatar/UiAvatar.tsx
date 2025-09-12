@@ -3,17 +3,17 @@ import React from 'react';
 
 import { config } from '@/f.shared/config';
 
-import styles from './UserAvatar.module.scss';
+import styles from './UiAvatar.module.scss';
 
 type TUserAvatarProps = {} & ImageProps;
 
-export const UserAvatar = ({ src, ...props }: TUserAvatarProps) => {
+export const UiAvatar = ({ src, ...props }: TUserAvatarProps) => {
   return (
     <Image
       {...props}
       className={styles.avatar}
       src={`${config.API_URL}/uploads/${src}`}
-      fallback="/logo192.png"
+      fallback="/no_photo.png"
     />
   );
 };

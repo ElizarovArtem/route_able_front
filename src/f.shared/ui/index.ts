@@ -1,3 +1,4 @@
+export { UiAvatar } from './UiAvatar/UiAvatar';
 export { UiButton } from './UiButton/UiButton';
 export { FormInput, UiInput } from './UiInput/UiInput';
 export { UiModal } from './UiModal/UiModal';

@@ -1,9 +1,8 @@
 import { Link } from '@tanstack/react-router';
-import { Image } from 'antd';
 import React from 'react';
 
 import type { User } from '@/e.entities/user';
-import { config } from '@/f.shared/config';
+import { UiAvatar } from '@/f.shared/ui/UiAvatar/UiAvatar.tsx';
 
 import styles from './CoachCard.module.scss';
 
@@ -19,11 +18,11 @@ export const CoachCard = ({ coach }: CoachCardProps) => {
       className={styles.coachCardLink}
     >
       <div className={styles.coachCard}>
-        <Image
+        <UiAvatar
           width={150}
           height={150}
-          src={`${config.API_URL}/uploads/${coach?.avatar}`}
-          fallback="/no_photo.png"
+          src={coach?.avatar}
+          preview={false}
         />
         <div className={styles.coachInfoWrapper}>
           <div>{coach.about}</div>

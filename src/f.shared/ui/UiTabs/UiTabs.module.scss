@@ -1,6 +1,6 @@
 @use  '@/a.app/styles/variables';
 
-.uiTabs [class*='ant-tabs'][class*='ant-tabs-tab'][class*='ant-tabs-tab-active'] [class*='ant-tabs-tab-btn'] {
+.uiTabs [class*='ant-tabs-tab'][class*='ant-tabs-tab-active'] div {
   color: variables.$mainColor;
   font-weight: bold;
 }
@@ -19,11 +19,11 @@
   font-weight: bold;
 }
 
-.uiTabs.inverse [class*='ant-tabs'][class*='ant-tabs-tab'][class*='ant-tabs-tab-active'] [class*='ant-tabs-tab-btn'] {
+div.uiTabs.inverse [class*='ant-tabs-tab'][class*='ant-tabs-tab-active'] div {
   color: variables.$accentColor1;
 }
 
-.uiTabs.inverse [class*='ant-tabs'][class*='ant-tabs-tab']:hover {
+.uiTabs.inverse [class='ant-tabs-tab'] div:hover {
   color: variables.$accentColor1;
 }
 

@@ -39,7 +39,7 @@ export const UpdateUserModal = ({
 
   const updateUser = (data: TUpdateUserFormData) => {
     const formData = new FormData();
-    console.log(data);
+
     formData.append('avatar', data.avatar as File);
     formData.append('name', data.name || '');
     formData.append('email', data.email || '');
