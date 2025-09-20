@@ -6,6 +6,6 @@ export type PaySubscriptionResponse = {
 
 export const paySubscription = async (linkId: string) => {
   return api.patch<null, PaySubscriptionResponse>(
-    `/relations/${linkId}/activate`,
+    `/client-coach/${linkId}/activate`,
   );
 };

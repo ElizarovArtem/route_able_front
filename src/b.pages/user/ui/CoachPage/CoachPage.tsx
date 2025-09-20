@@ -2,11 +2,11 @@ import { useParams } from '@tanstack/react-router';
 import type { TabsProps } from 'antd/es/tabs';
 import React, { useMemo, useState } from 'react';
 
-import { Chat } from '@/c.widgets/user';
-import { PaySubscription } from '@/d.features/user/ui/PaySubscription/PaySubscription.tsx';
-import { useGetRelation } from '@/e.entities/user/api/queries/useGetRelation.ts';
+import { Chat, MealPlanFromClient } from '@/c.widgets/user';
+import { PaySubscription } from '@/d.features/user';
+import { useGetRelation } from '@/e.entities/user';
 import { UiTabs } from '@/f.shared/ui';
-import { UiAvatar } from '@/f.shared/ui/UiAvatar/UiAvatar.tsx';
+import { UiAvatar } from '@/f.shared/ui';
 
 import styles from './CoachPage.module.scss';
 
@@ -25,8 +25,6 @@ export const CoachPage = () => {
 
   const { data } = useGetRelation(coachId);
 
-  const isActiveSubscription = data?.relation?.isActive || false;
-
   const tabs = useMemo((): TabsProps['items'] => {
     return [
       {
@@ -37,18 +35,18 @@ export const CoachPage = () => {
       {
         key: TabsKeys.mealPlan,
         label: 'План питания',
-        children: <></>,
-        disabled: !isActiveSubscription,
+        children: <MealPlanFromClient relationId={data?.relation?.id} />,
+        disabled: !data?.relation?.isActive || false,
       },
       {
         key: TabsKeys.workoutsPlan,
         label: 'План тренировок',
         children: <></>,
-        disabled: !isActiveSubscription,
+        disabled: !data?.relation?.isActive || false,
       },
     ];
-  }, [coachId, isActiveSubscription]);
-
+  }, [coachId, data]);
+  console.log(data);
   return (
     <div className={styles.coachPageWrapper}>
       <div className={styles.about}>
@@ -64,6 +62,7 @@ export const CoachPage = () => {
           />
         )}
       </div>
+
       <UiTabs
         inverse
         activeKey={currentTab}

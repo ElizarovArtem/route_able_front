@@ -1,0 +1,19 @@
+@use "@/a.app/styles/variables";
+
+.plannedMealsList {
+  display: flex;
+  flex-direction: column;
+  gap: variables.$spacingS;
+}
+
+.plannedMeal {
+  padding: variables.$spacingM;
+  background: variables.$backgroundColor2;
+  border-radius: variables.$borderRadius8px;
+}
+
+.titleWrapper {
+  display: flex;
+  gap: variables.$spacingS;
+  align-items: center;
+}

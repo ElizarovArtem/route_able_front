@@ -24,7 +24,12 @@ export const ConnectionCard = ({
       className={styles.link}
     >
       <div className={styles.connectionCard}>
-        <UiAvatar src={connection.avatar} width={85} height={85} />
+        <UiAvatar
+          src={connection.avatar}
+          width={85}
+          height={85}
+          preview={false}
+        />
         <div className={styles.infoWrapper}>
           <span>{connection.name}</span>
           <span>

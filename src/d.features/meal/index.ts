@@ -1,4 +1,9 @@
-export { useAddMeal } from './api';
+export {
+  type SetMealGoalsRequest,
+  useAddMeal,
+  useAddPlannedMeal,
+  useSetMealGoals,
+} from './api';
 export {
   mealFormResolver,
   type TCreateMealFormData,

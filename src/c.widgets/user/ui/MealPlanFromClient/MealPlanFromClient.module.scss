@@ -1,0 +1,36 @@
+@use  '@/a.app/styles/variables';
+
+.formWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: variables.$spacingM;
+}
+
+.goalsWrapper {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: variables.$spacingM;
+}
+
+.goalItem {
+  padding: variables.$spacingM;
+  display: flex;
+  flex-direction: column;
+  gap: variables.$spacingS;
+  background: variables.$backgroundColor2;
+  border-radius: variables.$borderRadius8px;
+  flex: 1;
+}
+
+.addPlanMeal {
+  display: flex;
+  gap: variables.$spacingM;
+
+  & input {
+   flex: 2;
+  }
+
+  & [class*='ant-picker'] {
+    flex:1;
+  }
+}

@@ -1,4 +1,10 @@
-export { useGetMealByDay } from './api/queries/useGetMealsByDay.ts';
+export {
+  useGetAiMealSuggestion,
+  useGetAiPhotoMealSuggestion,
+  useGetMealByDay,
+  useGetMealGoals,
+  useGetPlannedMeals,
+} from './api';
 export {
   getMealsByDaySummary,
   type TGetDayMealsSummaryRes,

@@ -1,34 +1,47 @@
-import { useParams, useSearch } from '@tanstack/react-router';
+import { useParams } from '@tanstack/react-router';
 import type { TabsProps } from 'antd/es/tabs';
 import React, { useMemo, useState } from 'react';
 
-import { Chat } from '@/c.widgets/user';
+import { Chat, MealPlanFromCoach } from '@/c.widgets/user';
+import { useGetRelation } from '@/e.entities/user/api';
 import { UiTabs } from '@/f.shared/ui';
 
 enum TabsKeys {
   chat = 'chat',
+  workoutsPlan = 'workoutsPlan',
+  mealPlan = 'mealPlan',
 }
 
 export const ClientPage = () => {
-  const [currentTab, setCurrentTab] = useState<TabsKeys>(TabsKeys.chat);
+  const [currentTab, setCurrentTab] = useState<TabsKeys>(TabsKeys.mealPlan);
   const clientId = useParams({
     from: '/_private/client/$clientId',
     select: (params) => params.clientId,
   });
-  const chatId = useSearch({
-    from: '/_private/client/$clientId',
-    select: (search) => search.chatId,
-  });
+
+  const { data } = useGetRelation(clientId);
 
   const tabs = useMemo((): TabsProps['items'] => {
     return [
       {
         key: TabsKeys.chat,
         label: 'Чат',
-        children: <Chat partnerId={clientId} chatId={chatId} fromCoach />,
+        children: (
+          <Chat partnerId={clientId} chatId={data?.chat?.id || ''} fromCoach />
+        ),
+      },
+      {
+        key: TabsKeys.mealPlan,
+        label: 'План питания',
+        children: <MealPlanFromCoach relationId={data?.relation?.id} />,
+      },
+      {
+        key: TabsKeys.workoutsPlan,
+        label: 'План тренировок',
+        children: <></>,
       },
     ];
-  }, [clientId]);
+  }, [clientId, data]);
 
   return (
     <div>

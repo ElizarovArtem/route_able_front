@@ -18,7 +18,7 @@ export const getConnections = async (): Promise<
   const response = await api.get<
     null,
     AxiosResponse<GetConnectionsResponseItem[]>
-  >(`/relations/my`);
+  >(`/client-coach/my`);
 
   return response.data;
 };

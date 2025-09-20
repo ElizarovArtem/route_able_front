@@ -1,7 +1,7 @@
 import { useQueryClient } from '@tanstack/react-query';
 import React from 'react';
 
-import { usePaySubscription } from '@/d.features/user/api/queries/usePaySubscription.ts';
+import { usePaySubscription } from '@/d.features/user/api';
 import { UiButton } from '@/f.shared/ui';
 
 type PaySubscriptionProps = {

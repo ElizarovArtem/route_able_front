@@ -3,7 +3,7 @@ import React, { useEffect, useLayoutEffect, useRef } from 'react';
 import { useStartChat } from '@/d.features/user/api/queries/useStartChat.ts';
 import { SendMessage } from '@/d.features/user/ui/SendMessage/SendMessage.tsx';
 import { userSelector } from '@/e.entities/user';
-import { useGetMessages } from '@/e.entities/user/api/queries/useGetMessages.ts';
+import { useGetMessages } from '@/e.entities/user/api';
 import { UserMessage } from '@/e.entities/user/ui/UserMessage/UserMessage.tsx';
 import { useSelector } from '@/f.shared/lib';
 
@@ -24,10 +24,10 @@ export const Chat = ({ partnerId, chatId, fromCoach }: ChatProps) => {
   const { user } = useSelector(userSelector);
 
   useEffect(() => {
-    if (!chatId) {
+    if (!fromCoach) {
       startChat({ otherUserId: partnerId });
     }
-  }, [partnerId]);
+  }, [partnerId, fromCoach]);
 
   useLayoutEffect(() => {
     if (data && messagesRef.current) {

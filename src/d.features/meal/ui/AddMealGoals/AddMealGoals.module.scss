@@ -1,0 +1,17 @@
+@use  '@/a.app/styles/variables';
+
+.goalsWrapper {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: variables.$spacingM;
+}
+
+.goalItem {
+  padding: variables.$spacingM;
+  display: flex;
+  flex-direction: column;
+  gap: variables.$spacingS;
+  background: variables.$backgroundColor2;
+  border-radius: variables.$borderRadius8px;
+  flex: 1;
+}

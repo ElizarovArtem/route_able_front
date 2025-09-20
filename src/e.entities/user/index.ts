@@ -1,3 +1,9 @@
+export {
+  useGetCoaches,
+  useGetConnections,
+  useGetMessages,
+  useGetRelation,
+} from './api';
 export { Roles, type User } from './model/user.model.ts';
 export {
   createUserSlice,

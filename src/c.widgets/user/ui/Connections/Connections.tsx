@@ -2,7 +2,7 @@ import type { TabsProps } from 'antd/es/tabs';
 import React, { useMemo, useState } from 'react';
 
 import { Roles, userSelector } from '@/e.entities/user';
-import { useGetConnections } from '@/e.entities/user/api/queries/useGetConnections.ts';
+import { useGetConnections } from '@/e.entities/user/api';
 import type { GetConnectionsResponseItem } from '@/e.entities/user/api/requests/get-connections.request.ts';
 import { ConnectionCard } from '@/e.entities/user/ui/ConnectionCard/ConnectionCard.tsx';
 import { useSelector } from '@/f.shared/lib';

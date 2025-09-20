@@ -31,7 +31,7 @@ export const getRelation = async (
   partnerId: string,
 ): Promise<GetRelationResponse> => {
   const response = await api.get<null, AxiosResponse<GetRelationResponse>>(
-    `/relations/with/${partnerId}`,
+    `/client-coach/with/${partnerId}`,
   );
 
   return response.data;

@@ -1,4 +1,9 @@
-export { useSendMessage, useStartChat, useUpdateUser } from './api/queries';
+export {
+  usePaySubscription,
+  useSendMessage,
+  useStartChat,
+  useUpdateUser,
+} from './api';
 export type {
   SendMessageRequest,
   StartChatRequest,
@@ -11,4 +16,4 @@ export {
   createAuthSlice,
   type TAuthStore,
 } from './model';
-export { AuthModal, CheckAuth } from './ui';
+export { AuthModal, CheckAuth, PaySubscription } from './ui';
