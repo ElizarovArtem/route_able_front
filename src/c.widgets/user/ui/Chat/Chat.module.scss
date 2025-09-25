@@ -21,7 +21,7 @@
   }
 
   &::-webkit-scrollbar-thumb {
-    border-radius: variables.$borderRadius8px;
+    border-radius: variables.$borderRadius;
     background: variables.$accentColor1;
   }
 }

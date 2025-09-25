@@ -2,7 +2,8 @@
 
 .connectionsWrapper {
   background: variables.$backgroundColor1;
+  border: 1px solid variables.$borderColor;
+  border-radius: variables.$borderRadius;
   box-shadow: variables.$boxShadow;
-  border-radius: variables.$borderRadius8px;
   padding: variables.$spacingM;
 }

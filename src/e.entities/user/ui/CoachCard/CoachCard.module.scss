@@ -6,7 +6,7 @@
   cursor: pointer;
   padding: variables.$spacingS;
   transition: 0.2s;
-  border-radius: variables.$borderRadius8px;
+  border-radius: variables.$borderRadius;
 
   &:hover {
     background: rgba(255, 255, 255, 0.16);

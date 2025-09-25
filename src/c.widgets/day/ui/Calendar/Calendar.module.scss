@@ -1,50 +1,69 @@
 @use '@/a.app/styles/variables';
 
 .calendar {
+  --pad: 16px;
+  position: relative;
   display: flex;
-  gap: 24px;
-  overflow-x: scroll;
-  padding: 32px 12px 32px;
+  gap: 16px;
+  padding: 20px var(--pad) 28px; // место под прогресс
+  overflow-x: auto;
   background: variables.$backgroundColor1;
-  border-radius: variables.$borderRadius8px;
+  border: 1px solid variables.$borderColor;
+  border-radius: variables.$borderRadius;
   box-shadow: variables.$boxShadow;
+  scroll-snap-type: x proximity;
+  scroll-padding-inline: calc(var(--pad) + 24px);
 
   &::-webkit-scrollbar {
     height: 4px;
   }
 
   &::-webkit-scrollbar-thumb {
-    border-radius: variables.$borderRadius8px;
+    border-radius: variables.$borderRadius;
     background: variables.$accentColor1;
   }
 }
 
-.day {
-  width: 56px;
-  height: 56px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  border-radius: 50%;
-  background: variables.$textColor2;
-  color: variables.$textColor3;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.3s;
-  box-shadow: variables.$boxShadow;
-
-  &Current {
-    background: variables.$accentColor1;
-  }
-
-  &Disabled {
-    background: variables.$textColor2;
-    opacity: 0.2;
-    cursor: not-allowed;
-  }
+.chip {
+  scroll-snap-align: center;
+  flex: 0 0 auto;
+  width: 48px; height: 48px;
+  display: grid; place-items: center;
+  border-radius: 999px;
+  border: 1px solid variables.$borderColor;
+  background: variables.$backgroundColor2;
+  color: variables.$textColor1;
+  font-weight: 600;
+  transition: transform .15s ease, border-color .15s ease, background .15s ease;
+  box-shadow: 0 6px 14px rgba(0,0,0,.18);
 
   &:hover {
-    background: variables.$textColor1;
+    transform: translateY(-1px);
+    border-color: rgba(255,255,255,.18);
+    cursor: pointer;
   }
+  &:focus-visible {
+    outline: none;
+    box-shadow: variables.$focusRing;
+  }
+}
+
+.isToday {
+  border-color: variables.$accentColor1;
+}
+
+.isSelected {
+  background: variables.$accentColor1;
+  color: variables.$textColor3;
+  border-color: transparent;
+}
+
+.isFuture {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+.num {
+  font-size: variables.$fontSizeS;
+  line-height: 1;
 }

@@ -1,13 +1,14 @@
 @use  '@/a.app/styles/variables';
 
 .info {
-  background: variables.$backgroundColor1;
-  box-shadow: variables.$boxShadow;
-  border-radius: variables.$borderRadius8px;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  padding: 20px;
-  gap: variables.$spacingS;
+  grid-template-columns: 160px 1fr;
+  gap: 24px;
+  padding: 24px 24px 20px;
+  background: variables.$backgroundColor1;
+  border: 1px solid variables.$borderColor;
+  border-radius: variables.$borderRadius;
+  box-shadow: variables.$boxShadow;
 }
 
 .about {

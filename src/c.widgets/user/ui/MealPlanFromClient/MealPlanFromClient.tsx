@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { useGetMealGoals } from '@/e.entities/meal';
-import { PlannedMealsList } from '@/e.entities/meal/ui/PlannedMealsList/PlannedMealsList.tsx';
+import { PlannedMealsList, useGetMealGoals } from '@/e.entities/meal';
 
 import styles from './MealPlanFromClient.module.scss';
 

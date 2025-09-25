@@ -16,5 +16,6 @@ export {
   MealsList,
   MealsSummaryPerDay,
   PhotoAiAddMealForm,
+  PlannedMealsList,
   TextAiAddMealForm,
 } from './ui';

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 
 import { UpdateUserModal } from '@/d.features/user/ui/UpdateUserModal/UpdateUserModal.tsx';
 import { Roles, UserInfoItem, userSelector } from '@/e.entities/user';
-import { config } from '@/f.shared/config';
 import { useSelector } from '@/f.shared/lib';
 import { UiButton } from '@/f.shared/ui';
 import { UiAvatar } from '@/f.shared/ui/UiAvatar/UiAvatar.tsx';
