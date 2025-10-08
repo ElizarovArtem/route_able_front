@@ -3,3 +3,11 @@
 .modal {
   font-family: Inter, sans-serif;
 }
+
+.modal [class*='ant-modal-content'], .modal [class*='ant-modal-header'] {
+  background-color: variables.$backgroundColor2;
+}
+
+.modal [class*='ant-modal-title'], .modal [class*='ant-modal-close-x'] {
+  color: variables.$textColor1;
+}

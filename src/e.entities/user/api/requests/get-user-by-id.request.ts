@@ -1,10 +1,10 @@
 import type { AxiosResponse } from 'axios';
 
-import { type User } from '@/e.entities/user';
+import { Roles, type User } from '@/e.entities/user';
 import { api } from '@/f.shared/api';
 
 export type GetRelationResponse = {
-  meRole: 'CLIENT' | 'COACH' | 'NONE'; // кем я являюсь в паре (или пока не в паре)
+  meRole: Roles; // кем я являюсь в паре (или пока не в паре)
   partner: User;
   relation: {
     id: string;

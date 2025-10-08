@@ -19,7 +19,7 @@
 //$spacingL: 24px;
 
 /* мягкий dark */
-$mainColor:        #121A25;        // было очень тёмно → + ~8% яркости
+$mainColor:        #121A25;
 $accentColor1:     #22C8A7;        // чуть спокойнее, без неона
 
 $backgroundColor1: #182230;        // surface-1 (карточки) светлее
@@ -28,11 +28,12 @@ $backgroundColor2: #202C3B;        // surface-2 (поля/вторичные)
 $textColor1:       #EEF2F7;        // основной текст
 $textColor2:       #B0BAC8;        // вторичный текст
 $textColor3:       #0D1319;        // текст на акценте
+$textColor4: #e83242;        // текст ошибки
 
 $borderColor:      rgba(255,255,255,.10); // границы заметнее (было .06)
 $borderRadius:  14px;
 
-$boxShadow:        0 8px 22px rgba(3,10,18,.22); // меньше «чёрной дымки», глубже и чище
+$boxShadow: 0 8px 22px rgba(3,10,18,.22); // меньше «чёрной дымки», глубже и чище
 
 $focusRing: 0 0 0 4px rgba(34,211,166,.15);
 
@@ -42,5 +43,6 @@ $spacingM: 24px;  // держим 8-pt
 $spacingL: 32px;
 
 $fontSizeXS: 8px;
-$fontSizeS: 16px;
-$fontSizeM: 24px;
+$fontSizeS: 12px;
+$fontSizeM: 16px;
+$fontSizeL: 24px;

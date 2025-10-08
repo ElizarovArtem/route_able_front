@@ -3,9 +3,6 @@
 .connectionCard {
   display: flex;
   gap: variables.$spacingM;
-  background: variables.$backgroundColor2;
-  padding: variables.$spacingS;
-  border-radius: variables.$borderRadius;
 }
 
 .infoWrapper {

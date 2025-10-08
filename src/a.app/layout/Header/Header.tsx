@@ -29,7 +29,8 @@ export const Header = () => {
       <div className={styles.menu}>
         {user ? (
           <>
-            {user.phone} <UiButton onClick={onLogout}>Выйти</UiButton>
+            {user.name || user.phone}{' '}
+            <UiButton onClick={onLogout}>Выйти</UiButton>
           </>
         ) : (
           <UiButton onClick={() => setIsAuthModalOpen(true)}>Войти</UiButton>

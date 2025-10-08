@@ -1,6 +1,7 @@
 import React from 'react';
 
 import type { TGetDayMealsSummaryRes } from '@/e.entities/meal';
+import { UiTypography } from '@/f.shared/ui';
 
 import styles from './MealsSummaryPerDay.module.scss';
 
@@ -12,15 +13,14 @@ export const MealsSummaryPerDay = ({ data }: TMealsStatisticPerDayProps) => {
   return (
     <div className={styles.statistic}>
       <div className={styles.totalCalories}>
-        <span>Всего за день</span>
-        <span>{data?.calories} Ккал</span>
+        <UiTypography>Всего за день</UiTypography>
+        <UiTypography>{data?.calories} Ккал</UiTypography>
       </div>
       <div className={styles.totalPfc}>
-        <div>Белки: {data?.protein}</div>
-        <div>Жиры: {data?.fat}</div>
-        <div>Углеводы: {data?.carbs}</div>
+        <UiTypography>Белки: {data?.protein}</UiTypography>
+        <UiTypography>Жиры: {data?.fat}</UiTypography>
+        <UiTypography>Углеводы: {data?.carbs}</UiTypography>
       </div>
-      <div></div>
     </div>
   );
 };

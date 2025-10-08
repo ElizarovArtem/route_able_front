@@ -2,11 +2,14 @@ import { useParams } from '@tanstack/react-router';
 import type { TabsProps } from 'antd/es/tabs';
 import React, { useMemo, useState } from 'react';
 
-import { Chat, MealPlanFromClient } from '@/c.widgets/user';
+import {
+  Chat,
+  MealPlanFromClient,
+  WorkoutPlanFromClient,
+} from '@/c.widgets/user';
 import { PaySubscription } from '@/d.features/user';
 import { useGetRelation } from '@/e.entities/user';
-import { UiTabs } from '@/f.shared/ui';
-import { UiAvatar } from '@/f.shared/ui';
+import { UiAvatar, UiTabs, UiTypography } from '@/f.shared/ui';
 
 import styles from './CoachPage.module.scss';
 
@@ -17,7 +20,7 @@ enum TabsKeys {
 }
 
 export const CoachPage = () => {
-  const [currentTab, setCurrentTab] = useState<TabsKeys>(TabsKeys.chat);
+  const [currentTab, setCurrentTab] = useState<TabsKeys>(TabsKeys.mealPlan);
   const coachId = useParams({
     from: '/_private/coach/$coachId',
     select: (params) => params.coachId,
@@ -28,11 +31,6 @@ export const CoachPage = () => {
   const tabs = useMemo((): TabsProps['items'] => {
     return [
       {
-        key: TabsKeys.chat,
-        label: 'Чат',
-        children: <Chat partnerId={coachId} />,
-      },
-      {
         key: TabsKeys.mealPlan,
         label: 'План питания',
         children: <MealPlanFromClient relationId={data?.relation?.id} />,
@@ -41,19 +39,29 @@ export const CoachPage = () => {
       {
         key: TabsKeys.workoutsPlan,
         label: 'План тренировок',
-        children: <></>,
+        children: (
+          <WorkoutPlanFromClient
+            relationId={data?.relation?.id}
+            meRole={data?.meRole}
+          />
+        ),
         disabled: !data?.relation?.isActive || false,
+      },
+      {
+        key: TabsKeys.chat,
+        label: 'Чат',
+        children: <Chat partnerId={coachId} />,
       },
     ];
   }, [coachId, data]);
-  console.log(data);
+
   return (
     <div className={styles.coachPageWrapper}>
       <div className={styles.about}>
         <UiAvatar width={200} height={200} src={data?.partner.avatar || ''} />
         <div className={styles.aboutInfo}>
-          <div>{data?.partner.name}</div>
-          <div>{data?.partner.about}</div>
+          <UiTypography bold>{data?.partner.name}</UiTypography>
+          <UiTypography>{data?.partner.about}</UiTypography>
         </div>
         {!data?.relation?.isActive && data?.relation?.id && (
           <PaySubscription

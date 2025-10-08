@@ -6,7 +6,7 @@ import { useGetConnections } from '@/e.entities/user/api';
 import type { GetConnectionsResponseItem } from '@/e.entities/user/api/requests/get-connections.request.ts';
 import { ConnectionCard } from '@/e.entities/user/ui/ConnectionCard/ConnectionCard.tsx';
 import { useSelector } from '@/f.shared/lib';
-import { UiTabs } from '@/f.shared/ui';
+import { UiCard, UiTabs } from '@/f.shared/ui';
 
 import styles from './Connections.module.scss';
 
@@ -71,13 +71,13 @@ export const Connections = () => {
   }, [user, data]);
 
   return (
-    <div className={styles.connectionsWrapper}>
+    <UiCard>
       <UiTabs
         inverse
         activeKey={currentTab}
         onChange={(key) => setCurrentTab(key as TabsKeys)}
         items={tabs}
       />
-    </div>
+    </UiCard>
   );
 };

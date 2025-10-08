@@ -21,16 +21,3 @@
   border-radius: variables.$borderRadius;
   flex: 1;
 }
-
-.addPlanMeal {
-  display: flex;
-  gap: variables.$spacingM;
-
-  & input {
-   flex: 2;
-  }
-
-  & [class*='ant-picker'] {
-    flex:1;
-  }
-}

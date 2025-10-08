@@ -1,0 +1,12 @@
+@use "@/a.app/styles/variables";
+
+.uiCard {
+  padding: variables.$spacingM;
+  background: variables.$backgroundColor2;
+  border-radius: variables.$borderRadius;
+  border: 1px solid variables.$borderColor;
+}
+
+.inverse {
+  background: variables.$mainColor;
+}

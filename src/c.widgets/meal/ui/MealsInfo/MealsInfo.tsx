@@ -7,7 +7,7 @@ import {
   MealsSummaryPerDay,
   useGetMealByDay,
 } from '@/e.entities/meal';
-import { UiButton } from '@/f.shared/ui';
+import { UiButton, UiCard } from '@/f.shared/ui';
 
 import styles from './MealsInfo.module.scss';
 
@@ -19,7 +19,7 @@ export const MealsInfo = () => {
   const { data, refetch } = useGetMealByDay(date);
 
   return (
-    <div className={styles.info}>
+    <UiCard>
       <MealsSummaryPerDay data={data?.summary || null} />
       <MealsList data={data?.meals || []} />
       <div className={styles.buttonWrapper}>
@@ -34,6 +34,6 @@ export const MealsInfo = () => {
         onCancel={() => setIsModalOpen(false)}
         setIsOpen={setIsModalOpen}
       />
-    </div>
+    </UiCard>
   );
 };

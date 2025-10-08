@@ -1,0 +1,33 @@
+@use "@/a.app/styles/variables";
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: variables.$spacingM;
+}
+
+.titleWrapper {
+  display: flex;
+  gap: variables.$spacingS;
+  align-items: center;
+}
+
+.exercisesWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: variables.$spacingS;
+}
+
+.tableTemplate {
+  display: grid;
+  grid-template-columns: 1.7fr repeat(5, 1fr);
+  align-items: center;
+}
+
+.header {
+  padding: 0 variables.$spacingS;
+}
+
+.exerciseItem {
+  padding: variables.$spacingXS variables.$spacingS;
+}

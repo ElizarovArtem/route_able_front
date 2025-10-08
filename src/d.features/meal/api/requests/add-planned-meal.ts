@@ -3,6 +3,10 @@ import { api } from '@/f.shared/api';
 export type AddPlannedMealRequest = {
   relationId: string;
   date: string;
+  calories: number;
+  protein: number;
+  fat: number;
+  carbs: number;
   text: string;
 };
 

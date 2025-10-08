@@ -1,0 +1,15 @@
+@use  '@/a.app/styles/variables';
+
+.addPlanMeal {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: variables.$spacingM;
+
+  & input {
+    flex: 2;
+  }
+
+  & [class*='ant-picker'] {
+    flex:1;
+  }
+}

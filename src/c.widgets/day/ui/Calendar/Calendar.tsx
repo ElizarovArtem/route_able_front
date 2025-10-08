@@ -3,6 +3,7 @@ import { format } from 'date-fns';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 
 import { DayInfoModal } from '@/e.entities/day/ui/DayInfoModal/DayInfoModal.tsx';
+import { UiCard } from '@/f.shared/ui';
 
 import styles from './Calendar.module.scss';
 
@@ -47,7 +48,7 @@ export const Calendar = () => {
   }, []);
 
   return (
-    <div ref={wrapRef} className={styles.calendar}>
+    <UiCard ref={wrapRef} className={styles.calendar}>
       {days.map(({ day, state }) => {
         const isToday = state === 'today';
         const isFuture = state === 'future';
@@ -77,6 +78,6 @@ export const Calendar = () => {
         onCancel={() => setSelectedDay(null)}
         footer={null}
       />
-    </div>
+    </UiCard>
   );
 };

@@ -1,6 +1,8 @@
 export { Chat } from './Chat/Chat';
-export { CoachesList } from './CoachesList/CoachesList.tsx';
+export { CoachesList } from './CoachesList/CoachesList';
 export { Connections } from './Connections/Connections';
+export { MealPlanFromClient } from './MealPlanFromClient/MealPlanFromClient';
+export { MealPlanFromCoach } from './MealPlanFromCoach/MealPlanFromCoach';
 export { UserInfo } from './UserInfo/UserInfo';
-export { MealPlanFromClient } from '@/c.widgets/user/ui/MealPlanFromClient/MealPlanFromClient.tsx';
-export { MealPlanFromCoach } from '@/c.widgets/user/ui/MealPlanFromCoach/MealPlanFromCoach.tsx';
+export { WorkoutPlanFromClient } from './WorkoutPlanFromClient/WorkoutPlanFromClient';
+export { WorkoutPlanFromCoach } from './WorkoutPlanFromCoach/WorkoutPlanFromCoach';

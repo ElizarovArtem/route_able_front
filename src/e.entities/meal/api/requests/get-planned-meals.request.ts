@@ -9,13 +9,18 @@ export type GetPlannedMealsRequest = {
 
 export type GetPlannedMealsResponse = {
   authorId: string;
+  calories: number;
+  carbs: number;
   clientCoachId: string;
   clientId: string;
   coachId: string;
+  completedAt: string;
   createdAt: string;
   date: string;
+  fat: number;
   id: string;
-  slot?: string;
+  isCompleted: false;
+  protein: number;
   text: string;
   updatedAt: string;
 }[];

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import type { TCreateMealFormData } from '@/d.features/meal';
 import { useGetAiMealSuggestion } from '@/e.entities/meal/api/queries/useGetAiMealSuggestion.ts';
-import { UiButton, UiInput } from '@/f.shared/ui';
+import { UiButton, UiInput, UiTypography } from '@/f.shared/ui';
 
 import styles from './TextAiAddMealForm.module.scss';
 
@@ -33,10 +33,10 @@ export const TextAiAddMealForm = ({
 
   return (
     <div className={styles.aiForm}>
-      <div>
+      <UiTypography>
         Опишите ваш прием пищи, например: &#34;Съел индейку с рисом. Индейка 100
         грамм, рис 50 грамм&#34;
-      </div>
+      </UiTypography>
       <UiInput
         value={mealText}
         onChange={(e) => setMealText(e.currentTarget.value)}

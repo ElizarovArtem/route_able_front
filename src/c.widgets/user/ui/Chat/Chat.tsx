@@ -6,6 +6,7 @@ import { userSelector } from '@/e.entities/user';
 import { useGetMessages } from '@/e.entities/user/api';
 import { UserMessage } from '@/e.entities/user/ui/UserMessage/UserMessage.tsx';
 import { useSelector } from '@/f.shared/lib';
+import { UiCard } from '@/f.shared/ui';
 
 import styles from './Chat.module.scss';
 
@@ -36,7 +37,7 @@ export const Chat = ({ partnerId, chatId, fromCoach }: ChatProps) => {
   }, [data]);
 
   return (
-    <div className={styles.chatWrapper}>
+    <UiCard className={styles.chatWrapper}>
       <div className={styles.messages} ref={messagesRef}>
         {data?.map((message) => (
           <UserMessage
@@ -49,6 +50,6 @@ export const Chat = ({ partnerId, chatId, fromCoach }: ChatProps) => {
       </div>
 
       <SendMessage chatId={chatId || chatData?.id} />
-    </div>
+    </UiCard>
   );
 };

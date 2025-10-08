@@ -2,6 +2,7 @@ import React from 'react';
 
 import type { TMeal } from '@/e.entities/meal';
 import styles from '@/e.entities/meal/ui/MealsList/MealsList.module.scss';
+import { UiCard, UiTypography } from '@/f.shared/ui';
 
 type TMealItemProps = {
   meal: TMeal;
@@ -9,27 +10,37 @@ type TMealItemProps = {
 
 export const MealListItem = ({ meal }: TMealItemProps) => {
   return (
-    <div key={meal.id} className={styles.meal}>
+    <UiCard inverse key={meal.id} className={styles.meal}>
       <div className={styles.paramItem}>
-        <span className={styles.paramItemTitle}>Название</span>
-        <span className={styles.paramItemValue}>{meal.name}</span>
+        <UiTypography type="label" size="small">
+          Название
+        </UiTypography>
+        <UiTypography>{meal.name}</UiTypography>
       </div>
       <div className={styles.paramItem}>
-        <span className={styles.paramItemTitle}>Калории</span>
-        <span className={styles.paramItemValue}>{meal.calories}</span>
+        <UiTypography type="label" size="small">
+          Калории
+        </UiTypography>
+        <UiTypography>{meal.calories}</UiTypography>
       </div>
       <div className={styles.paramItem}>
-        <span className={styles.paramItemTitle}>Белки</span>
-        <span className={styles.paramItemValue}>{meal.protein}</span>
+        <UiTypography type="label" size="small">
+          Белки
+        </UiTypography>
+        <UiTypography>{meal.protein}</UiTypography>
       </div>
       <div className={styles.paramItem}>
-        <span className={styles.paramItemTitle}>Жиры</span>
-        <span className={styles.paramItemValue}>{meal.fat}</span>
+        <UiTypography type="label" size="small">
+          Жиры
+        </UiTypography>
+        <UiTypography>{meal.fat}</UiTypography>
       </div>
       <div className={styles.paramItem}>
-        <span className={styles.paramItemTitle}>Углеводы</span>
-        <span className={styles.paramItemValue}>{meal.carbs}</span>
+        <UiTypography type="label" size="small">
+          Углеводы
+        </UiTypography>
+        <UiTypography>{meal.carbs}</UiTypography>
       </div>
-    </div>
+    </UiCard>
   );
 };

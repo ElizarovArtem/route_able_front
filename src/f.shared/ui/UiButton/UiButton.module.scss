@@ -6,7 +6,7 @@ button.button[class*='ant-btn'][class*='ant-btn-default'] {
   color: variables.$mainColor;
   font-family: Inter, sans-serif;
   font-weight: bold;
-  //transition: 0.2s;
+  transition: 0.1s;
 }
 
 button.button[class*='ant-btn'][class*='ant-btn-default']:hover  {

@@ -1,0 +1,23 @@
+@use "@/a.app/styles/variables";
+
+[class*='ant-input-outlined'] {
+  border-color: variables.$borderColor;
+}
+
+[class*='ant-input-outlined'], [class*='ant-input-outlined']:focus, [class*='ant-input-outlined']:hover {
+  background-color: variables.$borderColor;
+  color: variables.$textColor1;
+}
+
+[class*='ant-input-outlined']:hover, [class*='ant-input-outlined']:focus {
+  border-color: variables.$accentColor1;
+}
+
+[class*='ant-input-outlined']::placeholder {
+  color: variables.$textColor2;
+}
+
+[class*='ant-input'][class*='ant-input-outlined'][class*='ant-input-status-error'], [class*='ant-input-outlined']input[class*='ant-input-status-error']:hover {
+  color: variables.$textColor4;
+  background-color: variables.$borderColor !important;
+}

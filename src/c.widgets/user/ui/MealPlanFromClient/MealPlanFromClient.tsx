@@ -1,6 +1,8 @@
 import React from 'react';
 
 import { PlannedMealsList, useGetMealGoals } from '@/e.entities/meal';
+import { Roles } from '@/e.entities/user';
+import { UiCard, UiTypography } from '@/f.shared/ui';
 
 import styles from './MealPlanFromClient.module.scss';
 
@@ -14,25 +16,35 @@ export const MealPlanFromClient = ({ relationId }: MealPlanFromClientProps) => {
   return (
     <div className={styles.formWrapper}>
       <div className={styles.goalsWrapper}>
-        <div className={styles.goalItem}>
-          <div>Цель по каллорийности</div>
-          <div>{mealGoalsData?.goals.goalCalories || '-'}</div>
-        </div>
-        <div className={styles.goalItem}>
-          <div>Цель по белкам</div>
-          <div>{mealGoalsData?.goals.goalProtein || '-'}</div>
-        </div>
-        <div className={styles.goalItem}>
-          <div>Цель по жирам</div>
-          <div>{mealGoalsData?.goals.goalFat || '-'}</div>
-        </div>
-        <div className={styles.goalItem}>
-          <div>Цель по углеводам</div>
-          <div>{mealGoalsData?.goals.goalCarbs || '-'}</div>
-        </div>
+        <UiCard className={styles.goalItem}>
+          <UiTypography size="small" type="label">
+            Цель по каллорийности
+          </UiTypography>
+          <UiTypography>
+            {mealGoalsData?.goals.goalCalories || '-'}
+          </UiTypography>
+        </UiCard>
+        <UiCard className={styles.goalItem}>
+          <UiTypography size="small" type="label">
+            Цель по белкам
+          </UiTypography>
+          <UiTypography>{mealGoalsData?.goals.goalProtein || '-'}</UiTypography>
+        </UiCard>
+        <UiCard className={styles.goalItem}>
+          <UiTypography size="small" type="label">
+            Цель по жирам
+          </UiTypography>
+          <UiTypography>{mealGoalsData?.goals.goalFat || '-'}</UiTypography>
+        </UiCard>
+        <UiCard className={styles.goalItem}>
+          <UiTypography size="small" type="label">
+            Цель по углеводам
+          </UiTypography>
+          <UiTypography>{mealGoalsData?.goals.goalCarbs || '-'}</UiTypography>
+        </UiCard>
       </div>
 
-      <PlannedMealsList relationId={relationId} />
+      <PlannedMealsList relationId={relationId} meRole={Roles.Client} />
     </div>
   );
 };

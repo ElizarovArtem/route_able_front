@@ -1,0 +1,29 @@
+@use '@/a.app/styles/variables';
+
+.typography {
+  font-size: variables.$fontSizeM;
+
+  &-ordinary {
+    color: variables.$textColor1;
+  }
+
+  &-label {
+    color: variables.$textColor2;
+  }
+
+  &-small {
+    font-size: variables.$fontSizeS;
+  }
+
+  &-medium {
+    font-size: variables.$fontSizeM;
+  }
+
+  &-large {
+    font-size: variables.$fontSizeL;
+  }
+
+  &Bold {
+    font-weight: bold;
+  }
+}

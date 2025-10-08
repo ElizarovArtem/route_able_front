@@ -1,19 +1,33 @@
 @use "@/a.app/styles/variables";
 
-.plannedMealsList {
+.plannedMealsListWrapper {
   display: flex;
   flex-direction: column;
-  gap: variables.$spacingS;
-}
-
-.plannedMeal {
-  padding: variables.$spacingM;
-  background: variables.$backgroundColor2;
-  border-radius: variables.$borderRadius;
+  gap: variables.$spacingM;
 }
 
 .titleWrapper {
   display: flex;
   gap: variables.$spacingS;
   align-items: center;
+}
+
+.plannedMealsList {
+  display: flex;
+  flex-direction: column;
+  gap: variables.$spacingS;
+}
+
+.tableTemplate {
+  display: grid;
+  grid-template-columns: 1.7fr 1fr 1fr 1fr 1fr 1fr ;
+  align-items: center;
+}
+
+.header {
+  padding: 0 variables.$spacingS;
+}
+
+.mealItem {
+  padding: variables.$spacingXS variables.$spacingS;
 }

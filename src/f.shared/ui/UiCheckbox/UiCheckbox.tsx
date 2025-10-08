@@ -6,6 +6,8 @@ import { withForm } from '@/f.shared/lib';
 type UiCheckboxProps = { value?: boolean } & CheckboxProps;
 
 export const UiCheckbox = ({ value, ...props }: UiCheckboxProps) => {
+  console.log(value);
+
   return <Checkbox checked={value} {...props} />;
 };
 

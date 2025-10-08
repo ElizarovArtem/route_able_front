@@ -7,9 +7,6 @@
   gap: 16px;
   padding: 20px var(--pad) 28px; // место под прогресс
   overflow-x: auto;
-  background: variables.$backgroundColor1;
-  border: 1px solid variables.$borderColor;
-  border-radius: variables.$borderRadius;
   box-shadow: variables.$boxShadow;
   scroll-snap-type: x proximity;
   scroll-padding-inline: calc(var(--pad) + 24px);
@@ -31,7 +28,7 @@
   display: grid; place-items: center;
   border-radius: 999px;
   border: 1px solid variables.$borderColor;
-  background: variables.$backgroundColor2;
+  background: variables.$backgroundColor1;
   color: variables.$textColor1;
   font-weight: 600;
   transition: transform .15s ease, border-color .15s ease, background .15s ease;
@@ -58,7 +55,7 @@
   border-color: transparent;
 }
 
-.isFuture {
+.isFuture, .isFuture:hover {
   opacity: .5;
   cursor: not-allowed;
 }

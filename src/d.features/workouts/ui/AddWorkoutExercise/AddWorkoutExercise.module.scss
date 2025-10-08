@@ -1,0 +1,25 @@
+@use '@/a.app/styles/variables';
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: variables.$spacingM;
+}
+
+.addWorkoutExerciseForm {
+  display: flex;
+  gap: variables.$spacingM;
+}
+
+.buttonWrapper {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.long {
+  flex: 1;
+}
+
+.short {
+  flex: .5;
+}

@@ -5,4 +5,6 @@ export {
   MealPlanFromClient,
   MealPlanFromCoach,
   UserInfo,
+  WorkoutPlanFromClient,
+  WorkoutPlanFromCoach,
 } from './ui';
