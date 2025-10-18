@@ -6,6 +6,7 @@ import {
   Chat,
   MealPlanFromClient,
   WorkoutPlanFromClient,
+  VideoChat,
 } from '@/c.widgets/user';
 import { PaySubscription } from '@/d.features/user';
 import { useGetRelation } from '@/e.entities/user';
@@ -17,6 +18,7 @@ enum TabsKeys {
   chat = 'chat',
   workoutsPlan = 'workoutsPlan',
   mealPlan = 'mealPlan',
+  videoChat = 'videoChat',
 }
 
 export const CoachPage = () => {
@@ -51,6 +53,12 @@ export const CoachPage = () => {
         key: TabsKeys.chat,
         label: 'Чат',
         children: <Chat partnerId={coachId} />,
+      },
+      {
+        key: TabsKeys.videoChat,
+        label: 'Видеосвязь',
+        children: <VideoChat relationId={data?.relation?.id} />,
+        disabled: !data?.relation?.isActive || false,
       },
     ];
   }, [coachId, data]);

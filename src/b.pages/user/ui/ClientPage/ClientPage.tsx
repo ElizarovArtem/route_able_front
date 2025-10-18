@@ -5,6 +5,7 @@ import React, { useMemo, useState } from 'react';
 import {
   Chat,
   MealPlanFromCoach,
+  VideoChat,
   WorkoutPlanFromCoach,
 } from '@/c.widgets/user';
 import { useGetRelation } from '@/e.entities/user/api';
@@ -14,6 +15,7 @@ enum TabsKeys {
   chat = 'chat',
   workoutsPlan = 'workoutsPlan',
   mealPlan = 'mealPlan',
+  videoChat = 'videoChat',
 }
 
 export const ClientPage = () => {
@@ -48,6 +50,12 @@ export const ClientPage = () => {
         children: (
           <Chat partnerId={clientId} chatId={data?.chat?.id || ''} fromCoach />
         ),
+      },
+      {
+        key: TabsKeys.videoChat,
+        label: 'Видеосвязь',
+        children: <VideoChat relationId={data?.relation?.id} />,
+        disabled: !data?.relation?.isActive || false,
       },
     ];
   }, [clientId, data]);

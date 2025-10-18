@@ -3,4 +3,5 @@ export {
   useGetConnections,
   useGetMessages,
   useGetRelation,
+  useGetVideoToken,
 } from './queries';

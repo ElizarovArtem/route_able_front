@@ -1,0 +1,32 @@
+@use '@/a.app/styles/variables';
+
+.videoChatCard {
+  display: flex;
+  flex-direction: column;
+  gap: variables.$spacingM;
+}
+
+.centeredRow {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+}
+
+.videoContainer {
+  flex: 1;
+  min-height: 320px;
+
+  & [class*='lk-button'], & [class*='lk-disconnect-button'], & [class*='lk-participant-metadata'] {
+    color: variables.$textColor1;
+  }
+
+  :global(.lk-room) {
+    height: 100%;
+  }
+
+  :global(.lk-layout-wrapper),
+  :global(.lk-video-conference) {
+    height: 100%;
+  }
+}

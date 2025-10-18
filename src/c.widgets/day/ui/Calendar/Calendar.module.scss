@@ -28,7 +28,7 @@
   display: grid; place-items: center;
   border-radius: 999px;
   border: 1px solid variables.$borderColor;
-  background: variables.$backgroundColor1;
+  background: variables.$mainColor;
   color: variables.$textColor1;
   font-weight: 600;
   transition: transform .15s ease, border-color .15s ease, background .15s ease;
