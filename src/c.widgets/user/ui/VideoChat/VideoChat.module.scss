@@ -6,6 +6,51 @@
   gap: variables.$spacingM;
 }
 
+.infoBlock {
+  display: flex;
+  flex-direction: column;
+  gap: variables.$spacingS;
+}
+
+.actionsRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: variables.$spacingS;
+}
+
+.scheduleBlock {
+  display: flex;
+  flex-direction: column;
+  gap: variables.$spacingS;
+}
+
+.lessonsList {
+  display: flex;
+  flex-direction: column;
+  gap: variables.$spacingXS;
+  max-height: 220px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.lessonItem {
+  padding: variables.$spacingXS;
+  border-radius: variables.$borderRadius;
+  border: 1px solid variables.$borderColor;
+  background: variables.$backgroundColor2;
+}
+
+.lessonItemActive {
+  border-color: variables.$accentColor1;
+  box-shadow: 0 0 0 1px rgba(34, 200, 167, 0.35);
+}
+
+.lessonMeta {
+  display: flex;
+  flex-direction: column;
+  gap: variables.$spacingXS * 0.5;
+}
+
 .centeredRow {
   display: flex;
   flex: 1;

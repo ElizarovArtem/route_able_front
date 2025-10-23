@@ -19,6 +19,8 @@ body {
 body::before {
   content: ""; position: fixed; inset: 0; pointer-events: none;
   background:
-          radial-gradient(800px 400px at 15% -10%, rgba(34,200,167,.10), transparent 60%),
-          radial-gradient(700px 500px at 100% 0%, rgba(96,165,250,.06), transparent 60%);
+          radial-gradient(800px 400px at 2% 71%, rgba(34, 200, 167, 0.1), transparent 60%),
+          radial-gradient(700px 500px at 99% 40%, rgba(96, 165, 250, 0.06), transparent 60%);
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* чтобы «свет» прилипал к вьюпорту */
 }

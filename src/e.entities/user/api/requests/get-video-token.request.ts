@@ -6,7 +6,7 @@ export type GetVideoTokenResponse = {
 };
 
 export const getVideoToken = async (relationId: string) => {
-  const { data } = await api.get<GetVideoTokenResponse>('/video/token', {
+  const { data } = await api.get<GetVideoTokenResponse>('/video/lesson-token', {
     params: { relationId },
   });
 

@@ -54,7 +54,9 @@ export const ClientPage = () => {
       {
         key: TabsKeys.videoChat,
         label: 'Видеосвязь',
-        children: <VideoChat relationId={data?.relation?.id} />,
+        children: (
+          <VideoChat relationId={data?.relation?.id} meRole={data?.meRole} />
+        ),
         disabled: !data?.relation?.isActive || false,
       },
     ];
