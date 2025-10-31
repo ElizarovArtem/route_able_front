@@ -1,0 +1,39 @@
+@use '@/a.app/styles/variables';
+
+.lessonRoom {
+  position: relative;
+}
+
+.videoContainer {
+  flex: 1;
+  min-height: 320px;
+
+  & [class*='lk-button'], & [class*='lk-disconnect-button'], & [class*='lk-participant-metadata'] {
+    color: variables.$textColor1;
+  }
+
+  :global(.lk-room) {
+    height: 100%;
+  }
+
+  :global(.lk-layout-wrapper),
+  :global(.lk-video-conference) {
+    height: 100%;
+  }
+}
+
+.controlWrapper {
+  display: flex;
+  gap: variables.$spacingM;
+
+  .selector {
+    width: 250px;
+  }
+}
+
+.tips {
+  display: flex;
+  flex-direction: column;
+  gap: variables.$spacingM;
+}
+

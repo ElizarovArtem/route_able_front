@@ -15,6 +15,7 @@ import { Route as MenuImport } from './../routes/menu'
 import { Route as PrivateRouteImport } from './../routes/_private/route'
 import { Route as IndexImport } from './../routes/index'
 import { Route as PrivateLkImport } from './../routes/_private/lk'
+import { Route as PrivateAiLessonImport } from './../routes/_private/ai-lesson'
 import { Route as PrivateCoachCoachIdImport } from './../routes/_private/coach/$coachId'
 import { Route as PrivateClientClientIdImport } from './../routes/_private/client/$clientId'
 
@@ -40,6 +41,12 @@ const IndexRoute = IndexImport.update({
 const PrivateLkRoute = PrivateLkImport.update({
   id: '/lk',
   path: '/lk',
+  getParentRoute: () => PrivateRouteRoute,
+} as any)
+
+const PrivateAiLessonRoute = PrivateAiLessonImport.update({
+  id: '/ai-lesson',
+  path: '/ai-lesson',
   getParentRoute: () => PrivateRouteRoute,
 } as any)
 
@@ -80,6 +87,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MenuImport
       parentRoute: typeof rootRoute
     }
+    '/_private/ai-lesson': {
+      id: '/_private/ai-lesson'
+      path: '/ai-lesson'
+      fullPath: '/ai-lesson'
+      preLoaderRoute: typeof PrivateAiLessonImport
+      parentRoute: typeof PrivateRouteImport
+    }
     '/_private/lk': {
       id: '/_private/lk'
       path: '/lk'
@@ -107,12 +121,14 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 interface PrivateRouteRouteChildren {
+  PrivateAiLessonRoute: typeof PrivateAiLessonRoute
   PrivateLkRoute: typeof PrivateLkRoute
   PrivateClientClientIdRoute: typeof PrivateClientClientIdRoute
   PrivateCoachCoachIdRoute: typeof PrivateCoachCoachIdRoute
 }
 
 const PrivateRouteRouteChildren: PrivateRouteRouteChildren = {
+  PrivateAiLessonRoute: PrivateAiLessonRoute,
   PrivateLkRoute: PrivateLkRoute,
   PrivateClientClientIdRoute: PrivateClientClientIdRoute,
   PrivateCoachCoachIdRoute: PrivateCoachCoachIdRoute,
@@ -126,6 +142,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '': typeof PrivateRouteRouteWithChildren
   '/menu': typeof MenuRoute
+  '/ai-lesson': typeof PrivateAiLessonRoute
   '/lk': typeof PrivateLkRoute
   '/client/$clientId': typeof PrivateClientClientIdRoute
   '/coach/$coachId': typeof PrivateCoachCoachIdRoute
@@ -135,6 +152,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '': typeof PrivateRouteRouteWithChildren
   '/menu': typeof MenuRoute
+  '/ai-lesson': typeof PrivateAiLessonRoute
   '/lk': typeof PrivateLkRoute
   '/client/$clientId': typeof PrivateClientClientIdRoute
   '/coach/$coachId': typeof PrivateCoachCoachIdRoute
@@ -145,6 +163,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_private': typeof PrivateRouteRouteWithChildren
   '/menu': typeof MenuRoute
+  '/_private/ai-lesson': typeof PrivateAiLessonRoute
   '/_private/lk': typeof PrivateLkRoute
   '/_private/client/$clientId': typeof PrivateClientClientIdRoute
   '/_private/coach/$coachId': typeof PrivateCoachCoachIdRoute
@@ -156,16 +175,25 @@ export interface FileRouteTypes {
     | '/'
     | ''
     | '/menu'
+    | '/ai-lesson'
     | '/lk'
     | '/client/$clientId'
     | '/coach/$coachId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '' | '/menu' | '/lk' | '/client/$clientId' | '/coach/$coachId'
+  to:
+    | '/'
+    | ''
+    | '/menu'
+    | '/ai-lesson'
+    | '/lk'
+    | '/client/$clientId'
+    | '/coach/$coachId'
   id:
     | '__root__'
     | '/'
     | '/_private'
     | '/menu'
+    | '/_private/ai-lesson'
     | '/_private/lk'
     | '/_private/client/$clientId'
     | '/_private/coach/$coachId'
@@ -205,6 +233,7 @@ export const routeTree = rootRoute
     "/_private": {
       "filePath": "_private/route.tsx",
       "children": [
+        "/_private/ai-lesson",
         "/_private/lk",
         "/_private/client/$clientId",
         "/_private/coach/$coachId"
@@ -212,6 +241,10 @@ export const routeTree = rootRoute
     },
     "/menu": {
       "filePath": "menu.tsx"
+    },
+    "/_private/ai-lesson": {
+      "filePath": "_private/ai-lesson.tsx",
+      "parent": "/_private"
     },
     "/_private/lk": {
       "filePath": "_private/lk.tsx",
