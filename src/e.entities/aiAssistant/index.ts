@@ -1,7 +1,6 @@
 export { useGetAiAssistantToken } from './api';
 export {
   ExerciseMode,
-  getSquatTipsAdaptive,
   type PoseDetectionOptions,
   type SpeakOptions,
   speakText,

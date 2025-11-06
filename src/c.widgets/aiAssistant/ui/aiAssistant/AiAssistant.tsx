@@ -14,13 +14,13 @@ import React, {
 import { useGetAiAssistantToken } from '@/e.entities/aiAssistant';
 import {
   ExerciseMode,
-  getSquatTipsAdaptive,
   PoseOverlay,
   speakText,
   type Tip,
   usePoseDetectorController,
 } from '@/e.entities/aiAssistant';
-import { UiButton, UiInput, UiSelector } from '@/f.shared/ui';
+import { collectSquatTips } from '@/e.entities/aiAssistant/model/aiAssistant.tips.squat.ts';
+import { UiButton, UiSelector } from '@/f.shared/ui';
 
 import styles from './aiAssistant.module.scss';
 
@@ -42,21 +42,23 @@ export const AiAssistant = () => {
   const roomId = useMemo(() => `ai-assistant-${mode}`, [mode]);
   const { data: tokenPayload } = useGetAiAssistantToken(roomId);
 
-  const getTipsFunction = useMemo(() => {
-    switch (mode) {
-      case ExerciseMode.squat:
-        return getSquatTipsAdaptive;
-      default:
-        return () => [];
-    }
-  }, [mode]);
-
   const handlePoseDetected = useCallback(
-    (kps: Keypoint[]) => {
-      setKeypoints(kps);
-      setTips(getTipsFunction(kps));
+    (detectedKeypoints: Keypoint[]) => {
+      setKeypoints(detectedKeypoints);
+
+      let nextTips: Tip[] = [];
+
+      switch (mode) {
+        case ExerciseMode.squat:
+          nextTips = collectSquatTips(detectedKeypoints, 'side');
+          break;
+        default:
+          nextTips = [];
+      }
+
+      setTips(nextTips);
     },
-    [getTipsFunction],
+    [mode],
   );
 
   const { startDetector, stopDetector } = usePoseDetectorController(
@@ -128,6 +130,7 @@ export const AiAssistant = () => {
           {start ? 'Закончить' : 'Начать'}
         </UiButton>
       </div>
+
       {tokenPayload && (
         <div className={styles.lessonRoom}>
           <div className={styles.videoContainer}>
@@ -141,7 +144,9 @@ export const AiAssistant = () => {
               <VideoConference />
             </LiveKitRoom>
           </div>
+
           <PoseOverlay video={videoRef.current} keypoints={keypoints} />
+
           <div className={styles.tips}>
             {textTips.map((tip, index) => (
               <div key={tip.text + index}>{tip.text}</div>

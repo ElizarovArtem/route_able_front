@@ -21,41 +21,6 @@ function isVideoReady(video: HTMLVideoElement) {
   );
 }
 
-async function waitForVideoReady(
-  getVideo: () => HTMLVideoElement | null,
-  timeoutMs = 4000,
-) {
-  const start = performance.now();
-  // ждём появления самого элемента
-  while (!getVideo()) {
-    if (performance.now() - start > timeoutMs) return false;
-    await new Promise((r) => setTimeout(r, 40));
-  }
-  // ждём метаданных/размеров/плей
-  while (true) {
-    const video = getVideo();
-    if (!video) break;
-    if (video.readyState < HTMLMediaElement.HAVE_METADATA) {
-      await new Promise<void>((resolve) =>
-        video.addEventListener('loadedmetadata', () => resolve(), {
-          once: true,
-        }),
-      );
-    }
-    if (video.paused) {
-      try {
-        await video.play();
-      } catch {
-        /* ignore */
-      }
-    }
-    if (isVideoReady(video)) return true;
-    if (performance.now() - start > timeoutMs) return false;
-    await new Promise((r) => setTimeout(r, 40));
-  }
-  return false;
-}
-
 let tfReadyOnce: Promise<void> | null = null;
 async function ensureTfBackendReady() {
   if (!tfReadyOnce) {

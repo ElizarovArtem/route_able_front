@@ -1,4 +1,4 @@
-export type Tip = { severity: 'info' | 'warn' | 'error'; text: string };
+import type { Keypoint } from '@tensorflow-models/pose-detection';
 
 export type PoseDetectionOptions = {
   targetFps?: number; // 10–20 достаточно
@@ -21,3 +21,23 @@ export type SpeakOptions = {
 export enum ExerciseMode {
   squat = 'squat',
 }
+
+export type SquatView = 'side' | 'front';
+
+export type TipSeverity = 'info' | 'warn' | 'error' | 'success';
+
+export type Tip = {
+  severity: TipSeverity;
+  text: string;
+};
+
+export type TipContext = {
+  keypoints: Keypoint[];
+  view: SquatView;
+};
+
+export type ParallelCheckResult = {
+  reached: boolean; // дошёл до параллели
+  confidence: number; // 0..1 насколько мы уверены
+  reason?: string; // почему нет
+};
