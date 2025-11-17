@@ -3,7 +3,6 @@ import type { SpeakOptions } from './aiAssistant.model.ts';
 /** Голосовой воспроизводитель */
 
 const lastSaidUntilByKey = new Map<string, number>();
-let isMuted = false;
 
 /** Нормализуем текст для сравнения и ключей кулдауна */
 function normalizeText(text: string): string {
@@ -42,18 +41,10 @@ export function ensureVoicesLoaded(): Promise<void> {
   });
 }
 
-export function setMuted(muted: boolean) {
-  isMuted = muted;
-}
-
-export function clearCooldowns() {
-  lastSaidUntilByKey.clear();
-}
-
 /** Основная функция озвучки с антиспамом и опциями */
 export async function speakText(text: string, options: SpeakOptions = {}) {
   if (!('speechSynthesis' in window)) return;
-  if (!text || isMuted) return;
+  if (!text) return;
 
   await ensureVoicesLoaded();
 

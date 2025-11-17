@@ -11,27 +11,33 @@ import React, {
   useState,
 } from 'react';
 
-import { useGetAiAssistantToken } from '@/e.entities/aiAssistant';
 import {
   ExerciseMode,
   PoseOverlay,
+  RepPhase,
   speakText,
+  SquatRepTracker,
   type Tip,
+  useGetAiAssistantToken,
   usePoseDetectorController,
 } from '@/e.entities/aiAssistant';
-import { collectSquatTips } from '@/e.entities/aiAssistant/model/aiAssistant.tips.squat.ts';
+import { getTracker } from '@/e.entities/aiAssistant/model/tips/aiAssistant.tips.ts';
 import { UiButton, UiSelector } from '@/f.shared/ui';
 
 import styles from './aiAssistant.module.scss';
 
 const MODE_OPTIONS: DefaultOptionType[] = [
-  { value: ExerciseMode.squat, label: 'Приседания' },
+  { value: ExerciseMode.squatFront, label: 'Приседания - Вид спереди' },
+  { value: ExerciseMode.squatSide, label: 'Приседания - Вид сбоку' },
 ];
 
 export const AiAssistant = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const trackerRef = useRef<SquatRepTracker | null>(null);
+  const lastPhaseRef = useRef<RepPhase>(RepPhase.Standing);
 
   const [mode, setMode] = useState<ExerciseMode>();
+
   const [keypoints, setKeypoints] = useState<Keypoint[]>([]);
   const [tips, setTips] = useState<Tip[]>([]);
   const [textTips, setTextTips] = useState<Tip[]>([]);
@@ -40,26 +46,31 @@ export const AiAssistant = () => {
   const [start, setStart] = useState(false);
 
   const roomId = useMemo(() => `ai-assistant-${mode}`, [mode]);
+
   const { data: tokenPayload } = useGetAiAssistantToken(roomId);
 
-  const handlePoseDetected = useCallback(
-    (detectedKeypoints: Keypoint[]) => {
-      setKeypoints(detectedKeypoints);
+  const handlePoseDetected = useCallback((keypoints: Keypoint[]) => {
+    const tracker = trackerRef.current!;
+    const result = tracker.update(keypoints);
 
-      let nextTips: Tip[] = [];
+    if (result.event === 'praise') {
+      setTips([
+        { severity: 'success', text: 'Отличный повтор! Всё по технике ✅' },
+      ]);
+      lastPhaseRef.current = result.phase;
+      return;
+    }
 
-      switch (mode) {
-        case ExerciseMode.squat:
-          nextTips = collectSquatTips(detectedKeypoints, 'side');
-          break;
-        default:
-          nextTips = [];
-      }
+    // Если просто фаза сменилась — можно логировать/подсветить фазу
+    if (result.event === 'phase-change') {
+      // console.log('phase:', result.phase);
+    }
 
-      setTips(nextTips);
-    },
-    [mode],
-  );
+    setTips(result.tips);
+    setKeypoints(keypoints);
+
+    lastPhaseRef.current = result.phase;
+  }, []);
 
   const { startDetector, stopDetector } = usePoseDetectorController(
     videoRef,
@@ -71,6 +82,7 @@ export const AiAssistant = () => {
       setStart(true);
     } else {
       await stopDetector();
+      trackerRef.current?.reset();
       setStart(false);
       setKeypoints([]);
     }
@@ -112,6 +124,12 @@ export const AiAssistant = () => {
   }, [tips]);
 
   useEffect(() => {
+    trackerRef.current = getTracker(mode);
+    lastPhaseRef.current = RepPhase.Standing;
+    setTips([]);
+  }, [mode]);
+
+  useEffect(() => {
     if (start && hasVideo) {
       startDetector();
     }
@@ -126,7 +144,7 @@ export const AiAssistant = () => {
           onChange={setMode}
           placeholder="Выберите упражнение"
         />
-        <UiButton onClick={() => toggleStart(!start)}>
+        <UiButton disabled={!mode} onClick={() => toggleStart(!start)}>
           {start ? 'Закончить' : 'Начать'}
         </UiButton>
       </div>
