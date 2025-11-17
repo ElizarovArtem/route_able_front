@@ -1,13 +1,13 @@
 import {
+  type ProviderTip,
   RepPhase,
-  type Tip,
   type TipContext,
 } from '../aiAssistant.tips.squat.types.ts';
 
 const TARGET = 100; // параллель
 const SOFT = 5;
 
-export function parallelSideProvider(context: TipContext): Tip[] {
+export function parallelSideProvider(context: TipContext): ProviderTip[] {
   if (context.view !== 'side') return [];
   if (
     !(context.phase === RepPhase.Ascending && context.isFirstFrameInAscending)

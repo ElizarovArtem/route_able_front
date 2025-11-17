@@ -9,6 +9,7 @@ import {
   type CameraView,
   type FrameMetrics,
   type FrontTrendState,
+  type ProviderTip,
   RepPhase,
   type SideTrendState,
   type Thresholds,
@@ -35,6 +36,9 @@ export class SquatRepTracker {
   private hadIssuesInThisRep = false;
   private reachedParallelThisRep = false;
 
+  private completedReps = 0;
+  private activeRepNumber: number | null = null;
+
   private lastTipAtByText = new Map<string, number>();
   private lastPraiseAt = 0;
 
@@ -51,14 +55,11 @@ export class SquatRepTracker {
     // фазы
     this.prevPhase = RepPhase.Standing;
     this.currentPhase = RepPhase.Standing;
-
-    // флаги текущего повтора
+    this.completedReps = 0;
+    this.activeRepNumber = null;
     this.hadIssuesInThisRep = false;
     this.reachedParallelThisRep = false;
 
-    // тренд-состояния (EMA, предыдущее значение, экстремум)
-    // если ты уже используешь sideState/frontState — обнуляем их:
-    // (если ещё держишь старые поля emaSide/prevAngle — обнули и их)
     this.sideState = { emaAngle: null, prevAngle: null, repMinKneeAngle: null };
     this.frontState = {
       emaDepth: null,
@@ -168,6 +169,16 @@ export class SquatRepTracker {
     this.prevPhase = prevPhase;
     this.currentPhase = nextPhase;
 
+    const startedRepNow =
+      prevPhase === RepPhase.Standing &&
+      (this.currentPhase === RepPhase.Descending ||
+        this.currentPhase === RepPhase.Bottom ||
+        this.currentPhase === RepPhase.Ascending);
+
+    if (startedRepNow && this.activeRepNumber == null) {
+      this.activeRepNumber = this.completedReps + 1;
+    }
+
     if (frameMetrics.view === 'side') {
       const minAngle = frameMetrics.repMinKneeAngle;
       if (
@@ -191,9 +202,13 @@ export class SquatRepTracker {
       const shouldPraise =
         this.reachedParallelThisRep && !this.hadIssuesInThisRep;
 
+      const repNumber = this.activeRepNumber ?? this.completedReps + 1;
+
       // сброс под следующий повтор
       this.hadIssuesInThisRep = false;
       this.reachedParallelThisRep = false;
+      this.activeRepNumber = null;
+      this.completedReps += 1;
 
       if (shouldPraise) {
         const now = Date.now();
@@ -204,6 +219,7 @@ export class SquatRepTracker {
             tips: [],
             event: 'praise',
             praise: 'Отличный повтор! Всё по технике ✅',
+            rep: repNumber,
           };
         }
       }
@@ -239,7 +255,11 @@ export class SquatRepTracker {
       this.hadIssuesInThisRep = true;
     }
 
-    const tips = this.applyTipsCooldown(rawTips);
+    const cooledTips = this.applyTipsCooldown(rawTips);
+
+    const repForTips: number = this.activeRepNumber ?? this.completedReps + 1;
+
+    const tips: Tip[] = cooledTips.map((tip) => ({ ...tip, rep: repForTips }));
 
     return {
       phase: this.currentPhase,
@@ -250,10 +270,10 @@ export class SquatRepTracker {
 
   // =============== Подсказчики и антиспам ===============
 
-  private runTipProviders(context: TipContext): Tip[] {
+  private runTipProviders(context: TipContext): ProviderTip[] {
     // В Standing подсказки не считаем (страховка)
     if (context.phase === RepPhase.Standing) return [];
-    let tips: Tip[] = [];
+    let tips: ProviderTip[] = [];
     for (const provider of this.tipProviders) {
       const got = provider(context) ?? [];
       if (got.length) tips = tips.concat(got);
@@ -261,9 +281,9 @@ export class SquatRepTracker {
     return tips;
   }
 
-  private applyTipsCooldown(tips: Tip[]): Tip[] {
+  private applyTipsCooldown(tips: ProviderTip[]): ProviderTip[] {
     const now = Date.now();
-    const result: Tip[] = [];
+    const result: ProviderTip[] = [];
     for (const tip of tips) {
       const lastAt = this.lastTipAtByText.get(tip.text) ?? 0;
       if (now - lastAt >= this.thresholds.tipsGlobalCooldownMs) {

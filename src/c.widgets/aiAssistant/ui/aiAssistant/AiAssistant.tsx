@@ -13,6 +13,7 @@ import React, {
 
 import {
   ExerciseMode,
+  getTracker,
   PoseOverlay,
   RepPhase,
   speakText,
@@ -21,7 +22,6 @@ import {
   useGetAiAssistantToken,
   usePoseDetectorController,
 } from '@/e.entities/aiAssistant';
-import { getTracker } from '@/e.entities/aiAssistant/model/tips/aiAssistant.tips.ts';
 import { UiButton, UiSelector } from '@/f.shared/ui';
 
 import styles from './aiAssistant.module.scss';
@@ -55,7 +55,11 @@ export const AiAssistant = () => {
 
     if (result.event === 'praise') {
       setTips([
-        { severity: 'success', text: 'Отличный повтор! Всё по технике ✅' },
+        {
+          severity: 'success',
+          text: 'Отличный повтор! Всё по технике ✅',
+          rep: result.rep,
+        },
       ]);
       lastPhaseRef.current = result.phase;
       return;
@@ -80,11 +84,13 @@ export const AiAssistant = () => {
   const toggleStart = async (value: boolean) => {
     if (value) {
       setStart(true);
+      setTextTips([]);
     } else {
       await stopDetector();
       trackerRef.current?.reset();
       setStart(false);
       setKeypoints([]);
+      setTips([]);
     }
   };
 
@@ -127,6 +133,7 @@ export const AiAssistant = () => {
     trackerRef.current = getTracker(mode);
     lastPhaseRef.current = RepPhase.Standing;
     setTips([]);
+    setTextTips([]);
   }, [mode]);
 
   useEffect(() => {
@@ -167,7 +174,9 @@ export const AiAssistant = () => {
 
           <div className={styles.tips}>
             {textTips.map((tip, index) => (
-              <div key={tip.text + index}>{tip.text}</div>
+              <div key={tip.text + index}>
+                Повтор {tip.rep}: {tip.text}
+              </div>
             ))}
           </div>
         </div>

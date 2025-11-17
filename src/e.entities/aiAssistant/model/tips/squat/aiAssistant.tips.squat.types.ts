@@ -4,9 +4,10 @@ export type CameraView = 'side' | 'front';
 
 export type TipSeverity = 'info' | 'warn' | 'error' | 'success';
 
-export type Tip = { severity: TipSeverity; text: string; angle?: number };
+export type Tip = { severity: TipSeverity; text: string; rep: number };
+export type ProviderTip = Omit<Tip, 'rep'>;
 
-export type TipProvider = (context: TipContext) => Tip[];
+export type TipProvider = (context: TipContext) => ProviderTip[];
 
 export type TipContext = {
   keypoints: Keypoint[];
@@ -27,14 +28,15 @@ export enum RepPhase {
 export type TrackerUpdateResult =
   | {
       phase: RepPhase;
-      tips: Tip[]; // подсказки для UI/озвучки на этот кадр
+      tips: Tip[];
       event: 'none' | 'phase-change';
     }
   | {
       phase: RepPhase;
-      tips: Tip[]; // вместе с похвалой вернём пустые или ваши «финальные» подсказки
+      tips: Tip[];
       event: 'praise';
-      praise: string; // «Отличный повтор!»
+      praise: string;
+      rep: number;
     };
 
 export type Thresholds = {

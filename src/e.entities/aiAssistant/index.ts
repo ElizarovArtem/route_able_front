@@ -1,6 +1,7 @@
 export { useGetAiAssistantToken } from './api';
 export {
   ExerciseMode,
+  getTracker,
   parallelFrontProvider,
   parallelSideProvider,
   type PoseDetectionOptions,
