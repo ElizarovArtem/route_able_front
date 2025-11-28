@@ -11,7 +11,6 @@
 // Import Routes
 
 import { Route as rootRoute } from './../routes/__root'
-import { Route as MenuImport } from './../routes/menu'
 import { Route as PrivateRouteImport } from './../routes/_private/route'
 import { Route as IndexImport } from './../routes/index'
 import { Route as PrivateLkImport } from './../routes/_private/lk'
@@ -20,12 +19,6 @@ import { Route as PrivateCoachCoachIdImport } from './../routes/_private/coach/$
 import { Route as PrivateClientClientIdImport } from './../routes/_private/client/$clientId'
 
 // Create/Update Routes
-
-const MenuRoute = MenuImport.update({
-  id: '/menu',
-  path: '/menu',
-  getParentRoute: () => rootRoute,
-} as any)
 
 const PrivateRouteRoute = PrivateRouteImport.update({
   id: '/_private',
@@ -78,13 +71,6 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: ''
       preLoaderRoute: typeof PrivateRouteImport
-      parentRoute: typeof rootRoute
-    }
-    '/menu': {
-      id: '/menu'
-      path: '/menu'
-      fullPath: '/menu'
-      preLoaderRoute: typeof MenuImport
       parentRoute: typeof rootRoute
     }
     '/_private/ai-lesson': {
@@ -141,7 +127,6 @@ const PrivateRouteRouteWithChildren = PrivateRouteRoute._addFileChildren(
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '': typeof PrivateRouteRouteWithChildren
-  '/menu': typeof MenuRoute
   '/ai-lesson': typeof PrivateAiLessonRoute
   '/lk': typeof PrivateLkRoute
   '/client/$clientId': typeof PrivateClientClientIdRoute
@@ -151,7 +136,6 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '': typeof PrivateRouteRouteWithChildren
-  '/menu': typeof MenuRoute
   '/ai-lesson': typeof PrivateAiLessonRoute
   '/lk': typeof PrivateLkRoute
   '/client/$clientId': typeof PrivateClientClientIdRoute
@@ -162,7 +146,6 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/_private': typeof PrivateRouteRouteWithChildren
-  '/menu': typeof MenuRoute
   '/_private/ai-lesson': typeof PrivateAiLessonRoute
   '/_private/lk': typeof PrivateLkRoute
   '/_private/client/$clientId': typeof PrivateClientClientIdRoute
@@ -174,25 +157,16 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | ''
-    | '/menu'
     | '/ai-lesson'
     | '/lk'
     | '/client/$clientId'
     | '/coach/$coachId'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | ''
-    | '/menu'
-    | '/ai-lesson'
-    | '/lk'
-    | '/client/$clientId'
-    | '/coach/$coachId'
+  to: '/' | '' | '/ai-lesson' | '/lk' | '/client/$clientId' | '/coach/$coachId'
   id:
     | '__root__'
     | '/'
     | '/_private'
-    | '/menu'
     | '/_private/ai-lesson'
     | '/_private/lk'
     | '/_private/client/$clientId'
@@ -203,13 +177,11 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   PrivateRouteRoute: typeof PrivateRouteRouteWithChildren
-  MenuRoute: typeof MenuRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   PrivateRouteRoute: PrivateRouteRouteWithChildren,
-  MenuRoute: MenuRoute,
 }
 
 export const routeTree = rootRoute
@@ -223,8 +195,7 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/_private",
-        "/menu"
+        "/_private"
       ]
     },
     "/": {
@@ -238,9 +209,6 @@ export const routeTree = rootRoute
         "/_private/client/$clientId",
         "/_private/coach/$coachId"
       ]
-    },
-    "/menu": {
-      "filePath": "menu.tsx"
     },
     "/_private/ai-lesson": {
       "filePath": "_private/ai-lesson.tsx",

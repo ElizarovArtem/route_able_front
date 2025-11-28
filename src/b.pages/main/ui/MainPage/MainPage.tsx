@@ -1,4 +1,3 @@
-import { useNavigate } from '@tanstack/react-router';
 import React from 'react';
 
 import { CoachesList } from '@/c.widgets/user';
@@ -10,16 +9,11 @@ import { UiButton } from '@/f.shared/ui';
 import styles from './MainPage.module.scss';
 
 export const MainPage = () => {
-  const navigation = useNavigate();
   const { setIsAuthModalOpen } = useSelector(authSelector);
   const { user } = useSelector(userSelector);
 
   const onStartClick = () => {
-    if (user) {
-      navigation({ to: '/menu' });
-    } else {
-      setIsAuthModalOpen(true);
-    }
+    setIsAuthModalOpen(true);
   };
 
   return (
