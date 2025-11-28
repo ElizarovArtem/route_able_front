@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React, { type ReactNode } from 'react';
 
-import styles from './uiCard.module.scss';
+import styles from './UiCard.module.scss';
 
 type UiCardProps = React.HTMLAttributes<HTMLDivElement> & {
   children?: ReactNode;
