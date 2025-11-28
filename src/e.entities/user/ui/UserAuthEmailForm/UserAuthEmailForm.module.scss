@@ -1,0 +1,12 @@
+@use '@/a.app/styles/variables';
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.buttonWrapper {
+  display: flex;
+  justify-content: flex-end;
+}

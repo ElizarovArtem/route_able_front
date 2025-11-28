@@ -22,7 +22,8 @@ import {
   useGetAiAssistantToken,
   usePoseDetectorController,
 } from '@/e.entities/aiAssistant';
-import { UiButton, UiSelector } from '@/f.shared/ui';
+import { UiButton, UiCard, UiSelector } from '@/f.shared/ui';
+import { UiSwitch } from '@/f.shared/ui/UiSwitch/UiSwitch.tsx';
 
 import styles from './aiAssistant.module.scss';
 
@@ -42,6 +43,7 @@ export const AiAssistant = () => {
   const [tips, setTips] = useState<Tip[]>([]);
   const [textTips, setTextTips] = useState<Tip[]>([]);
   const [hasVideo, setHasVideo] = useState(false);
+  const [needVoiceHelper, setNeedVoiceHelper] = useState(false);
 
   const [start, setStart] = useState(false);
 
@@ -94,6 +96,9 @@ export const AiAssistant = () => {
     }
   };
 
+  const onChangeNeedVoiceHelper = (checked: boolean) =>
+    setNeedVoiceHelper(checked);
+
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
@@ -126,7 +131,10 @@ export const AiAssistant = () => {
 
   useEffect(() => {
     setTextTips((prevState) => [...prevState, ...tips]);
-    tips.forEach((tip) => speakText(tip.text));
+
+    if (needVoiceHelper) {
+      tips.forEach((tip) => speakText(tip.text));
+    }
   }, [tips]);
 
   useEffect(() => {
@@ -143,8 +151,8 @@ export const AiAssistant = () => {
   }, [start, hasVideo, startDetector]);
 
   return (
-    <div>
-      <div className={styles.controlWrapper}>
+    <div className={styles.aiAssistantWrapper}>
+      <UiCard className={styles.controlWrapper}>
         <UiSelector
           className={styles.selector}
           options={MODE_OPTIONS}
@@ -154,11 +162,16 @@ export const AiAssistant = () => {
         <UiButton disabled={!mode} onClick={() => toggleStart(!start)}>
           {start ? 'Закончить' : 'Начать'}
         </UiButton>
-      </div>
+        <UiSwitch
+          label="Включить голосовые подсказки"
+          checked={needVoiceHelper}
+          onChange={onChangeNeedVoiceHelper}
+        />
+      </UiCard>
 
-      {tokenPayload && (
+      {tokenPayload && start && (
         <div className={styles.lessonRoom}>
-          <div className={styles.videoContainer}>
+          <UiCard className={styles.videoContainer}>
             <LiveKitRoom
               video
               audio
@@ -168,17 +181,19 @@ export const AiAssistant = () => {
             >
               <VideoConference />
             </LiveKitRoom>
-          </div>
+          </UiCard>
 
           <PoseOverlay video={videoRef.current} keypoints={keypoints} />
 
-          <div className={styles.tips}>
-            {textTips.map((tip, index) => (
-              <div key={tip.text + index}>
-                Повтор {tip.rep}: {tip.text}
-              </div>
-            ))}
-          </div>
+          {textTips.length > 0 && (
+            <UiCard className={styles.tips}>
+              {textTips.map((tip, index) => (
+                <UiCard key={tip.text + index} inverse>
+                  Повтор {tip.rep}: {tip.text}
+                </UiCard>
+              ))}
+            </UiCard>
+          )}
         </div>
       )}
     </div>

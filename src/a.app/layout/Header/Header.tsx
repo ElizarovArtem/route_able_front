@@ -5,7 +5,7 @@ import React from 'react';
 import { authSelector } from '@/d.features/user';
 import { userSelector } from '@/e.entities/user';
 import { useSelector } from '@/f.shared/lib';
-import { UiButton } from '@/f.shared/ui';
+import { UiButton, UiTypography } from '@/f.shared/ui';
 
 import styles from './Header.module.scss';
 
@@ -23,13 +23,23 @@ export const Header = () => {
 
   return (
     <div className={styles.header}>
-      <Link to="/">
-        <div className={styles.logo}>Route•able</div>
-      </Link>
+      <div className={styles.linksAndLogoWrapper}>
+        <Link to="/">
+          <div className={styles.logo}>Route•able</div>
+        </Link>
+        <div className={styles.linksWrapper}>
+          <Link to="/lk">
+            <UiTypography>Личный кабинет</UiTypography>
+          </Link>
+          <Link to="/ai-lesson">
+            <UiTypography>ИИ-ассистент</UiTypography>
+          </Link>
+        </div>
+      </div>
       <div className={styles.menu}>
         {user ? (
           <>
-            {user.name || user.phone}{' '}
+            <UiTypography bold>{user.name || user.phone}</UiTypography>{' '}
             <UiButton onClick={onLogout}>Выйти</UiButton>
           </>
         ) : (

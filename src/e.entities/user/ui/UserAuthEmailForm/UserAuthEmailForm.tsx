@@ -1,25 +1,25 @@
 import React from 'react';
-import type { Control } from 'react-hook-form';
+import { type Control } from 'react-hook-form';
 
 import { FormInput, UiButton } from '@/f.shared/ui';
 
-import styles from './UserAuthPhoneForm.module.scss';
+import styles from './UserAuthEmailForm.module.scss';
 
 type TPhoneFormProps = {
   control: Control;
   onGetCodeClick: () => void;
 };
 
-export const UserAuthPhoneForm = ({
+export const UserAuthEmailForm = ({
   control,
   onGetCodeClick,
 }: TPhoneFormProps) => {
   return (
     <div className={styles.content}>
       <FormInput
-        name="phone"
+        name="email"
         control={control}
-        placeholder="Введите номер"
+        placeholder="Введите электронную почту"
         size="large"
       />
       <div className={styles.buttonWrapper}>

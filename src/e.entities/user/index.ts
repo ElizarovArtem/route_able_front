@@ -10,4 +10,9 @@ export {
   type TUserStore,
   userSelector,
 } from './model/user.store.ts';
-export { UserAuthCodeForm, UserAuthPhoneForm, UserInfoItem } from './ui';
+export {
+  UserAuthCodeForm,
+  UserAuthEmailForm,
+  UserAuthPhoneForm,
+  UserInfoItem,
+} from './ui';

@@ -13,8 +13,13 @@ type TAuthState = {
 };
 
 type TAuthActions = {
-  requestCode: (phone: string) => Promise<void>;
-  login: (code: string, phone: string) => Promise<void>;
+  requestCodeByPhone: (phone: string) => Promise<void>;
+  requestCodeByEmail: (phone: string) => Promise<void>;
+  login: (data: {
+    phone?: string;
+    email?: string;
+    code: string;
+  }) => Promise<void>;
   logout: () => Promise<void>;
   setIsAuthModalOpen: (isAuthModalOpen: boolean) => void;
   checkAuth: () => Promise<void>;
@@ -35,22 +40,25 @@ export const createAuthSlice: StateCreator<TRootStore, [], [], TAuthStore> = (
     setState({ isAuthModalOpen });
   },
 
-  requestCode: async (phone) => {
+  requestCodeByPhone: async (phone) => {
     await api.post('/auth/request-code', { phone }, { withCredentials: true });
   },
 
-  login: async (code: string, phone) => {
-    const user = await api.post<
-      { phone: string; code: string },
-      AxiosResponse<{ user: User }>
-    >(
-      '/auth/login',
-      {
-        phone,
-        code,
-      },
+  requestCodeByEmail: async (email) => {
+    await api.post(
+      '/auth/request-code-email',
+      { email },
       { withCredentials: true },
     );
+  },
+
+  login: async (data) => {
+    const loginUrl = data.email ? '/auth/login-by-email' : '/auth/login';
+
+    const user = await api.post<
+      { phone?: string; email?: string; code: string },
+      AxiosResponse<{ user: User }>
+    >(loginUrl, data, { withCredentials: true });
 
     getState().setUser(user.data.user);
   },
@@ -77,7 +85,8 @@ export const authSelector = (store: TRootStore) => ({
   isAuthModalOpen: store.isAuthModalOpen,
   isInitialized: store.isInitialized,
   setIsAuthModalOpen: store.setIsAuthModalOpen,
-  requestCode: store.requestCode,
+  requestCodeByPhone: store.requestCodeByPhone,
+  requestCodeByEmail: store.requestCodeByEmail,
   login: store.login,
   logout: store.logout,
   checkAuth: store.checkAuth,

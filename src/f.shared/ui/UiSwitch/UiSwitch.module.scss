@@ -1,0 +1,12 @@
+@use '@/a.app/styles/variables';
+
+.uiSwitch {
+  display: flex;
+  gap: variables.$spacingS;
+  align-items: center;
+
+  & [class*='ant-switch'][class*='ant-switch-checked'], & [class*='ant-switch'][class*='ant-switch-checked']:hover {
+    background: variables.$accentColor1;
+  }
+}
+

@@ -1,15 +1,27 @@
 @use '@/a.app/styles/variables';
 
+.aiAssistantWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: variables.$spacingM;
+}
+
 .lessonRoom {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: variables.$spacingM;
 }
 
 .videoContainer {
   flex: 1;
-  min-height: 320px;
 
   & [class*='lk-button'], & [class*='lk-disconnect-button'], & [class*='lk-participant-metadata'] {
     color: variables.$textColor1;
+  }
+
+  & [class*='lk-control-bar'] {
+    display: none;
   }
 
   :global(.lk-room) {
@@ -24,6 +36,7 @@
 
 .controlWrapper {
   display: flex;
+  align-items: center;
   gap: variables.$spacingM;
 
   .selector {
