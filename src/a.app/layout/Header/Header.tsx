@@ -39,9 +39,7 @@ export const Header = () => {
       <div className={styles.menu}>
         {user ? (
           <>
-            <UiTypography bold>
-              {user.name || user.email || user.phone}
-            </UiTypography>{' '}
+            <UiTypography bold>{user.name || user.email}</UiTypography>{' '}
             <UiButton onClick={onLogout}>Выйти</UiButton>
           </>
         ) : (
