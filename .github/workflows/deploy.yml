@@ -1,20 +1,24 @@
-name: Deploy frontend to dev & prod
+name: Deploy frontend (dev & prod)
 
 on:
-  push:
-    branches:
-      - dev
-      - master
+  workflow_run:
+    workflows: ["CI frontend build"]  # имя CI-воркфлоу
+    types:
+      - completed
 
 jobs:
   deploy:
+    # запускать только если CI прошёл успешно и это dev или master
+    if: ${{ github.event.workflow_run.conclusion == 'success' && (github.event.workflow_run.head_branch == 'dev' || github.event.workflow_run.head_branch == 'master') }}
     runs-on: ubuntu-latest
 
     steps:
       - name: Select environment
         id: vars
         run: |
-          if [ "${GITHUB_REF##*/}" = "dev" ]; then
+          BRANCH="${{ github.event.workflow_run.head_branch }}"
+
+          if [ "$BRANCH" = "dev" ]; then
             echo "env_name=dev" >> $GITHUB_OUTPUT
             echo "app_dir=/srv/app-dev" >> $GITHUB_OUTPUT
             echo "branch=dev" >> $GITHUB_OUTPUT
@@ -31,7 +35,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            echo "Deploying frontend to ${{ steps.vars.outputs.env_name }}"
+            echo "Deploying frontend to ${{ steps.vars.outputs.env_name }} from branch ${{ steps.vars.outputs.branch }}"
 
             cd ${{ steps.vars.outputs.app_dir }}/frontend
             git fetch origin
