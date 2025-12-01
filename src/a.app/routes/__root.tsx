@@ -20,7 +20,7 @@ export const Route = createRootRoute({
           <div className="prod-mock">
             <UiTypography bold size="large">
               Здесь будет <span style={{ color: '#22C8A7' }}>Route Able</span> -
-              приложение для посетителей тренажерного зала
+              приложение для лучшего тренировочного опыта в тренажерном зале
             </UiTypography>
           </div>
         ) : (
