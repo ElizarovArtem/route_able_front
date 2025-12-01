@@ -6,6 +6,7 @@ import React from 'react';
 
 import { Header } from '@/a.app/layout/Header';
 import { AuthModal, CheckAuth } from '@/d.features/user';
+import { UiTypography } from '@/f.shared/ui';
 
 import { Layout } from '../layout/Layout';
 
@@ -15,10 +16,19 @@ export const Route = createRootRoute({
   component: () => (
     <>
       <QueryClientProvider client={queryClient}>
-        <Layout>
-          <Header />
-          <Outlet />
-        </Layout>
+        {import.meta.env.NODE_ENV === 'production' ? (
+          <div className="prod-mock">
+            <UiTypography bold size="large">
+              Здесь будет <span style={{ color: '#22C8A7' }}>Route Able</span> -
+              приложение для посетителей тренажерного зала
+            </UiTypography>
+          </div>
+        ) : (
+          <Layout>
+            <Header />
+            <Outlet />
+          </Layout>
+        )}
 
         <CheckAuth />
         <AuthModal />
