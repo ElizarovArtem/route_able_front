@@ -16,11 +16,11 @@ export const Route = createRootRoute({
   component: () => (
     <>
       <QueryClientProvider client={queryClient}>
-        {import.meta.env.NODE_ENV === 'production' ? (
+        {import.meta.env.VITE_NODE_ENV === 'production' ? (
           <div className="prod-mock">
             <UiTypography bold size="large">
               Здесь будет <span style={{ color: '#22C8A7' }}>Route Able</span> -
-              приложение для посетителей тренажерного зала
+              приложение для лучшего тренировочного опыта в тренажерном зале
             </UiTypography>
           </div>
         ) : (
