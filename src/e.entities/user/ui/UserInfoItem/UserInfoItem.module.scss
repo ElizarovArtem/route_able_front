@@ -4,14 +4,13 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: variables.$spacingXS;
-  background: variables.$backgroundColor2;
-  box-shadow: variables.$boxShadow;
-  padding: variables.$spacingXS;
-  border-radius: variables.$borderRadius;
+  gap: var(--spacing-xs);
+  background: var(--background-color-2);
+  padding: var(--spacing-xs);
+  border-radius: var(--border-radius);
 
   &Title {
-    color: variables.$textColor2;
+    color: var(--text-color-2);
     font-weight: bold;
   }
 }

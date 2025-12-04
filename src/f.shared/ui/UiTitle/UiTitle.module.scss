@@ -2,7 +2,7 @@
 
 .uiTitle {
   font-weight: bold;
-  color: variables.$textColor1;
+  color: var(--text-color-1);
 
   &_s {
     font-size: 12px;

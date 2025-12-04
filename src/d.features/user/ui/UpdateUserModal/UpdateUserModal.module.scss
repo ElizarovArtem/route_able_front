@@ -3,5 +3,5 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: variables.$spacingS;
+  gap: var(--spacing-s);
 }

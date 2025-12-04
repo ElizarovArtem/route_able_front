@@ -3,19 +3,19 @@
 .coachCard {
   cursor: pointer;
   transition: 0.2s;
-  border-radius: variables.$borderRadius;
-  padding: variables.$spacingXS;
+  border-radius: var(--border-radius);
+  padding: var(--spacing-xs);
 
   &:hover {
-    background: variables.$backgroundColor2;
+    background: var(--background-color-2);
   }
 
   &:not(:last-child) {
-    border-bottom: 1px solid variables.$backgroundColor1;
+    border-bottom: 1px solid var(--background-color-1);
   }
 }
 
 .coachCardLink {
   text-decoration: none;
-  color: variables.$textColor1;
+  color: var(--text-color-1);
 }

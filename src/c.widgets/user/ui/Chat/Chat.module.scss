@@ -3,15 +3,15 @@
 .chatWrapper {
   display: flex;
   flex-direction: column;
-  gap: variables.$spacingS;
-  padding: variables.$spacingS;
+  gap: var(--spacing-s);
+  padding: var(--spacing-s);
 }
 
 .messages {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  gap: variables.$spacingS;
+  gap: var(--spacing-s);
   height: 40vh;
   overflow-y: scroll;
 
@@ -21,7 +21,7 @@
   }
 
   &::-webkit-scrollbar-thumb {
-    border-radius: variables.$borderRadius;
-    background: variables.$accentColor1;
+    border-radius: var(--border-radius);
+    background: var(--accent-color-1);
   }
 }

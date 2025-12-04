@@ -1,9 +1,9 @@
 @use  '@/a.app/styles/variables';
 
 .connectionsWrapper {
-  background: variables.$backgroundColor1;
-  border: 1px solid variables.$borderColor;
-  border-radius: variables.$borderRadius;
-  box-shadow: variables.$boxShadow;
-  padding: variables.$spacingM;
+  background: var(--background-color-1);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  padding: var(--spacing-m);
 }

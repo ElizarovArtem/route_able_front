@@ -1,20 +1,20 @@
 @use  '@/a.app/styles/variables';
 
 .uiTabs div[role='tablist'] [class*='ant-tabs'][class*='ant-tabs-tab'] {
-  color: variables.$textColor1;
+  color: var(--text-color-1);
   font-weight: bold;
 }
 
 div.uiTabs div[role='tablist'] [class*='ant-tabs-tab'][class*='ant-tabs-tab-active'] div {
-  color: variables.$accentColor1;
+  color: var(--accent-color-1);
 }
 
 .uiTabs div[role='tablist'] [class='ant-tabs-tab'] div:hover {
-  color: variables.$accentColor1;
+  color: var(--accent-color-1);
 }
 
 .uiTabs div[role='tablist'] [class*='ant-tabs-ink-bar'][class*='ant-tabs-ink-bar-animated'] {
-  background: variables.$accentColor1;
+  background: var(--accent-color-1);
   transition: none;
 }
 

@@ -1,10 +1,11 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { Link, useRouter } from '@tanstack/react-router';
-import React from 'react';
+import React, { useState } from 'react';
 
 import { authSelector } from '@/d.features/user';
-import { userSelector } from '@/e.entities/user';
+import { Menu, userSelector } from '@/e.entities/user';
 import { useSelector } from '@/f.shared/lib';
+import { useMobile } from '@/f.shared/lib/useMobile.ts';
 import { UiButton, UiTypography } from '@/f.shared/ui';
 
 import styles from './Header.module.scss';
@@ -15,10 +16,22 @@ export const Header = () => {
   const router = useRouter();
   const client = useQueryClient();
 
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const isMobile = useMobile();
+
   const onLogout = async () => {
     await logout();
     router.navigate({ to: '/', replace: true });
     client.resetQueries();
+  };
+
+  const onUserNameClick = () => {
+    if (isMobile) {
+      setIsMenuOpen((prev) => !prev);
+    } else {
+      return;
+    }
   };
 
   return (
@@ -27,19 +40,15 @@ export const Header = () => {
         <Link to="/">
           <div className={styles.logo}>Route•able</div>
         </Link>
-        <div className={styles.linksWrapper}>
-          <Link to="/lk">
-            <UiTypography>Личный кабинет</UiTypography>
-          </Link>
-          <Link to="/ai-lesson">
-            <UiTypography>ИИ-ассистент</UiTypography>
-          </Link>
-        </div>
+
+        <Menu open={isMenuOpen} />
       </div>
       <div className={styles.menu}>
         {user ? (
           <>
-            <UiTypography bold>{user.name || user.email}</UiTypography>{' '}
+            <UiTypography onClick={onUserNameClick} bold>
+              {user.name || user.email}
+            </UiTypography>{' '}
             <UiButton onClick={onLogout}>Выйти</UiButton>
           </>
         ) : (

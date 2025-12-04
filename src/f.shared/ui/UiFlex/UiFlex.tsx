@@ -8,18 +8,22 @@ type UiFlexProps = {
   direction?: 'column' | 'row';
   gap?: 's' | 'm' | 'l';
   align?: 'start' | 'center' | 'end';
-};
+} & React.HTMLAttributes<HTMLDivElement>;
 
 export const UiFlex = ({
   children,
   direction = 'row',
   gap = 'm',
   align = 'start',
+  className,
+  ...props
 }: UiFlexProps) => {
   return (
     <div
+      {...props}
       className={classNames(
         styles.uiFlex,
+        className,
         styles[`uiFlexGap-${gap}`],
         styles[`uiFlex-${direction}`],
         styles[`uiFlexAlign-${align}`],

@@ -9,7 +9,7 @@ type UiTypographyProps = {
   bold?: boolean;
   type?: 'ordinary' | 'label';
   size?: 'small' | 'medium' | 'large';
-};
+} & React.HTMLAttributes<HTMLDivElement>;
 
 export const UiTypography = ({
   children,
@@ -17,9 +17,11 @@ export const UiTypography = ({
   bold,
   type = 'ordinary',
   size = 'medium',
+  ...props
 }: UiTypographyProps) => {
   return (
     <div
+      {...props}
       className={classNames(
         styles.typography,
         { [styles.typographyBold]: bold },

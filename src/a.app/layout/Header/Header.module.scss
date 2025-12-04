@@ -7,7 +7,7 @@
   height: 80px;
   position: sticky;
   top: 0;
-  background: variables.$mainColor;
+  background: var(--main-color);
   width: 100%;
   margin: 0 auto 24px;
   z-index: 1;
@@ -18,9 +18,9 @@
 }
 
 .logo {
-  font-size: 24px;
+  font-size: var(--font-size-l);
   font-weight: bold;
-  color: variables.$accentColor1;
+  color: var(--accent-color-1);
 }
 
 .menu {
@@ -31,15 +31,5 @@
 
 .linksAndLogoWrapper {
   display: flex;
-  gap: variables.$fontSizeXL;
-}
-
-.linksWrapper {
-  display: flex;
-  gap: variables.$fontSizeM;
-  align-items: center;
-
-  & [class*='typography']:hover {
-    color: variables.$accentColor1;
-  }
+  gap: var(--font-size-xl);
 }

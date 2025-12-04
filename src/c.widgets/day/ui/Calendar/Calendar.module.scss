@@ -7,7 +7,7 @@
   gap: 16px;
   padding: 20px var(--pad) 28px; // место под прогресс
   overflow-x: auto;
-  box-shadow: variables.$boxShadow;
+  box-shadow: var(--box-shadow);
   scroll-snap-type: x proximity;
   scroll-padding-inline: calc(var(--pad) + 24px);
 
@@ -16,8 +16,8 @@
   }
 
   &::-webkit-scrollbar-thumb {
-    border-radius: variables.$borderRadius;
-    background: variables.$accentColor1;
+    border-radius: var(--border-radius);
+    background: var(--accent-color-1);
   }
 }
 
@@ -27,9 +27,9 @@
   width: 48px; height: 48px;
   display: grid; place-items: center;
   border-radius: 999px;
-  border: 1px solid variables.$borderColor;
-  background: variables.$mainColor;
-  color: variables.$textColor1;
+  border: 1px solid var(--border-color);
+  background: var(--main-color);
+  color: var(--text-color-1);
   font-weight: 600;
   transition: transform .15s ease, border-color .15s ease, background .15s ease;
   box-shadow: 0 6px 14px rgba(0,0,0,.18);
@@ -41,17 +41,17 @@
   }
   &:focus-visible {
     outline: none;
-    box-shadow: variables.$focusRing;
+    box-shadow: var(--focus-ring);
   }
 }
 
 .isToday {
-  border-color: variables.$accentColor1;
+  border-color: var(--accent-color-1);
 }
 
 .isSelected {
-  background: variables.$accentColor1;
-  color: variables.$textColor3;
+  background: var(--accent-color-1);
+  color: var(--text-color-3);
   border-color: transparent;
 }
 
@@ -61,6 +61,6 @@
 }
 
 .num {
-  font-size: variables.$fontSizeS;
+  font-size: var(--font-size-s);
   line-height: 1;
 }

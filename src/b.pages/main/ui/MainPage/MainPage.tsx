@@ -5,6 +5,7 @@ import { CoachesList } from '@/c.widgets/user';
 import { authSelector } from '@/d.features/user';
 import { userSelector } from '@/e.entities/user';
 import { useSelector } from '@/f.shared/lib';
+import { useMobile } from '@/f.shared/lib/useMobile.ts';
 import { UiButton, UiCard, UiFlex, UiTitle, UiTypography } from '@/f.shared/ui';
 
 import styles from './MainPage.module.scss';
@@ -14,6 +15,7 @@ export const MainPage = () => {
   const { user } = useSelector(userSelector);
 
   const router = useRouter();
+  const isMobile = useMobile();
 
   const onAiAssistantClick = () => {
     if (!user) {
@@ -25,7 +27,7 @@ export const MainPage = () => {
 
   return (
     <div className={styles.page}>
-      <UiFlex>
+      <UiFlex direction={isMobile ? 'column' : 'row'}>
         <UiCard className={styles.aiAssistantBlock}>
           <UiFlex direction="column">
             <UiTitle size="xl">Тренировка с ИИ-ассистентом</UiTitle>

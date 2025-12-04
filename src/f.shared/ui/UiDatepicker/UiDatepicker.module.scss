@@ -1,27 +1,27 @@
 @use "@/a.app/styles/variables";
 
 [class*='ant-picker-outlined'] {
-  border-color: variables.$borderColor;
+  border-color: var(--border-color);
 }
 
 [class*='ant-picker-outlined'], [class*='ant-picker-outlined']:focus, [class*='ant-picker-outlined']:hover {
-  background-color: variables.$borderColor;
-  color: variables.$textColor1;
+  background-color: var(--border-color);
+  color: var(--text-color-1);
 }
 
 [class*='ant-picker-outlined']:hover, [class*='ant-picker-outlined']:focus {
-  border-color: variables.$accentColor1;
+  border-color: var(--accent-color-1);
 }
 
 [class*='ant-picker-outlined']::placeholder {
-  color: variables.$textColor2;
+  color: var(--text-color-2);
 }
 
 [class*='ant-picker'] span[class*='ant-picker-suffix'], [class*='ant-picker'] span[class*='ant-picker-clear'] {
-  color: variables.$textColor1;
+  color: var(--text-color-1);
 }
 
 [class*='ant-picker'] [class*='ant-picker-clear']:hover {
-  color: variables.$accentColor1;
+  color: var(--accent-color-1);
 }
 

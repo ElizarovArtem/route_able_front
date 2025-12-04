@@ -3,21 +3,21 @@
 .aiAssistantWrapper {
   display: flex;
   flex-direction: column;
-  gap: variables.$spacingM;
+  gap: var(--spacing-m);
 }
 
 .lessonRoom {
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: variables.$spacingM;
+  gap: var(--spacing-m);
 }
 
 .videoContainer {
   flex: 1;
 
   & [class*='lk-button'], & [class*='lk-disconnect-button'], & [class*='lk-participant-metadata'] {
-    color: variables.$textColor1;
+    color: var(--text-color-1);
   }
 
   & [class*='lk-control-bar'] {
@@ -37,16 +37,20 @@
 .controlWrapper {
   display: flex;
   align-items: center;
-  gap: variables.$spacingM;
+  gap: var(--spacing-m);
 
   .selector {
     width: 250px;
+  }
+
+  @media (max-width: 640px) {
+    flex-wrap: wrap;
   }
 }
 
 .tips {
   display: flex;
   flex-direction: column;
-  gap: variables.$spacingM;
+  gap: var(--spacing-m);
 }
 

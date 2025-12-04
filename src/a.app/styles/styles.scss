@@ -10,8 +10,8 @@ body {
   'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: variables.$mainColor;
-  color: variables.$textColor1;
+  background: var(--main-color);
+  color: var(--text-color-1);
   height: 100%;
   box-sizing: border-box;
 }
@@ -31,12 +31,12 @@ body::before {
   left: 0;
   bottom: 0;
   right: 0;
-  background: variables.$mainColor;
+  background: var(--main-color);
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding: 0 variables.$spacingM;
-  font-size: variables.$fontSizeL;
-  color: variables.$textColor1;
+  padding: 0 var(--spacing-m);
+  font-size: var(--font-size-l);
+  color: var(--text-color-1);
 }

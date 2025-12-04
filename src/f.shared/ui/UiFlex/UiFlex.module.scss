@@ -12,15 +12,15 @@
   }
 
   &Gap-s {
-    gap: variables.$spacingS;
+    gap: var(--spacing-s);
   }
 
   &Gap-m {
-    gap: variables.$spacingM;
+    gap: var(--spacing-m);
   }
 
   &Gap-l {
-    gap: variables.$spacingL;
+    gap: var(--spacing-l);
   }
 
   &Align-start {

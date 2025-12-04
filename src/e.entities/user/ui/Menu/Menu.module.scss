@@ -1,0 +1,27 @@
+.menu {
+  display: flex;
+  gap: var(--font-size-m);
+  align-items: center;
+  transition: 0.2s;
+
+  & [class*='typography']:hover {
+    color: var(--accent-color-1);
+  }
+
+  @media (max-width: 640px) {
+    position: absolute;
+    height: 0;
+    overflow: hidden;
+    flex-direction: column;
+    background: var(--main-color);
+    right: 96px;
+    top: 72px;
+
+    &Open {
+      height: 50px;
+      padding: var(--spacing-m);
+      border-radius: var(--border-radius);
+      border: 1px solid var(--border-color);
+    }
+  }
+}
