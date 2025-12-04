@@ -1,11 +1,5 @@
 @use '@/a.app/styles/variables';
 
 .coachesList {
-  display: flex;
-  flex-direction: column;
-  gap: variables.$spacingM;
-  padding: 20px;
-  background: variables.$backgroundColor1;
-  box-shadow: variables.$boxShadow;
-  border-radius: variables.$borderRadius;
+  flex: 1;
 }

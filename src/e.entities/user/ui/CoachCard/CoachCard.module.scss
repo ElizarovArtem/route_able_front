@@ -1,15 +1,13 @@
 @use '@/a.app/styles/variables';
 
 .coachCard {
-  display: flex;
-  gap: variables.$spacingM;
   cursor: pointer;
-  padding: variables.$spacingS;
   transition: 0.2s;
   border-radius: variables.$borderRadius;
+  padding: variables.$spacingXS;
 
   &:hover {
-    background: rgba(255, 255, 255, 0.16);
+    background: variables.$backgroundColor2;
   }
 
   &:not(:last-child) {
@@ -20,10 +18,4 @@
 .coachCardLink {
   text-decoration: none;
   color: variables.$textColor1;
-}
-
-.coachInfoWrapper {
-  display: flex;
-  flex-direction: column;
-  gap: variables.$spacingS;
 }
