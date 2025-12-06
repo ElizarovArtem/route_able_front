@@ -1,7 +1,10 @@
-import { Link } from '@tanstack/react-router';
+import { useRouter } from '@tanstack/react-router';
 import React from 'react';
 
-import type { User } from '@/e.entities/user';
+import { authSelector } from '@/d.features/user';
+import { type User, userSelector } from '@/e.entities/user';
+import { useSelector } from '@/f.shared/lib';
+import { UiFlex, UiTypography } from '@/f.shared/ui';
 import { UiAvatar } from '@/f.shared/ui/UiAvatar/UiAvatar.tsx';
 
 import styles from './CoachCard.module.scss';
@@ -11,23 +14,27 @@ type CoachCardProps = {
 };
 
 export const CoachCard = ({ coach }: CoachCardProps) => {
+  const { setIsAuthModalOpen } = useSelector(authSelector);
+  const { user } = useSelector(userSelector);
+  const router = useRouter();
+
+  const onCoachCardClick = () => {
+    if (!user) {
+      setIsAuthModalOpen(true);
+    } else {
+      router.navigate({ to: '/coach/$coachId', params: { coachId: coach.id } });
+    }
+  };
+
   return (
-    <Link
-      to={'/coach/$coachId'}
-      params={{ coachId: coach.id }}
-      className={styles.coachCardLink}
-    >
-      <div className={styles.coachCard}>
-        <UiAvatar
-          width={150}
-          height={150}
-          src={coach?.avatar}
-          preview={false}
-        />
-        <div className={styles.coachInfoWrapper}>
-          <div>{coach.about}</div>
-        </div>
-      </div>
-    </Link>
+    <div className={styles.coachCard} onClick={onCoachCardClick}>
+      <UiFlex>
+        <UiAvatar width={100} src={coach?.avatar} preview={false} />
+        <UiFlex direction="column" gap="s">
+          <UiTypography bold>{coach.name}</UiTypography>
+          <UiTypography type="label">{coach.about}</UiTypography>
+        </UiFlex>
+      </UiFlex>
+    </div>
   );
 };

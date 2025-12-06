@@ -19,10 +19,10 @@
 
 .role {
   cursor: pointer;
-  color: variables.$textColor2;
+  color: var(--text-color-2);
 }
 
 .activeRole {
-  color: variables.$mainColor;
+  color: var(--main-color);
   font-weight: bold;
 }

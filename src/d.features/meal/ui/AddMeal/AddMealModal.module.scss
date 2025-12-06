@@ -2,7 +2,7 @@
 
 .suggestions {
   display: flex;
-  gap: variables.$spacingM;
+  gap: var(--spacing-m);
 
   &Title {
     font-weight: bold;
@@ -12,5 +12,5 @@
 .buttonsWrapper {
   display: flex;
   justify-content: flex-end;
-  gap: variables.$spacingM;
+  gap: var(--spacing-m);
 }

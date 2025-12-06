@@ -5,8 +5,8 @@ import React, { useMemo, useState } from 'react';
 import {
   Chat,
   MealPlanFromClient,
-  WorkoutPlanFromClient,
   VideoChat,
+  WorkoutPlanFromClient,
 } from '@/c.widgets/user';
 import { PaySubscription } from '@/d.features/user';
 import { useGetRelation } from '@/e.entities/user';
@@ -68,7 +68,7 @@ export const CoachPage = () => {
   return (
     <div className={styles.coachPageWrapper}>
       <div className={styles.about}>
-        <UiAvatar width={200} height={200} src={data?.partner.avatar || ''} />
+        <UiAvatar width={200} src={data?.partner.avatar || ''} />
         <div className={styles.aboutInfo}>
           <UiTypography bold>{data?.partner.name}</UiTypography>
           <UiTypography>{data?.partner.about}</UiTypography>

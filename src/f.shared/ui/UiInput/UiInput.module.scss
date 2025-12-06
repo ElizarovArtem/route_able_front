@@ -1,23 +1,23 @@
 @use "@/a.app/styles/variables";
 
 [class*='ant-input-outlined'] {
-  border-color: variables.$borderColor;
+  border-color: var(--border-color);
 }
 
 [class*='ant-input-outlined'], [class*='ant-input-outlined']:focus, [class*='ant-input-outlined']:hover {
-  background-color: variables.$borderColor;
-  color: variables.$textColor1;
+  background-color: var(--border-color);
+  color: var(--text-color-1);
 }
 
 [class*='ant-input-outlined']:hover, [class*='ant-input-outlined']:focus {
-  border-color: variables.$accentColor1;
+  border-color: var(--accent-color-1);
 }
 
 [class*='ant-input-outlined']::placeholder {
-  color: variables.$textColor2;
+  color: var(--text-color-2);
 }
 
 [class*='ant-input'][class*='ant-input-outlined'][class*='ant-input-status-error'], [class*='ant-input-outlined']input[class*='ant-input-status-error']:hover {
-  color: variables.$textColor4;
-  background-color: variables.$borderColor !important;
+  color: var(--text-color-4);
+  background-color: var(--border-color) !important;
 }

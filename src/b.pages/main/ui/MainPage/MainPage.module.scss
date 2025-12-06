@@ -1,8 +1,17 @@
 @use "@/a.app/styles/variables";
 
 .page {
-  color: variables.$textColor1;
+  color: var(--text-color-1);
   padding: 110px 54px 0 ;
+
+  @media (max-width: 1024px) {
+    padding: var(--spacing-l) var(--spacing-m) 0 ;
+  }
+
+  @media (max-width: 640px) {
+    padding: var(--spacing-m) var(--spacing-s) 0 ;
+
+  }
 }
 
 .title {
@@ -17,6 +26,10 @@
 
 .menuButtons {
   display: flex;
-  gap: variables.$spacingS;
-  padding: variables.$spacingM 0;
+  gap: var(--spacing-s);
+  padding: var(--spacing-m) 0;
+}
+
+.aiAssistantBlock {
+  flex: 1;
 }

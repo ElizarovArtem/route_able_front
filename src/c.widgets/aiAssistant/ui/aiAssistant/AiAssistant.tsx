@@ -153,6 +153,11 @@ export const AiAssistant = () => {
   return (
     <div className={styles.aiAssistantWrapper}>
       <UiCard className={styles.controlWrapper}>
+        <UiSwitch
+          label="Включить голосовые подсказки"
+          checked={needVoiceHelper}
+          onChange={onChangeNeedVoiceHelper}
+        />
         <UiSelector
           className={styles.selector}
           options={MODE_OPTIONS}
@@ -162,11 +167,6 @@ export const AiAssistant = () => {
         <UiButton disabled={!mode} onClick={() => toggleStart(!start)}>
           {start ? 'Закончить' : 'Начать'}
         </UiButton>
-        <UiSwitch
-          label="Включить голосовые подсказки"
-          checked={needVoiceHelper}
-          onChange={onChangeNeedVoiceHelper}
-        />
       </UiCard>
 
       {tokenPayload && start && (

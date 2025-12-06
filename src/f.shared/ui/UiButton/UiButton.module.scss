@@ -1,22 +1,22 @@
 @use '@/a.app/styles/variables';
 
 button.button[class*='ant-btn'][class*='ant-btn-default'] {
-  background: variables.$accentColor1;
-  border-color: variables.$accentColor1;
-  color: variables.$mainColor;
+  background: var(--accent-color-1);
+  border-color: var(--accent-color-1);
+  color: var(--main-color);
   font-family: Inter, sans-serif;
   font-weight: bold;
   transition: 0.1s;
 }
 
 button.button[class*='ant-btn'][class*='ant-btn-default']:hover  {
-  color: variables.$accentColor1;
+  color: var(--accent-color-1);
   border-color: transparent;
   background: transparent;
 }
 
 button.button[class*='ant-btn'][class*='ant-btn-default']:disabled, button.button[class*='ant-btn'][class*='ant-btn-default']:disabled:hover {
-  background: variables.$borderColor;
-  border-color: variables.$borderColor;
-  color: variables.$textColor2;
+  background: var(--border-color);
+  border-color: var(--border-color);
+  color: var(--text-color-2);
 }

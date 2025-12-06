@@ -11,7 +11,7 @@
 .totalCalories {
   display: flex;
   flex-direction: column;
-  gap: variables.$spacingXS;
+  gap: var(--spacing-xs);
   align-items: center;
   font-size: 24px;
   margin-bottom: 12px;

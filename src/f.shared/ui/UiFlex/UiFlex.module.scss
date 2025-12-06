@@ -1,0 +1,41 @@
+@use "@/a.app/styles/variables";
+
+.uiFlex {
+  display: flex;
+
+  &-column {
+    flex-direction: column;
+  }
+
+  &-row {
+    flex-direction: row;
+  }
+
+  &Gap-xs {
+    gap: var(--spacing-xs);
+  }
+
+  &Gap-s {
+    gap: var(--spacing-s);
+  }
+
+  &Gap-m {
+    gap: var(--spacing-m);
+  }
+
+  &Gap-l {
+    gap: var(--spacing-l);
+  }
+
+  &Align-start {
+    justify-content: flex-start;
+  }
+
+  &Align-center {
+    justify-content: center;
+  }
+
+  &Align-end {
+    justify-content: flex-end;
+  }
+}

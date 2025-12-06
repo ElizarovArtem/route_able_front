@@ -1,6 +1,10 @@
 @use  '@/a.app/styles/variables';
 
 .avatar {
-  border-radius: variables.$borderRadius;
-  border: 1px solid variables.$borderColor;
+  border-radius: 50%;
+  border: 1px solid var(--border-color);
+
+  & + [class*='ant-image-mask'], & + [class*='ant-image-mask']:hover {
+    border-radius: 50%;
+  }
 }
