@@ -1,10 +1,19 @@
-.page {
+.mainContentWrapper {
+  display: flex;
+  gap: var(--spacing-m);
+  margin-top: var(--spacing-l);
+  flex-wrap: wrap;
 
+  @media (max-width: 640px) {
+    flex-direction: column;
+    gap: var(--spacing-s);
+  }
 }
 
-.mainContentWrapper {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
-  margin-top: 40px;
+.flexBlock {
+  width: 100%;
+
+  & > * {
+    flex: 1;
+  }
 }

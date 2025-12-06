@@ -9,7 +9,14 @@ import {
 } from '@/d.features/user/model/user.update-user-resolver.ts';
 import { Roles, type User, userSelector } from '@/e.entities/user';
 import { useSelector } from '@/f.shared/lib';
-import { FormInput, UiButton, UiModal } from '@/f.shared/ui';
+import { useMobile } from '@/f.shared/lib/useMobile.ts';
+import {
+  FormInput,
+  UiButton,
+  UiFlex,
+  UiModal,
+  UiTypography,
+} from '@/f.shared/ui';
 import { FormCheckbox } from '@/f.shared/ui/UiCheckbox/UiCheckbox.tsx';
 import { FormTextarea } from '@/f.shared/ui/UiTextarea/UiTextarea.tsx';
 import { FormUpload } from '@/f.shared/ui/UiUpload/UiUpload.tsx';
@@ -24,11 +31,14 @@ export const UpdateUserModal = ({
   setOpenModal,
   ...props
 }: TUpdateUserModalProps) => {
-  const { control, reset, handleSubmit } = useForm<TUpdateUserFormData>({
+  const { control, reset, handleSubmit, watch } = useForm<TUpdateUserFormData>({
     defaultValues: {},
     resolver: updateUserFormResolver,
   });
   const { setUser, user } = useSelector(userSelector);
+
+  const isMobile = useMobile();
+  const isCoach = watch('isCoach');
 
   const { mutate } = useUpdateUser({
     onSuccess: (data: User) => {
@@ -36,6 +46,23 @@ export const UpdateUserModal = ({
       setOpenModal(false);
     },
   });
+
+  const beforeUpload = (file: File) => {
+    return new Promise<boolean>((resolve) => {
+      const img = new Image();
+      img.src = URL.createObjectURL(file);
+
+      img.onload = () => {
+        const { width, height } = img;
+
+        if (width > 512 || height > 512) {
+          resolve(false);
+        } else {
+          resolve(true);
+        }
+      };
+    });
+  };
 
   const updateUser = (data: TUpdateUserFormData) => {
     const formData = new FormData();
@@ -45,9 +72,11 @@ export const UpdateUserModal = ({
     formData.append('email', data.email || '');
     formData.append('phone', data.phone || '');
     formData.append('about', data.about || '');
+    formData.append('weight', data.weight || '');
+    formData.append('height', data.height || '');
     formData.append('isCoach', JSON.stringify(data.isCoach));
 
-    mutate(data);
+    mutate(formData);
   };
 
   useEffect(() => {
@@ -57,6 +86,8 @@ export const UpdateUserModal = ({
         email: user.email || '',
         name: user.name || '',
         phone: user.phone || '',
+        weight: user.weight || '',
+        height: user.height || '',
         isCoach: user.roles.includes(Roles.Coach),
       });
     }
@@ -75,20 +106,53 @@ export const UpdateUserModal = ({
         })}
         className={styles.form}
       >
-        <FormUpload name="avatar" control={control}>
+        <FormUpload
+          name="avatar"
+          control={control}
+          customRequest={() => {}}
+          beforeUpload={beforeUpload}
+        >
           <UiButton>Загрузить фото</UiButton>
         </FormUpload>
         <FormInput name="name" control={control} placeholder="Имя" />
+        <UiFlex
+          direction={isMobile ? 'column' : 'row'}
+          gap={isMobile ? 's' : 'm'}
+        >
+          <FormInput
+            type="number"
+            name="height"
+            control={control}
+            placeholder="Рост"
+          />
+          <FormInput
+            type="number"
+            name="weight"
+            control={control}
+            placeholder="Вес"
+          />
+        </UiFlex>
         <FormInput
           name="phone"
           control={control}
           placeholder="Номер телефона"
         />
         <FormInput name="email" control={control} placeholder="Email" />
-        <FormTextarea name="about" control={control} placeholder="О себе" />
+        <FormTextarea
+          disableResize
+          name="about"
+          control={control}
+          placeholder="О себе"
+        />
         <FormCheckbox name="isCoach" control={control}>
           Я тренер
         </FormCheckbox>
+        {isCoach && !user?.isCoachAgreed && (
+          <UiTypography size="small">
+            Мы свяжемся с вами по указанным выше контактам для подтверждения
+            вашего опыта
+          </UiTypography>
+        )}
         <UiButton htmlType="submit">Обновить</UiButton>
       </form>
     </UiModal>

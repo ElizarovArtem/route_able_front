@@ -3,31 +3,44 @@
 .plannedMealsListWrapper {
   display: flex;
   flex-direction: column;
-  gap: variables.$spacingM;
+  gap: var(--spacing-m);
 }
 
 .titleWrapper {
   display: flex;
-  gap: variables.$spacingS;
+  gap: var(--spacing-s);
   align-items: center;
 }
 
 .plannedMealsList {
   display: flex;
   flex-direction: column;
-  gap: variables.$spacingS;
+  gap: var(--spacing-s);
+  overflow-x: scroll;
+
+  &::-webkit-scrollbar {
+    height: 4px;
+    width: 2px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: var(--border-radius);
+    background: var(--accent-color-1);
+  }
 }
 
 .tableTemplate {
   display: grid;
+  gap: var(--spacing-s);
   grid-template-columns: 1.7fr 1fr 1fr 1fr 1fr 1fr ;
   align-items: center;
+  min-width: 440px;
 }
 
 .header {
-  padding: 0 variables.$spacingS;
+  padding: 0 var(--spacing-s);
 }
 
 .mealItem {
-  padding: variables.$spacingXS variables.$spacingS;
+  padding: var(--spacing-xs) var(--spacing-s);
 }

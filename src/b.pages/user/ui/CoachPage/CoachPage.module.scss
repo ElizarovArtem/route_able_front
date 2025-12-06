@@ -3,18 +3,18 @@
 .coachPageWrapper {
   display: flex;
   flex-direction: column;
-  gap: variables.$spacingM;
+  gap: var(--spacing-m);
 }
 
 .about {
   display: flex;
-  gap: variables.$spacingM;
-  border-bottom: 1px solid variables.$backgroundColor2;
-  padding-bottom: variables.$spacingM;
+  gap: var(--spacing-m);
+  border-bottom: 1px solid var(--background-color-2);
+  padding-bottom: var(--spacing-m);
 }
 
 .aboutInfo {
   display: flex;
   flex-direction: column;
-  gap: variables.$spacingS;
+  gap: var(--spacing-s);
 }

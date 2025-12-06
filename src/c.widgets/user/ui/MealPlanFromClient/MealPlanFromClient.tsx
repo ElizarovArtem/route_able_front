@@ -2,7 +2,7 @@ import React from 'react';
 
 import { PlannedMealsList, useGetMealGoals } from '@/e.entities/meal';
 import { Roles } from '@/e.entities/user';
-import { UiCard, UiTypography } from '@/f.shared/ui';
+import { UiCard, UiTitle, UiTypography } from '@/f.shared/ui';
 
 import styles from './MealPlanFromClient.module.scss';
 
@@ -15,6 +15,7 @@ export const MealPlanFromClient = ({ relationId }: MealPlanFromClientProps) => {
 
   return (
     <div className={styles.formWrapper}>
+      <UiTitle>Мои цели от тренера</UiTitle>
       <div className={styles.goalsWrapper}>
         <UiCard className={styles.goalItem}>
           <UiTypography size="small" type="label">

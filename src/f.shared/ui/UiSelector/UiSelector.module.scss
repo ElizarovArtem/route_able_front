@@ -1,29 +1,29 @@
 @use "@/a.app/styles/variables";
 
 [class*='ant-select-outlined'] {
-  border-color: variables.$borderColor;
+  border-color: var(--border-color);
 }
 
 [class*='ant-select'][class*='ant-select-outlined'] [class*='ant-select-selector'],
 [class*='ant-select'][class*='ant-select-outlined'][class*='ant-select-focused'] [class*='ant-select-selector'],
  {
-  background-color: variables.$borderColor;
-  color: variables.$textColor1;
-  border-color: variables.$borderColor!important;
+  background-color: var(--border-color);
+  color: var(--text-color-1);
+  border-color: var(--border-color)!important;
 }
 
 div[class*='ant-select'][class*='ant-select-lg'][class*='ant-select-outlined']:hover div[class*='ant-select-selector'],
 div[class*='ant-select'][class*='ant-select-lg'][class*='ant-select-outlined']:focus div[class*='ant-select-selector'],
 div[class*='ant-select'][class*='ant-select-lg'][class*='ant-select-outlined']:focus-visible div[class*='ant-select-selector'] {
-  background-color: variables.$borderColor;
-  color: variables.$textColor1;
-  border-color: variables.$accentColor1 !important;
+  background-color: var(--border-color);
+  color: var(--text-color-1);
+  border-color: var(--accent-color-1) !important;
 }
 
 [class*='ant-select'][class*='ant-select-outlined'] [class*='ant-select-selector'] [class*='ant-select-selection-placeholder'] {
-  color: variables.$textColor2;
+  color: var(--text-color-2);
 }
 
 [class*='ant-select'][class*='ant-select-outlined'] [class*='ant-select-arrow'] {
-  color: variables.$textColor2;
+  color: var(--text-color-2);
 }

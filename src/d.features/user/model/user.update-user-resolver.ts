@@ -9,6 +9,8 @@ export const avatarFileSchema = z.object({
 
 const createUpdateUserSchema = z.object({
   name: z.string().optional(),
+  height: z.string().optional(),
+  weight: z.string().optional(),
   phone: z.string().optional(),
   email: z.string().optional(),
   about: z.string().optional(),

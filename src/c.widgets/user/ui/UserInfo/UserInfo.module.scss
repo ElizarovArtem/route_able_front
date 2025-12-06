@@ -1,27 +1,8 @@
 @use  '@/a.app/styles/variables';
 
 .info {
+  flex-basis: 100%;
   display: grid;
-  grid-template-columns: 160px 1fr;
-  gap: 24px;
-  padding: 24px 24px 20px;
-  background: variables.$backgroundColor1;
-  border: 1px solid variables.$borderColor;
-  border-radius: variables.$borderRadius;
-  box-shadow: variables.$boxShadow;
-}
-
-.about {
-  grid-column-start: 1;
-  grid-column-end: 4;
-}
-
-.avatarWrapper {
-  grid-row-start: 1;
-  grid-row-end: 3;
-}
-
-.gridTextItem {
-  grid-column-start: 2;
-  grid-column-end: 4;
+  grid-template-columns: 1fr 3fr;
+  gap: var(--spacing-m);
 }

@@ -3,5 +3,5 @@
 .aiForm, {
   display: flex;
   flex-direction: column;
-  gap: variables.$spacingM;
+  gap: var(--spacing-m);
 }

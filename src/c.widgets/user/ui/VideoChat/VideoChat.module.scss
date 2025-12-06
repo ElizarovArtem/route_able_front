@@ -3,52 +3,52 @@
 .videoChatCard {
   display: flex;
   flex-direction: column;
-  gap: variables.$spacingM;
+  gap: var(--spacing-m);
 }
 
 .infoBlock {
   display: flex;
   flex-direction: column;
-  gap: variables.$spacingS;
+  gap: var(--spacing-s);
 }
 
 .actionsRow {
   display: flex;
   flex-wrap: wrap;
-  gap: variables.$spacingS;
+  gap: var(--spacing-s);
 }
 
 .scheduleBlock {
   display: flex;
   flex-direction: column;
-  gap: variables.$spacingS;
+  gap: var(--spacing-s);
 }
 
 .lessonsList {
   display: flex;
   flex-direction: column;
-  gap: variables.$spacingXS;
+  gap: var(--spacing-xs);
   max-height: 220px;
   overflow-y: auto;
   padding-right: 4px;
 }
 
 .lessonItem {
-  padding: variables.$spacingXS;
-  border-radius: variables.$borderRadius;
-  border: 1px solid variables.$borderColor;
-  background: variables.$backgroundColor2;
+  padding: var(--spacing-xs);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+  background: var(--background-color-2);
 }
 
 .lessonItemActive {
-  border-color: variables.$accentColor1;
+  border-color: var(--accent-color-1);
   box-shadow: 0 0 0 1px rgba(34, 200, 167, 0.35);
 }
 
 .lessonMeta {
   display: flex;
   flex-direction: column;
-  gap: variables.$spacingXS * 0.5;
+  gap: var(--spacing-s);
 }
 
 .centeredRow {
@@ -63,7 +63,7 @@
   min-height: 320px;
 
   & [class*='lk-button'], & [class*='lk-disconnect-button'], & [class*='lk-participant-metadata'] {
-    color: variables.$textColor1;
+    color: var(--text-color-1);
   }
 
   :global(.lk-room) {

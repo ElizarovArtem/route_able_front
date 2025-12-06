@@ -11,6 +11,7 @@ export {
   userSelector,
 } from './model/user.store.ts';
 export {
+  Menu,
   UserAuthCodeForm,
   UserAuthEmailForm,
   UserAuthPhoneForm,

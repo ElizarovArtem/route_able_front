@@ -3,7 +3,7 @@
 .addPlanMeal {
   display: grid;
   grid-template-columns: 1.5fr 1fr 1fr 1fr;
-  gap: variables.$spacingM;
+  gap: var(--spacing-m);
 
   & input {
     flex: 2;

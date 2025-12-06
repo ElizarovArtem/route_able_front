@@ -3,28 +3,32 @@
 .formWrapper {
   display: flex;
   flex-direction: column;
-  gap: variables.$spacingM;
+  gap: var(--spacing-m);
 }
 
 .goalsWrapper {
   display: flex;
   flex-wrap: nowrap;
-  gap: variables.$spacingM;
+  gap: var(--spacing-m);
+
+  @media (max-width: 640px) {
+   display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 .goalItem {
-  padding: variables.$spacingM;
   display: flex;
   flex-direction: column;
-  gap: variables.$spacingS;
-  background: variables.$backgroundColor2;
-  border-radius: variables.$borderRadius;
+  gap: var(--spacing-s);
+  background: var(--background-color-2);
+  border-radius: var(--border-radius);
   flex: 1;
 }
 
 .addPlanMeal {
   display: flex;
-  gap: variables.$spacingM;
+  gap: var(--spacing-m);
 
   & input {
    flex: 2;

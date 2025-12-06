@@ -2,16 +2,16 @@
 
 .connectionCard {
   display: flex;
-  gap: variables.$spacingM;
+  gap: var(--spacing-m);
 }
 
 .infoWrapper {
   display: flex;
   flex-direction: column;
-  gap: variables.$spacingXS;
+  gap: var(--spacing-xs);
 }
 
 .link {
   text-decoration: none;
-  color: variables.$textColor1;
+  color: var(--text-color-1);
 }
