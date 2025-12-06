@@ -1,0 +1,19 @@
+.uiCheckbox {
+  & [class*='ant-checkbox-label'] {
+    color: var(--text-color-1);
+  }
+
+  &[class*='ant-checkbox-wrapper']:hover span[class*='ant-checkbox-checked'] span[class*='ant-checkbox-inner'] {
+    background-color: var(--accent-color-1) !important;
+    border-color: var(--accent-color-1) !important;
+  }
+
+  & [class*='ant-checkbox-checked'] [class*='ant-checkbox-inner'] {
+    background-color: var(--accent-color-1);
+    border-color: var(--accent-color-1);
+  }
+
+  & [class*='ant-checkbox']:hover [class*='ant-checkbox-inner'], &[class*='ant-checkbox-wrapper']:hover [class*='ant-checkbox-inner'] {
+    border-color: var(--accent-color-1);
+  }
+}

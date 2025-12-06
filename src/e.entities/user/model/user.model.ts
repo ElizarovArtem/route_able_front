@@ -7,6 +7,9 @@ export type User = {
   isCoach: boolean;
   avatar?: string;
   id: string;
+  height?: string;
+  weight?: string;
+  isCoachAgreed?: boolean;
 };
 
 export enum Roles {

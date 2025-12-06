@@ -1,7 +1,7 @@
 @use  '@/a.app/styles/variables';
 
 .info {
-  width: 100%;
+  flex-basis: 100%;
   display: grid;
   grid-template-columns: 1fr 3fr;
   gap: var(--spacing-m);

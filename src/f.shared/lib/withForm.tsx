@@ -15,6 +15,7 @@ export const withForm = function <T>(
     data: any;
     formattedValue?: string;
     trim?: boolean;
+    props?: any;
   }) => any = ({ data }) => data,
 ) {
   return function WithFormField({

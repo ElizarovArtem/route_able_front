@@ -11,6 +11,10 @@
     flex-direction: row;
   }
 
+  &Gap-xs {
+    gap: var(--spacing-xs);
+  }
+
   &Gap-s {
     gap: var(--spacing-s);
   }

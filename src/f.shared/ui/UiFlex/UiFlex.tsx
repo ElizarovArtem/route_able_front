@@ -6,7 +6,7 @@ import styles from './UiFlex.module.scss';
 type UiFlexProps = {
   children: ReactNode;
   direction?: 'column' | 'row';
-  gap?: 's' | 'm' | 'l';
+  gap?: 'xs' | 's' | 'm' | 'l';
   align?: 'start' | 'center' | 'end';
 } & React.HTMLAttributes<HTMLDivElement>;
 
