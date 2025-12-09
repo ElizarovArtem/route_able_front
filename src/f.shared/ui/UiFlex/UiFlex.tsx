@@ -7,7 +7,7 @@ type UiFlexProps = {
   children: ReactNode;
   direction?: 'column' | 'row';
   gap?: 'xs' | 's' | 'm' | 'l';
-  justify?: 'start' | 'center' | 'end';
+  justify?: 'start' | 'center' | 'end' | 'space-between' | 'space-around';
   align?: 'start' | 'center' | 'end';
 } & React.HTMLAttributes<HTMLDivElement>;
 
@@ -16,7 +16,7 @@ export const UiFlex = ({
   direction = 'row',
   gap = 'm',
   justify = 'start',
-  align = 'start',
+  align,
   className,
   ...props
 }: UiFlexProps) => {

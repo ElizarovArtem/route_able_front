@@ -16,4 +16,10 @@
   & > * {
     flex: 1;
   }
+
+  @media (max-width: 640px) {
+    & > * {
+      flex-basis: 100%;
+    }
+  }
 }

@@ -39,6 +39,14 @@
     justify-content: flex-end;
   }
 
+  &Justify-space-between {
+    justify-content: space-between;
+  }
+
+  &Justify-space-around {
+    justify-content: space-around;
+  }
+
   &Align-start {
     align-items: flex-start;
   }
