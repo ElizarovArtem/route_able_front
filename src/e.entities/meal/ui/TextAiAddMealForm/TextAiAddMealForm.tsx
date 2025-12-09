@@ -7,10 +7,12 @@ import { UiButton, UiInput, UiTypography } from '@/f.shared/ui';
 import styles from './TextAiAddMealForm.module.scss';
 
 type TextAiAddMealFormProps = {
+  aiSuggestion: TCreateMealFormData | null;
   setAiSuggestion: (value: TCreateMealFormData) => void;
 };
 
 export const TextAiAddMealForm = ({
+  aiSuggestion,
   setAiSuggestion,
 }: TextAiAddMealFormProps) => {
   const [mealText, setMealText] = useState('');
@@ -31,6 +33,8 @@ export const TextAiAddMealForm = ({
     };
   }, []);
 
+  if (aiSuggestion) return null;
+
   return (
     <div className={styles.aiForm}>
       <UiTypography>
@@ -41,7 +45,9 @@ export const TextAiAddMealForm = ({
         value={mealText}
         onChange={(e) => setMealText(e.currentTarget.value)}
       />
-      <UiButton onClick={onSubmit}>Отправить</UiButton>
+      <UiButton disabled={!mealText} onClick={onSubmit}>
+        Отправить
+      </UiButton>
     </div>
   );
 };

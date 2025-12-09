@@ -4,17 +4,22 @@ import React from 'react';
 
 import styles from './UiButton.module.scss';
 
-type UiButtonProps = {} & ButtonProps;
+type UiButtonProps = {
+  styleType?: 'primary' | 'secondary';
+} & ButtonProps;
 
 export const UiButton = ({
   className,
   size = 'large',
+  styleType = 'primary',
   ...props
 }: UiButtonProps) => {
   return (
     <Button
       {...props}
-      className={classNames(className, styles.button)}
+      className={classNames(className, styles.button, {
+        [styles.secondary]: styleType === 'secondary',
+      })}
       size={size}
     />
   );

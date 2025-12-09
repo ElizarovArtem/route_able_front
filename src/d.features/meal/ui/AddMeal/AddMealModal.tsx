@@ -19,7 +19,7 @@ import {
   TextAiAddMealForm,
   type TGetDayMealsSummaryRes,
 } from '@/e.entities/meal';
-import { UiButton, UiModal } from '@/f.shared/ui';
+import { UiButton, UiCard, UiFlex, UiModal, UiTypography } from '@/f.shared/ui';
 import { UiTabs } from '@/f.shared/ui/UiTabs/UiTabs.tsx';
 
 import styles from './AddMealModal.module.scss';
@@ -73,6 +73,10 @@ export const AddMealModal = ({
     }
   };
 
+  const aiSuggestionCancel = () => {
+    setAiSuggestion(null);
+  };
+
   const correctAiSuggestion = () => {
     if (aiSuggestion) {
       setCurrentTab(TabsKeys.manual);
@@ -81,7 +85,7 @@ export const AddMealModal = ({
     }
   };
 
-  const onModalClose = (e: any) => {
+  const onModalClose = (e: React.MouseEvent<HTMLButtonElement>) => {
     setCurrentTab(TabsKeys.manual);
     onCancel?.(e);
     reset({});
@@ -101,16 +105,26 @@ export const AddMealModal = ({
       },
       {
         key: TabsKeys.text,
-        label: 'Текстовое опредение',
-        children: <TextAiAddMealForm setAiSuggestion={setAiSuggestion} />,
+        label: 'Текстовый ввод',
+        children: (
+          <TextAiAddMealForm
+            aiSuggestion={aiSuggestion}
+            setAiSuggestion={setAiSuggestion}
+          />
+        ),
       },
       {
         key: TabsKeys.photo,
-        label: 'Определение по фото',
-        children: <PhotoAiAddMealForm setAiSuggestion={setAiSuggestion} />,
+        label: 'По фото',
+        children: (
+          <PhotoAiAddMealForm
+            aiSuggestion={aiSuggestion}
+            setAiSuggestion={setAiSuggestion}
+          />
+        ),
       },
     ];
-  }, [setAiSuggestion]);
+  }, [aiSuggestion, setAiSuggestion]);
 
   return (
     <UiModal
@@ -128,24 +142,30 @@ export const AddMealModal = ({
       />
 
       {aiSuggestion && (
-        <>
-          <div className={styles.suggestions}>
-            {Object.entries(aiSuggestion).map(([key, value]) => (
-              <div key={value}>
-                <div className={styles.suggestionsTitle}>
-                  {NUTRITION_DICTIONARY[key as NutritionType]}
-                </div>
-                <>{value}</>
-              </div>
-            ))}
-          </div>
+        <UiFlex direction="column" gap="s">
+          <UiCard inverse className={styles.suggestions}>
+            <div className={styles.suggestionsName}>
+              <UiTypography>{aiSuggestion.name}</UiTypography>
+            </div>
+            {Object.entries(aiSuggestion).map(([key, value]) =>
+              key === 'name' ? null : (
+                <UiCard key={value}>
+                  <UiTypography size="small" type="label">
+                    {NUTRITION_DICTIONARY[key as NutritionType]}
+                  </UiTypography>
+                  <UiTypography>{value}</UiTypography>
+                </UiCard>
+              ),
+            )}
+          </UiCard>
           <div className={styles.buttonsWrapper}>
             <UiButton onClick={correctAiSuggestion}>Скоррекировать</UiButton>
-            <UiButton onClick={aiSuggestionAgree}>
-              Сохранить прием пищи
+            <UiButton onClick={aiSuggestionAgree}>Сохранить</UiButton>
+            <UiButton styleType="secondary" onClick={aiSuggestionCancel}>
+              Отменить
             </UiButton>
           </div>
-        </>
+        </UiFlex>
       )}
     </UiModal>
   );

@@ -1,6 +1,6 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { Link, useRouter } from '@tanstack/react-router';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 import { authSelector } from '@/d.features/user';
 import { Menu, userSelector } from '@/e.entities/user';
@@ -16,6 +16,8 @@ export const Header = () => {
   const router = useRouter();
   const client = useQueryClient();
 
+  const nameRef = useRef<HTMLDivElement>(null);
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const isMobile = useMobile();
@@ -30,7 +32,7 @@ export const Header = () => {
     if (isMobile) {
       setIsMenuOpen((prev) => !prev);
     } else {
-      return;
+      router.navigate({ to: '/lk', replace: true });
     }
   };
 
@@ -41,12 +43,21 @@ export const Header = () => {
           <div className={styles.logo}>Route•able</div>
         </Link>
 
-        <Menu open={isMenuOpen} />
+        <Menu
+          nameRef={nameRef}
+          open={isMenuOpen}
+          onClickOutside={() => setIsMenuOpen(false)}
+        />
       </div>
       <div className={styles.menu}>
         {user ? (
           <>
-            <UiTypography onClick={onUserNameClick} bold>
+            <UiTypography
+              ref={nameRef}
+              className={styles.userName}
+              onClick={onUserNameClick}
+              bold
+            >
               {user.name || user.email}
             </UiTypography>{' '}
             <UiButton onClick={onLogout}>Выйти</UiButton>

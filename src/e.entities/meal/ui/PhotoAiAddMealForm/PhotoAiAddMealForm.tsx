@@ -10,10 +10,12 @@ import type { TGetAiPhotoMealSuggestionReq } from '../../api/requests/get-ai-pho
 import styles from './PhotoAiAddMealForm.module.scss';
 
 type PhotoAiAddMealFormProps = {
+  aiSuggestion: TCreateMealFormData | null;
   setAiSuggestion: (value: TCreateMealFormData) => void;
 };
 
 export const PhotoAiAddMealForm = ({
+  aiSuggestion,
   setAiSuggestion,
 }: PhotoAiAddMealFormProps) => {
   const [weight, setWeight] = useState('');
@@ -48,6 +50,8 @@ export const PhotoAiAddMealForm = ({
       setFileList([]);
     };
   }, []);
+
+  if (aiSuggestion) return null;
 
   return (
     <div className={styles.aiPhotoForm}>
