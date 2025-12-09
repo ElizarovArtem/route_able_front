@@ -11,17 +11,20 @@
   @media (max-width: 640px) {
     position: absolute;
     height: 0;
+    padding: 0 var(--spacing-m);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color);
     overflow: hidden;
     flex-direction: column;
     background: var(--main-color);
     right: 96px;
     top: 72px;
+    opacity: 0;
 
     &Open {
       height: 50px;
       padding: var(--spacing-m);
-      border-radius: var(--border-radius);
-      border: 1px solid var(--border-color);
+      opacity: 1;
     }
   }
 }

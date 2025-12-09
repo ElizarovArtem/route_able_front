@@ -1,16 +1,23 @@
 @use '@/a.app/styles/variables';
 
 .suggestions {
-  display: flex;
-  gap: var(--spacing-m);
+  display: grid;
+  gap: var(--spacing-xs);
+  grid-template-columns: repeat(4, 1fr);
 
   &Title {
     font-weight: bold;
+  }
+
+  &Name {
+    grid-column-start: 1;
+    grid-column-end: 5;
   }
 }
 
 .buttonsWrapper {
   display: flex;
   justify-content: flex-end;
+  flex-wrap: wrap;
   gap: var(--spacing-m);
 }
