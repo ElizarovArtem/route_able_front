@@ -15,6 +15,21 @@ button.button[class*='ant-btn'][class*='ant-btn-default']:hover  {
   background: transparent;
 }
 
+button.button.secondary[class*='ant-btn'][class*='ant-btn-default'] {
+  background: var(--main-color);
+  border-color: var(--main-color);
+  color: var(--accent-color-1);
+  font-family: Inter, sans-serif;
+  font-weight: bold;
+  transition: 0.1s;
+}
+
+button.button.secondary[class*='ant-btn'][class*='ant-btn-default']:hover  {
+  color: var(--accent-color-1);
+  border-color: transparent;
+  background: transparent;
+}
+
 button.button[class*='ant-btn'][class*='ant-btn-default']:disabled, button.button[class*='ant-btn'][class*='ant-btn-default']:disabled:hover {
   background: var(--border-color);
   border-color: var(--border-color);
