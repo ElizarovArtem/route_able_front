@@ -4,7 +4,13 @@ import { useForm } from 'react-hook-form';
 import type { SetMealGoalsRequest } from '@/d.features/meal';
 import { useSetMealGoals } from '@/d.features/meal';
 import { useGetMealGoals } from '@/e.entities/meal';
-import { FormInput, UiButton, UiTitle } from '@/f.shared/ui';
+import {
+  FormInput,
+  UiButton,
+  UiFlex,
+  UiTitle,
+  UiTypography,
+} from '@/f.shared/ui';
 
 import styles from './AddMealGoals.module.scss';
 
@@ -50,30 +56,42 @@ export const AddMealGoals = ({ relationId }: AddMealGoalsProps) => {
       <UiTitle>Цели по КБЖУ</UiTitle>
 
       <div className={styles.goalsWrapper}>
-        <FormInput
-          name="goalCalories"
-          control={goalsControl}
-          placeholder="Цель по каллорийности"
-          type="number"
-        />
-        <FormInput
-          name="goalProtein"
-          control={goalsControl}
-          placeholder="Цель по белкам"
-          type="number"
-        />
-        <FormInput
-          name="goalFat"
-          control={goalsControl}
-          placeholder="Цель по жирам"
-          type="number"
-        />
-        <FormInput
-          name="goalCarbs"
-          control={goalsControl}
-          placeholder="Цель по углеводам"
-          type="number"
-        />
+        <UiFlex gap="s" direction="column" align="center">
+          <UiTypography>Кал</UiTypography>
+          <FormInput
+            name="goalCalories"
+            control={goalsControl}
+            placeholder="Цель по каллорийности"
+            type="number"
+          />
+        </UiFlex>
+        <UiFlex gap="s" direction="column" align="center">
+          <UiTypography>Б</UiTypography>
+          <FormInput
+            name="goalProtein"
+            control={goalsControl}
+            placeholder="Цель по белкам"
+            type="number"
+          />
+        </UiFlex>
+        <UiFlex gap="s" direction="column" align="center">
+          <UiTypography>Ж</UiTypography>
+          <FormInput
+            name="goalFat"
+            control={goalsControl}
+            placeholder="Цель по жирам"
+            type="number"
+          />
+        </UiFlex>
+        <UiFlex gap="s" direction="column" align="center">
+          <UiTypography>У</UiTypography>
+          <FormInput
+            name="goalCarbs"
+            control={goalsControl}
+            placeholder="Цель по углеводам"
+            type="number"
+          />
+        </UiFlex>
         <UiButton onClick={onSetMealGoals}>Сохранить</UiButton>
       </div>
     </>

@@ -3,6 +3,7 @@
 .goalsWrapper {
   display: flex;
   flex-wrap: nowrap;
+  align-items: flex-end;
   gap: var(--spacing-m);
 }
 

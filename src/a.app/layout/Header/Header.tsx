@@ -28,6 +28,12 @@ export const Header = () => {
     client.resetQueries();
   };
 
+  const onMenuItemClick = () => {
+    if (isMobile) {
+      setIsMenuOpen(false);
+    }
+  };
+
   const onUserNameClick = () => {
     if (isMobile) {
       setIsMenuOpen((prev) => !prev);
@@ -44,6 +50,7 @@ export const Header = () => {
         </Link>
 
         <Menu
+          onMenuItemClick={onMenuItemClick}
           nameRef={nameRef}
           open={isMenuOpen}
           onClickOutside={() => setIsMenuOpen(false)}

@@ -27,15 +27,27 @@
     gap: var(--spacing-l);
   }
 
-  &Align-start {
+  &Justify-start {
     justify-content: flex-start;
   }
 
-  &Align-center {
+  &Justify-center {
     justify-content: center;
   }
 
-  &Align-end {
+  &Justify-end {
     justify-content: flex-end;
+  }
+
+  &Align-start {
+    align-items: flex-start;
+  }
+
+  &Align-center {
+    align-items: center;
+  }
+
+  &Align-end {
+    align-items: flex-end;
   }
 }
