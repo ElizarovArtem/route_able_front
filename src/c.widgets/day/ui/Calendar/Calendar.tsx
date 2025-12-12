@@ -76,7 +76,6 @@ export const Calendar = () => {
       <DayInfoModal
         selectedDay={dateToOpen}
         onCancel={() => setSelectedDay(null)}
-        footer={null}
       />
     </UiCard>
   );

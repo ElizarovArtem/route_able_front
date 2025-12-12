@@ -132,7 +132,6 @@ export const AddMealModal = ({
       destroyOnHidden
       centered
       title="Добавить прием пищи"
-      footer={null}
       onCancel={onModalClose}
     >
       <UiTabs

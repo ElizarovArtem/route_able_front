@@ -9,6 +9,7 @@ type UiFlexProps = {
   gap?: 'xs' | 's' | 'm' | 'l';
   justify?: 'start' | 'center' | 'end' | 'space-between' | 'space-around';
   align?: 'start' | 'center' | 'end';
+  wrap?: 'wrap' | 'nowrap';
 } & React.HTMLAttributes<HTMLDivElement>;
 
 export const UiFlex = ({
@@ -17,6 +18,7 @@ export const UiFlex = ({
   gap = 'm',
   justify = 'start',
   align,
+  wrap,
   className,
   ...props
 }: UiFlexProps) => {
@@ -30,6 +32,7 @@ export const UiFlex = ({
         styles[`uiFlex-${direction}`],
         styles[`uiFlexJustify-${justify}`],
         styles[`uiFlexAlign-${align}`],
+        styles[`uiFlexWrap-${wrap}`],
       )}
     >
       {children}

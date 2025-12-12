@@ -58,4 +58,12 @@
   &Align-end {
     align-items: flex-end;
   }
+
+  &Wrap-wrap {
+    flex-wrap: wrap;
+  }
+
+  &Wrap-nowrap {
+    flex-wrap: nowrap;
+  }
 }

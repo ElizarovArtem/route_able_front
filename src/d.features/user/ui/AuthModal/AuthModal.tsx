@@ -90,7 +90,6 @@ export const AuthModal = () => {
       onCancel={onModalClose}
       title="Авторизация / Регистрация"
       centered
-      footer={null}
     >
       {contentType === AuthContentType.code ? (
         <UserAuthCodeForm values={getValues()} onModalClose={onModalClose} />

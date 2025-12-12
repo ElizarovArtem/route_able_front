@@ -94,12 +94,7 @@ export const UpdateUserModal = ({
   }, [user]);
 
   return (
-    <UiModal
-      title="Обновить информацию о пользователе"
-      centered
-      footer={null}
-      {...props}
-    >
+    <UiModal title="Обновить информацию о пользователе" centered {...props}>
       <form
         onSubmit={handleSubmit(updateUser, (errors) => {
           console.log(errors);

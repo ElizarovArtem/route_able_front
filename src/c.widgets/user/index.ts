@@ -7,5 +7,4 @@ export {
   UserInfo,
   WorkoutPlanFromClient,
   WorkoutPlanFromCoach,
-  VideoChat,
 } from './ui';

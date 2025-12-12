@@ -25,19 +25,23 @@
 }
 
 .lessonsList {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-xs);
   max-height: 220px;
   overflow-y: auto;
   padding-right: 4px;
+
+  &::-webkit-scrollbar {
+    height: 4px;
+    width: 2px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: var(--border-radius);
+    background: var(--accent-color-1);
+  }
 }
 
 .lessonItem {
-  padding: var(--spacing-xs);
-  border-radius: var(--border-radius);
-  border: 1px solid var(--border-color);
-  background: var(--background-color-2);
+  padding: var(--spacing-s);
 }
 
 .lessonItemActive {

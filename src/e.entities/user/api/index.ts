@@ -4,5 +4,4 @@ export {
   useGetMessages,
   useGetRelation,
   useGetVideoToken,
-  useGetVideoLessons,
 } from './queries';

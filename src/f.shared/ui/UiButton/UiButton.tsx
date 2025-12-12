@@ -5,7 +5,7 @@ import React from 'react';
 import styles from './UiButton.module.scss';
 
 type UiButtonProps = {
-  styleType?: 'primary' | 'secondary';
+  styleType?: 'primary' | 'secondary' | 'danger';
 } & ButtonProps;
 
 export const UiButton = ({
@@ -17,9 +17,7 @@ export const UiButton = ({
   return (
     <Button
       {...props}
-      className={classNames(className, styles.button, {
-        [styles.secondary]: styleType === 'secondary',
-      })}
+      className={classNames(className, styles.button, styles[styleType])}
       size={size}
     />
   );

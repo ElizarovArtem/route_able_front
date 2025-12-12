@@ -16,4 +16,10 @@ export {
   createAuthSlice,
   type TAuthStore,
 } from './model';
-export { AuthModal, CheckAuth, PaySubscription } from './ui';
+export {
+  AuthModal,
+  BookClientFromCoachModal,
+  CheckAuth,
+  CreateLessonSlotModal,
+  PaySubscription,
+} from './ui';

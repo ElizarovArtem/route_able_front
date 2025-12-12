@@ -1,0 +1,9 @@
+.slot {
+  background-color: var(--background-color-3);
+  padding: var(--spacing-s);
+  cursor: pointer;
+
+  &:hover {
+    border-color: var(--accent-color-1);
+  }
+}
