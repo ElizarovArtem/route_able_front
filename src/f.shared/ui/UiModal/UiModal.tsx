@@ -8,6 +8,10 @@ type UiModalProps = {} & ModalProps;
 
 export const UiModal = ({ className, ...props }: UiModalProps) => {
   return (
-    <Modal {...props} className={classNames(className, styles.modal)}></Modal>
+    <Modal
+      {...props}
+      className={classNames(className, styles.modal)}
+      footer={null}
+    />
   );
 };

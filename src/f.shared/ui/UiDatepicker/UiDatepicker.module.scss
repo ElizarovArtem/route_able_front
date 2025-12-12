@@ -13,8 +13,12 @@
   border-color: var(--accent-color-1);
 }
 
-[class*='ant-picker-outlined']::placeholder {
-  color: var(--text-color-2);
+[class*='ant-picker-input'] input::placeholder {
+  color: var(--text-color-2) !important;
+}
+
+[class*='ant-picker-input'] input {
+  color: var(--text-color-1) !important;
 }
 
 [class*='ant-picker'] span[class*='ant-picker-suffix'], [class*='ant-picker'] span[class*='ant-picker-clear'] {
@@ -25,3 +29,8 @@
   color: var(--accent-color-1);
 }
 
+[class*='ant-picker'][class*='ant-picker-outlined'][class*='ant-picker-focused'] {
+  background-color: var(--border-color);
+  color: var(--text-color-1);
+  border-color: var(--accent-color-1);
+}

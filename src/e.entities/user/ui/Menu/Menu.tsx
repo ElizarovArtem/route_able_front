@@ -8,11 +8,17 @@ import styles from './Menu.module.scss';
 
 type MenuProps = {
   onClickOutside?: () => void;
+  onMenuItemClick?: () => void;
   open: boolean;
   nameRef: RefObject<HTMLDivElement | null>;
 };
 
-export const Menu = ({ open, onClickOutside, nameRef }: MenuProps) => {
+export const Menu = ({
+  open,
+  onClickOutside,
+  nameRef,
+  onMenuItemClick,
+}: MenuProps) => {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -42,10 +48,10 @@ export const Menu = ({ open, onClickOutside, nameRef }: MenuProps) => {
       ref={ref}
       className={classNames(styles.menu, { [styles.menuOpen]: open })}
     >
-      <Link to="/lk">
+      <Link to="/lk" onClick={onMenuItemClick}>
         <UiTypography>Личный кабинет</UiTypography>
       </Link>
-      <Link to="/ai-lesson">
+      <Link to="/ai-lesson" onClick={onMenuItemClick}>
         <UiTypography>ИИ-ассистент</UiTypography>
       </Link>
     </div>

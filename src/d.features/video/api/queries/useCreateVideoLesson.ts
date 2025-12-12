@@ -26,7 +26,7 @@ export const useCreateVideoLesson = (
     ...restOptions,
     onSuccess: (data, variables, context, mutation) => {
       queryClient.invalidateQueries({
-        queryKey: ['videoLessons', variables.relationId],
+        queryKey: ['lessons', variables.slotId],
       });
       onSuccess?.(data, variables, context, mutation);
     },

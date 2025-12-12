@@ -1,11 +1,6 @@
+import { LessonStatus } from '@/e.entities/lessons/model/lessons.model.ts';
+import type { User } from '@/e.entities/user';
 import { api } from '@/f.shared/api';
-
-export enum LessonStatus {
-  SCHEDULED = 'SCHEDULED',
-  IN_PROGRESS = 'IN_PROGRESS',
-  COMPLETED = 'COMPLETED',
-  CANCELED = 'CANCELED',
-}
 
 export type VideoLessonDto = {
   id: string;
@@ -15,6 +10,7 @@ export type VideoLessonDto = {
   startAt: string;
   endAt: string;
   status: LessonStatus;
+  client: User;
   title?: string | null;
   notes?: string | null;
   createdBy: string;

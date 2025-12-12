@@ -1,17 +1,13 @@
 import type { AxiosResponse } from 'axios';
 
 import { Roles, type User } from '@/e.entities/user';
+import type { Relation } from '@/e.entities/user/model/user.model.ts';
 import { api } from '@/f.shared/api';
 
 export type GetRelationResponse = {
   meRole: Roles; // кем я являюсь в паре (или пока не в паре)
   partner: User;
-  relation: {
-    id: string;
-    isActive: boolean;
-    activatedAt?: Date | null;
-    deactivatedAt?: Date | null;
-  } | null;
+  relation: Relation | null;
   chat: {
     id: string;
   } | null;

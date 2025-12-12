@@ -1,0 +1,65 @@
+@use '@/a.app/styles/variables';
+
+.videoChatCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-m);
+}
+
+.infoBlock {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-s);
+}
+
+.actionsRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-s);
+}
+
+.scheduleBlock {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-s);
+}
+
+.lessonItem {
+  padding: var(--spacing-s);
+}
+
+.lessonItemActive {
+  border-color: var(--accent-color-1);
+  box-shadow: 0 0 0 1px rgba(34, 200, 167, 0.35);
+}
+
+.lessonMeta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-s);
+}
+
+.centeredRow {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+}
+
+.videoContainer {
+  flex: 1;
+  min-height: 320px;
+
+  & [class*='lk-button'], & [class*='lk-disconnect-button'], & [class*='lk-participant-metadata'] {
+    color: var(--text-color-1);
+  }
+
+  :global(.lk-room) {
+    height: 100%;
+  }
+
+  :global(.lk-layout-wrapper),
+  :global(.lk-video-conference) {
+    height: 100%;
+  }
+}

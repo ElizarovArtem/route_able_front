@@ -6,4 +6,3 @@ export { MealPlanFromCoach } from './MealPlanFromCoach/MealPlanFromCoach';
 export { UserInfo } from './UserInfo/UserInfo';
 export { WorkoutPlanFromClient } from './WorkoutPlanFromClient/WorkoutPlanFromClient';
 export { WorkoutPlanFromCoach } from './WorkoutPlanFromCoach/WorkoutPlanFromCoach';
-export { VideoChat } from './VideoChat/VideoChat';

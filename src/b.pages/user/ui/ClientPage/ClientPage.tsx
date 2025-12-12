@@ -2,10 +2,10 @@ import { useParams } from '@tanstack/react-router';
 import type { TabsProps } from 'antd/es/tabs';
 import React, { useMemo, useState } from 'react';
 
+import { VideoLessonFromCoach } from '@/c.widgets/lessons';
 import {
   Chat,
   MealPlanFromCoach,
-  VideoChat,
   WorkoutPlanFromCoach,
 } from '@/c.widgets/user';
 import { useGetRelation } from '@/e.entities/user/api';
@@ -54,9 +54,7 @@ export const ClientPage = () => {
       {
         key: TabsKeys.videoChat,
         label: 'Видеосвязь',
-        children: (
-          <VideoChat relationId={data?.relation?.id} meRole={data?.meRole} />
-        ),
+        children: <VideoLessonFromCoach relationId={data?.relation?.id} />,
         disabled: !data?.relation?.isActive || false,
       },
     ];

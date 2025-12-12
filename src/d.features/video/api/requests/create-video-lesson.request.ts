@@ -1,18 +1,14 @@
 import { api } from '@/f.shared/api';
 
 export type CreateVideoLessonRequest = {
-  relationId: string;
-  startAt: string;
-  endAt: string;
-  title?: string;
-  notes?: string;
+  slotId: string;
 };
 
 export const createVideoLesson = async ({
-  relationId,
+  slotId,
   ...payload
 }: CreateVideoLessonRequest) => {
-  const { data } = await api.post(`/client-coach/${relationId}/video-lessons`, {
+  const { data } = await api.post(`/slots/${slotId}/book`, {
     ...payload,
   });
 

@@ -6,9 +6,7 @@ import { useGetConnections } from '@/e.entities/user/api';
 import type { GetConnectionsResponseItem } from '@/e.entities/user/api/requests/get-connections.request.ts';
 import { ConnectionCard } from '@/e.entities/user/ui/ConnectionCard/ConnectionCard.tsx';
 import { useSelector } from '@/f.shared/lib';
-import { UiCard, UiTabs } from '@/f.shared/ui';
-
-import styles from './Connections.module.scss';
+import { UiCard, UiTabs, UiTypography } from '@/f.shared/ui';
 
 enum TabsKeys {
   myClients = 'myClients',
@@ -42,28 +40,36 @@ export const Connections = () => {
       {
         key: TabsKeys.myCoaches,
         label: 'Мои тренеры',
-        children: coaches.map((coach) => (
-          <ConnectionCard
-            key={coach.clientCoachId}
-            isActive={Boolean(coach.isActive)}
-            connection={coach.partner}
-            toRole={Roles.Coach}
-          />
-        )),
+        children: coaches.length
+          ? coaches.map((coach) => (
+              <ConnectionCard
+                key={coach.clientCoachId}
+                isActive={Boolean(coach.isActive)}
+                connection={coach.partner}
+                toRole={Roles.Coach}
+              />
+            ))
+          : null,
       },
       ...(user?.roles.includes(Roles.Coach)
         ? [
             {
               key: TabsKeys.myClients,
               label: 'Мои клиенты',
-              children: clients.map((client) => (
-                <ConnectionCard
-                  key={client.clientCoachId}
-                  isActive={Boolean(client.isActive)}
-                  connection={client.partner}
-                  toRole={Roles.Client}
-                />
-              )),
+              children: clients ? (
+                clients.map((client) => (
+                  <ConnectionCard
+                    key={client.clientCoachId}
+                    isActive={Boolean(client.isActive)}
+                    connection={client.partner}
+                    toRole={Roles.Client}
+                  />
+                ))
+              ) : (
+                <UiTypography>
+                  У вас пока нет ни одного подопечного
+                </UiTypography>
+              ),
             },
           ]
         : []),
