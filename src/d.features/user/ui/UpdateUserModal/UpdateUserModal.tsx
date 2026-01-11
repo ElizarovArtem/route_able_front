@@ -3,23 +3,28 @@ import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { useUpdateUser } from '@/d.features/user/api/queries/useUpdateUser.ts';
+import { type User, userSelector } from '@/e.entities/user';
+import {
+  ACTIVITY_OPTIONS,
+  GOAl_OPTIONS,
+} from '@/e.entities/user/model/user.constants.tsx';
 import {
   type TUpdateUserFormData,
   updateUserFormResolver,
-} from '@/d.features/user/model/user.update-user-resolver.ts';
-import { Roles, type User, userSelector } from '@/e.entities/user';
+} from '@/e.entities/user/model/user.update-user-resolver.ts';
 import { useSelector } from '@/f.shared/lib';
 import { useMobile } from '@/f.shared/lib/useMobile.ts';
 import {
   FormInput,
+  FormSelect,
+  FormTextarea,
+  FormUpload,
+  UiAvatar,
   UiButton,
   UiFlex,
   UiModal,
   UiTypography,
 } from '@/f.shared/ui';
-import { FormCheckbox } from '@/f.shared/ui/UiCheckbox/UiCheckbox.tsx';
-import { FormTextarea } from '@/f.shared/ui/UiTextarea/UiTextarea.tsx';
-import { FormUpload } from '@/f.shared/ui/UiUpload/UiUpload.tsx';
 
 import styles from './UpdateUserModal.module.scss';
 
@@ -31,14 +36,13 @@ export const UpdateUserModal = ({
   setOpenModal,
   ...props
 }: TUpdateUserModalProps) => {
-  const { control, reset, handleSubmit, watch } = useForm<TUpdateUserFormData>({
+  const { control, reset, handleSubmit } = useForm<TUpdateUserFormData>({
     defaultValues: {},
     resolver: updateUserFormResolver,
   });
   const { setUser, user } = useSelector(userSelector);
 
   const isMobile = useMobile();
-  const isCoach = watch('isCoach');
 
   const { mutate } = useUpdateUser({
     onSuccess: (data: User) => {
@@ -74,7 +78,8 @@ export const UpdateUserModal = ({
     formData.append('about', data.about || '');
     formData.append('weight', data.weight || '');
     formData.append('height', data.height || '');
-    formData.append('isCoach', JSON.stringify(data.isCoach));
+    formData.append('activityLevel', data.activityLevel || '');
+    formData.append('weightGoal', data.weightGoal || '');
 
     mutate(formData);
   };
@@ -88,7 +93,8 @@ export const UpdateUserModal = ({
         phone: user.phone || '',
         weight: user.weight || '',
         height: user.height || '',
-        isCoach: user.roles.includes(Roles.Coach),
+        activityLevel: user.activityLevel || '',
+        weightGoal: user.weightGoal || '',
       });
     }
   }, [user]);
@@ -101,53 +107,92 @@ export const UpdateUserModal = ({
         })}
         className={styles.form}
       >
-        <FormUpload
-          name="avatar"
-          control={control}
-          customRequest={() => {}}
-          beforeUpload={beforeUpload}
-        >
-          <UiButton>Загрузить фото</UiButton>
-        </FormUpload>
-        <FormInput name="name" control={control} placeholder="Имя" />
+        <UiFlex gap={isMobile ? 'xs' : 's'} align="center">
+          <UiAvatar height={150} src={user?.avatar} />
+          <FormUpload
+            name="avatar"
+            control={control}
+            customRequest={() => {}}
+            beforeUpload={beforeUpload}
+          >
+            <UiButton>Загрузить фото</UiButton>
+          </FormUpload>
+        </UiFlex>
+
+        <UiTypography bold>Личная информация</UiTypography>
         <UiFlex
           direction={isMobile ? 'column' : 'row'}
-          gap={isMobile ? 's' : 'm'}
+          gap={isMobile ? 'xs' : 's'}
         >
           <FormInput
+            label="Имя"
+            name="name"
+            control={control}
+            placeholder="Имя"
+          />
+          <FormInput
+            label="Рост"
             type="number"
             name="height"
             control={control}
             placeholder="Рост"
           />
           <FormInput
+            label="Вес"
             type="number"
             name="weight"
             control={control}
             placeholder="Вес"
           />
         </UiFlex>
-        <FormInput
-          name="phone"
-          control={control}
-          placeholder="Номер телефона"
-        />
-        <FormInput name="email" control={control} placeholder="Email" />
+
         <FormTextarea
           disableResize
           name="about"
           control={control}
           placeholder="О себе"
         />
-        <FormCheckbox name="isCoach" control={control}>
-          Я тренер
-        </FormCheckbox>
-        {isCoach && !user?.isCoachAgreed && (
-          <UiTypography size="small">
-            Мы свяжемся с вами по указанным выше контактам для подтверждения
-            вашего опыта
-          </UiTypography>
-        )}
+
+        <UiTypography bold>Контактная информация</UiTypography>
+        <UiFlex
+          childrenEqualLength
+          direction={isMobile ? 'column' : 'row'}
+          gap={isMobile ? 'xs' : 's'}
+        >
+          <FormInput
+            label="Номер телефона"
+            name="phone"
+            control={control}
+            placeholder="Номер телефона"
+          />
+          <FormInput
+            label="Email"
+            name="email"
+            control={control}
+            placeholder="Email"
+          />
+        </UiFlex>
+
+        <UiTypography bold>Тренировочная информация</UiTypography>
+        <UiFlex
+          childrenEqualLength
+          direction={isMobile ? 'column' : 'row'}
+          gap={isMobile ? 'xs' : 's'}
+        >
+          <FormSelect
+            name="activityLevel"
+            control={control}
+            placeholder="Активность"
+            options={ACTIVITY_OPTIONS}
+          />
+          <FormSelect
+            name="weightGoal"
+            control={control}
+            placeholder="Цель"
+            options={GOAl_OPTIONS}
+          />
+        </UiFlex>
+
         <UiButton htmlType="submit">Обновить</UiButton>
       </form>
     </UiModal>

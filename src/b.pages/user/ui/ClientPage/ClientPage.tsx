@@ -8,8 +8,12 @@ import {
   MealPlanFromCoach,
   WorkoutPlanFromCoach,
 } from '@/c.widgets/user';
+import { FatSummary } from '@/e.entities/meal';
 import { useGetRelation } from '@/e.entities/user/api';
-import { UiTabs } from '@/f.shared/ui';
+import { formatDateForServer } from '@/f.shared/lib/formatDateForServer.ts';
+import { UiAvatar, UiCard, UiFlex, UiTabs, UiTypography } from '@/f.shared/ui';
+
+import styles from './ClientPage.module.scss';
 
 enum TabsKeys {
   chat = 'chat',
@@ -20,12 +24,13 @@ enum TabsKeys {
 
 export const ClientPage = () => {
   const [currentTab, setCurrentTab] = useState<TabsKeys>(TabsKeys.mealPlan);
+  const [date, setDate] = useState(new Date());
   const clientId = useParams({
     from: '/_private/client/$clientId',
     select: (params) => params.clientId,
   });
 
-  const { data } = useGetRelation(clientId);
+  const { data } = useGetRelation(clientId, formatDateForServer(date));
 
   const tabs = useMemo((): TabsProps['items'] => {
     return [
@@ -61,11 +66,31 @@ export const ClientPage = () => {
   }, [clientId, data]);
 
   return (
-    <UiTabs
-      inverse
-      activeKey={currentTab}
-      onChange={(key) => setCurrentTab(key as TabsKeys)}
-      items={tabs}
-    />
+    <UiFlex direction="column">
+      <UiCard>
+        <UiFlex className={styles.about}>
+          <UiAvatar width={200} src={data?.partner.avatar || ''} />
+          <UiFlex justify="space-between" flex={1}>
+            <UiFlex direction="column" gap="s">
+              <UiTypography bold>{data?.partner.name}</UiTypography>
+              {data?.partner.about && (
+                <UiTypography>{data?.partner.about}</UiTypography>
+              )}
+              <UiTypography>Рост: {data?.partner.height || '-'}</UiTypography>
+              <UiTypography>Вес: {data?.partner.weight || '-'}</UiTypography>
+            </UiFlex>
+
+            <FatSummary data={data?.nutrition?.summary} />
+          </UiFlex>
+        </UiFlex>
+      </UiCard>
+
+      <UiTabs
+        inverse
+        activeKey={currentTab}
+        onChange={(key) => setCurrentTab(key as TabsKeys)}
+        items={tabs}
+      />
+    </UiFlex>
   );
 };

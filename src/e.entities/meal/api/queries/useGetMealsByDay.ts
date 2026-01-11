@@ -1,12 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 
 import {
+  type GetDayMealsSummaryRes,
   getMealsByDaySummary,
-  type TGetDayMealsSummaryRes,
 } from '@/e.entities/meal';
 
 export const useGetMealByDay = (date: string) => {
-  return useQuery<TGetDayMealsSummaryRes>({
+  return useQuery<GetDayMealsSummaryRes>({
     queryKey: ['meals', date],
     queryFn: () => getMealsByDaySummary(date),
     enabled: !!date, // не запускаем без даты

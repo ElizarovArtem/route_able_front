@@ -27,3 +27,9 @@ div[class*='ant-select'][class*='ant-select-lg'][class*='ant-select-outlined']:f
 [class*='ant-select'][class*='ant-select-outlined'] [class*='ant-select-arrow'] {
   color: var(--text-color-2);
 }
+
+div[class*='ant-select'][class*='ant-select-lg'][class*='ant-select-outlined'][class*='ant-select-status-error'] [class*='ant-select-selector'] {
+  background-color: var(--border-color);
+  color: var(--text-color-1);
+  border-color: var(--background-color-4) !important;
+}

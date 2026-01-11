@@ -10,7 +10,7 @@ import {
 } from '@/c.widgets/user';
 import { PaySubscription } from '@/d.features/user';
 import { useGetRelation } from '@/e.entities/user';
-import { UiAvatar, UiTabs, UiTypography } from '@/f.shared/ui';
+import { UiAvatar, UiFlex, UiTabs, UiTypography } from '@/f.shared/ui';
 
 import styles from './CoachPage.module.scss';
 
@@ -64,20 +64,20 @@ export const CoachPage = () => {
   }, [coachId, data]);
 
   return (
-    <div className={styles.coachPageWrapper}>
-      <div className={styles.about}>
+    <UiFlex direction="column">
+      <UiFlex className={styles.about}>
         <UiAvatar width={200} src={data?.partner.avatar || ''} />
-        <div className={styles.aboutInfo}>
+        <UiFlex direction="column" gap="s">
           <UiTypography bold>{data?.partner.name}</UiTypography>
           <UiTypography>{data?.partner.about}</UiTypography>
-        </div>
+        </UiFlex>
         {!data?.relation?.isActive && data?.relation?.id && (
           <PaySubscription
             linkId={data.relation.id}
             partnerId={data.partner.id}
           />
         )}
-      </div>
+      </UiFlex>
 
       <UiTabs
         inverse
@@ -85,6 +85,6 @@ export const CoachPage = () => {
         onChange={(key) => setCurrentTab(key as TabsKeys)}
         items={tabs}
       />
-    </div>
+    </UiFlex>
   );
 };

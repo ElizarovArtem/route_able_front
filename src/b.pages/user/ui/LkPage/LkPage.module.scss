@@ -1,13 +1,5 @@
 .mainContentWrapper {
-  display: flex;
-  gap: var(--spacing-m);
-  margin-top: var(--spacing-l);
-  flex-wrap: wrap;
-
-  @media (max-width: 640px) {
-    flex-direction: column;
-    gap: var(--spacing-s);
-  }
+  margin-top: var(--spacing-m);
 }
 
 .flexBlock {

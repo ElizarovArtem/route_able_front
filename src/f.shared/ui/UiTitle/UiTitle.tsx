@@ -15,5 +15,3 @@ export const UiTitle = ({ children, size = 'm' }: UiTitleProps) => {
     </div>
   );
 };
-
-export default UiTitle;

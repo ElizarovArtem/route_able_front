@@ -1,3 +1,10 @@
+import {
+  ActivityLevel,
+  Gender,
+  Roles,
+  WeightGoal,
+} from '@/e.entities/user/model/user.enums.ts';
+
 export type User = {
   name?: string;
   email: string;
@@ -7,8 +14,13 @@ export type User = {
   isCoach: boolean;
   avatar?: string;
   id: string;
-  height?: string;
-  weight?: string;
+  height?: number;
+  weight?: number;
+  activityLevel: ActivityLevel;
+  weightGoal: WeightGoal;
+  gender: Gender;
+  birthDate: string;
+  bodyFatPercent?: number;
   isCoachAgreed?: boolean;
 };
 
@@ -25,12 +37,6 @@ export type Relation = {
   goalFat: number;
   goalCarbs: number;
 };
-
-export enum Roles {
-  Admin = 'Admin',
-  Coach = 'Coach',
-  Client = 'Client',
-}
 
 export type ClientCoachRelationDto = {
   id: string;

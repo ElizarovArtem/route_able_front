@@ -20,12 +20,12 @@ export const LkPage = () => {
   return (
     <>
       <Calendar />
-      <div className={styles.mainContentWrapper}>
+      <UiFlex gap="s" direction="column" className={styles.mainContentWrapper}>
         <UserInfo />
         <UiFlex
           className={styles.flexBlock}
           direction={isMobile ? 'column' : 'row'}
-          gap={isMobile ? 's' : 'm'}
+          gap="s"
         >
           <MealsInfo />
           <Connections />
@@ -34,13 +34,13 @@ export const LkPage = () => {
           <UiFlex
             className={styles.flexBlock}
             direction={isMobile ? 'column' : 'row'}
-            gap={isMobile ? 's' : 'm'}
+            gap="s"
           >
             <Lessons />
             <LessonSlots />
           </UiFlex>
         )}
-      </div>
+      </UiFlex>
     </>
   );
 };

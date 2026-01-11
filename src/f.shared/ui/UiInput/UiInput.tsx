@@ -3,27 +3,33 @@ import classNames from 'classnames';
 import React from 'react';
 
 import { withForm } from '@/f.shared/lib';
+import { UiFlex, UiTypography } from '@/f.shared/ui';
 
 import styles from './UiInput.module.scss';
 
 type UiInputProps = {
   error?: string;
+  label?: string;
 } & InputProps;
 
 export const UiInput = ({
   error,
   placeholder,
   className,
+  label,
   ...props
 }: UiInputProps) => {
   return (
-    <Input
-      {...props}
-      className={classNames(styles.input, className)}
-      size="large"
-      status={error && 'error'}
-      placeholder={error ? error : placeholder}
-    />
+    <UiFlex direction="column" gap="xxs">
+      {label && <UiTypography type="label">{label}</UiTypography>}
+      <Input
+        {...props}
+        className={classNames(styles.input, className)}
+        size="large"
+        status={error && 'error'}
+        placeholder={error ? error : placeholder}
+      />
+    </UiFlex>
   );
 };
 

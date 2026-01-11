@@ -1,5 +1,5 @@
 import type { VideoLessonDto } from '@/e.entities/lessons/api/requests/get-video-lessons.request.ts';
-import type { ClientCoachRelationDto } from '@/e.entities/user/model/user.model.ts';
+import type { ClientCoachRelationDto } from '@/e.entities/user/model/user.types.ts';
 
 export enum TimeSlotStatus {
   FREE = 'FREE',

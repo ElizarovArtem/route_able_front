@@ -1,5 +1,5 @@
 import type { User } from '@/e.entities/user';
-import type { Relation } from '@/e.entities/user/model/user.model.ts';
+import type { Relation } from '@/e.entities/user/model/user.types.ts';
 import { api } from '@/f.shared/api';
 
 export type GetCoachVideoLessonsParams = {

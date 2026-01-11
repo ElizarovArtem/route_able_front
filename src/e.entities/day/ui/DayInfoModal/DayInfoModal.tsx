@@ -3,9 +3,9 @@ import { format } from 'date-fns';
 import { ru } from 'date-fns/locale';
 import React from 'react';
 
-import { useGetMealByDay } from '@/e.entities/meal';
-import { MealsList } from '@/e.entities/meal/ui/MealsList/MealsList.tsx';
-import { MealsSummaryPerDay } from '@/e.entities/meal/ui/MealsSummaryPerDay/MealsSummaryPerDay.tsx';
+import { FatSummary, useGetMealByDay } from '@/e.entities/meal';
+import { MealItem } from '@/e.entities/meal/ui/MealItem/MealItem.tsx';
+import { UiFlex } from '@/f.shared/ui';
 import { UiModal } from '@/f.shared/ui/UiModal/UiModal.tsx';
 
 type TDayInfoModalProps = {
@@ -23,8 +23,13 @@ export const DayInfoModal = ({ selectedDay, ...props }: TDayInfoModalProps) => {
         selectedDay ? format(selectedDay, 'd MMMM yyyy', { locale: ru }) : ''
       }
     >
-      <MealsSummaryPerDay data={data?.summary || null} />
-      <MealsList data={data?.meals || []} />
+      <UiFlex direction="column">
+        <FatSummary data={data?.summary} goals={data?.goals} />
+
+        <UiFlex direction="column" gap="xs">
+          {data?.meals.map((meal) => <MealItem key={meal.id} meal={meal} />)}
+        </UiFlex>
+      </UiFlex>
     </UiModal>
   );
 };

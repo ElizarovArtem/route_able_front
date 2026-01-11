@@ -75,7 +75,7 @@ export const PlannedMealsList = ({
   return (
     <div className={styles.plannedMealsListWrapper}>
       <div className={styles.titleWrapper}>
-        <UiTitle>Плановые приемы пищи на {formatDateForServer(date)}</UiTitle>{' '}
+        <UiTitle>Плановые приемы пищи на</UiTitle>{' '}
         <UiDatepicker defaultValue={date} onChange={onDateChange} />
       </div>
 

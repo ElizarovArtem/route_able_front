@@ -1,15 +1,16 @@
 @use '@/a.app/styles/variables';
 
 .calendar {
-  --pad: 16px;
-  position: relative;
-  display: flex;
-  gap: 16px;
-  padding: 20px var(--pad) 28px; // место под прогресс
-  overflow-x: auto;
+  padding-bottom: 0;
   box-shadow: var(--box-shadow);
+}
+
+.daysRow {
+  overflow-x: auto;
   scroll-snap-type: x proximity;
   scroll-padding-inline: calc(var(--pad) + 24px);
+  padding-bottom: var(--spacing-m);
+  padding-top: var(--spacing-xs);
 
   &::-webkit-scrollbar {
     height: 4px;
@@ -63,4 +64,8 @@
 .num {
   font-size: var(--font-size-s);
   line-height: 1;
+}
+
+.monthTitle {
+ text-align: center;
 }

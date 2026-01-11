@@ -4,12 +4,14 @@ import React, { type ReactNode } from 'react';
 import styles from './UiFlex.module.scss';
 
 type UiFlexProps = {
-  children: ReactNode;
+  children: ReactNode | ReactNode[];
   direction?: 'column' | 'row';
-  gap?: 'xs' | 's' | 'm' | 'l';
+  gap?: 'xxs' | 'xs' | 's' | 'm' | 'l';
   justify?: 'start' | 'center' | 'end' | 'space-between' | 'space-around';
   align?: 'start' | 'center' | 'end';
   wrap?: 'wrap' | 'nowrap';
+  flex?: number;
+  childrenEqualLength?: boolean;
 } & React.HTMLAttributes<HTMLDivElement>;
 
 export const UiFlex = ({
@@ -19,6 +21,8 @@ export const UiFlex = ({
   justify = 'start',
   align,
   wrap,
+  flex,
+  childrenEqualLength,
   className,
   ...props
 }: UiFlexProps) => {
@@ -33,7 +37,18 @@ export const UiFlex = ({
         styles[`uiFlexJustify-${justify}`],
         styles[`uiFlexAlign-${align}`],
         styles[`uiFlexWrap-${wrap}`],
+        { [styles.uiFlexChildrenEqualLength]: childrenEqualLength },
       )}
+      style={{
+        flex,
+        ...(childrenEqualLength
+          ? {
+              '--flex-children-count': Array.isArray(children)
+                ? children.length
+                : 1,
+            }
+          : {}),
+      }}
     >
       {children}
     </div>

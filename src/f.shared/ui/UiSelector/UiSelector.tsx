@@ -10,11 +10,16 @@ type TUiSelectorProps = {
   error?: string;
 } & SelectProps;
 
-export const UiSelector = ({ className, ...props }: TUiSelectorProps) => {
+export const UiSelector = ({
+  className,
+  error,
+  ...props
+}: TUiSelectorProps) => {
   return (
     <Select
       {...props}
       size="large"
+      status={error && 'error'}
       className={classNames(className, styles.uiSelector)}
     />
   );
