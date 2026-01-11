@@ -3,4 +3,5 @@ export {
   useSendMessage,
   useStartChat,
   useUpdateUser,
+  useUpdateUserFatGoals,
 } from './queries';

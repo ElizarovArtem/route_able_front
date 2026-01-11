@@ -12,12 +12,12 @@ import {
   useAddMeal,
 } from '@/d.features/meal';
 import {
+  type GetDayMealsSummaryRes,
   ManualAddMealForm,
   NUTRITION_DICTIONARY,
   NutritionType,
   PhotoAiAddMealForm,
   TextAiAddMealForm,
-  type TGetDayMealsSummaryRes,
 } from '@/e.entities/meal';
 import { UiButton, UiCard, UiFlex, UiModal, UiTypography } from '@/f.shared/ui';
 import { UiTabs } from '@/f.shared/ui/UiTabs/UiTabs.tsx';
@@ -33,7 +33,7 @@ enum TabsKeys {
 type TMealFormProps = {
   refetch: (
     options?: RefetchOptions,
-  ) => Promise<QueryObserverResult<TGetDayMealsSummaryRes, Error>>;
+  ) => Promise<QueryObserverResult<GetDayMealsSummaryRes, Error>>;
   setIsOpen: (isOpen: boolean) => void;
 } & ModalProps;
 

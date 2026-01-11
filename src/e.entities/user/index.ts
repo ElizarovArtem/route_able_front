@@ -5,12 +5,12 @@ export {
   useGetRelation,
   useGetVideoToken,
 } from './api';
-export { Roles, type User } from './model/user.model.ts';
 export {
   createUserSlice,
   type TUserStore,
   userSelector,
 } from './model/user.store.ts';
+export { type User } from './model/user.types.ts';
 export {
   LessonSlot,
   Menu,
@@ -19,3 +19,4 @@ export {
   UserAuthPhoneForm,
   UserInfoItem,
 } from './ui';
+export { Roles } from '@/e.entities/user/model/user.enums.ts';

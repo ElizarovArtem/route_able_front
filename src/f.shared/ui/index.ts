@@ -7,6 +7,7 @@ export { FormInput, UiInput } from './UiInput/UiInput';
 export { UiModal } from './UiModal/UiModal';
 export { FormSelect, UiSelector } from './UiSelector/UiSelector';
 export { UiTabs } from './UiTabs/UiTabs';
+export { FormTextarea, UiTextarea } from './UiTextarea/UiTextarea';
 export { UiTitle } from './UiTitle/UiTitle';
 export { UiTypography } from './UiTypography/UiTypography';
-export { UiUpload } from './UiUpload/UiUpload';
+export { FormUpload, UiUpload } from './UiUpload/UiUpload';

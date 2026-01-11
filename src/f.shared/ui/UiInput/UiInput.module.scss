@@ -17,7 +17,13 @@
   color: var(--text-color-2);
 }
 
-[class*='ant-input'][class*='ant-input-outlined'][class*='ant-input-status-error'], [class*='ant-input-outlined']input[class*='ant-input-status-error']:hover {
+[class*='ant-input'][class*='ant-input-outlined'][class*='ant-input-status-error'] {
   color: var(--text-color-4);
   background-color: var(--border-color) !important;
+}
+
+[class*='ant-input'][class*='ant-input-outlined'][class*='ant-input-status-error']:hover {
+  color: var(--text-color-4);
+  background-color: var(--border-color) !important;
+  border-color: var(--accent-color-1) !important;
 }

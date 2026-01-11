@@ -11,6 +11,10 @@
     flex-direction: row;
   }
 
+  &Gap-xxs {
+    gap: var(--spacing-xxs);
+  }
+
   &Gap-xs {
     gap: var(--spacing-xs);
   }
@@ -65,5 +69,11 @@
 
   &Wrap-nowrap {
     flex-wrap: nowrap;
+  }
+
+  &ChildrenEqualLength {
+    & > * {
+      flex-basis: calc(100% / var(--flex-children-count));
+    }
   }
 }

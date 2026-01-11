@@ -1,0 +1,12 @@
+.detectFatByPhotoLabel {
+  cursor: pointer;
+
+  &:hover {
+    color: var(--accent-color-1);
+  }
+}
+
+.icon {
+  border: 1px solid var(--accent-color);
+  border-radius: 50%;
+}

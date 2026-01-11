@@ -15,6 +15,8 @@ export {
   authSelector,
   createAuthSlice,
   type TAuthStore,
+  type UpdateUserFatGoalsFormData,
+  updateUserFatGoalsFormResolver,
 } from './model';
 export {
   AuthModal,

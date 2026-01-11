@@ -3,7 +3,7 @@ import { format } from 'date-fns';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 
 import { DayInfoModal } from '@/e.entities/day/ui/DayInfoModal/DayInfoModal.tsx';
-import { UiCard } from '@/f.shared/ui';
+import { UiCard, UiFlex, UiTypography } from '@/f.shared/ui';
 
 import styles from './Calendar.module.scss';
 
@@ -16,6 +16,10 @@ export const Calendar = () => {
   const month = now.getMonth();
   const today = now.getDate();
   const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+  const monthName = now.toLocaleString('ru-RU', { month: 'long' });
+  const monthCapitalized =
+    monthName.charAt(0).toUpperCase() + monthName.slice(1);
 
   const [selectedDay, setSelectedDay] = useState<number | null>(null);
 
@@ -49,29 +53,36 @@ export const Calendar = () => {
 
   return (
     <UiCard ref={wrapRef} className={styles.calendar}>
-      {days.map(({ day, state }) => {
-        const isToday = state === 'today';
-        const isFuture = state === 'future';
-        const isSelected = selectedDay === day;
+      <UiFlex direction="column" gap="s">
+        <UiTypography bold className={styles.monthTitle}>
+          {monthCapitalized} {now.toLocaleString('ru-RU', { year: 'numeric' })}
+        </UiTypography>
+        <UiFlex className={styles.daysRow}>
+          {days.map(({ day, state }) => {
+            const isToday = state === 'today';
+            const isFuture = state === 'future';
+            const isSelected = selectedDay === day;
 
-        return (
-          <button
-            key={day}
-            ref={isToday ? todayRef : undefined}
-            type="button"
-            className={classNames(styles.chip, {
-              [styles.isToday]: isToday,
-              [styles.isFuture]: isFuture,
-              [styles.isSelected]: isSelected,
-            })}
-            onClick={() => !isFuture && setSelectedDay(day)}
-            aria-selected={isSelected}
-            disabled={isFuture}
-          >
-            <span className={styles.num}>{day}</span>
-          </button>
-        );
-      })}
+            return (
+              <button
+                key={day}
+                ref={isToday ? todayRef : undefined}
+                type="button"
+                className={classNames(styles.chip, {
+                  [styles.isToday]: isToday,
+                  [styles.isFuture]: isFuture,
+                  [styles.isSelected]: isSelected,
+                })}
+                onClick={() => !isFuture && setSelectedDay(day)}
+                aria-selected={isSelected}
+                disabled={isFuture}
+              >
+                <span className={styles.num}>{day}</span>
+              </button>
+            );
+          })}
+        </UiFlex>
+      </UiFlex>
 
       <DayInfoModal
         selectedDay={dateToOpen}

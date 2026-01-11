@@ -133,7 +133,7 @@ export const VideoLessonFromCoach = ({ relationId }: VideoChatProps) => {
 
             <UiCard>
               <UiFlex direction="column">
-                <UiTypography bold>Расписание уроков</UiTypography>
+                <UiTypography bold>Запланированные занятия</UiTypography>
                 <UiFlex direction="column" gap="s">
                   {lessons?.length ? (
                     lessons.map((lesson) => {
@@ -162,8 +162,7 @@ export const VideoLessonFromCoach = ({ relationId }: VideoChatProps) => {
                     })
                   ) : (
                     <UiTypography>
-                      На данный момент занятий не запланировано, ознакомтесь со
-                      свободными временными слотами тренера ниже
+                      На данный момент занятий не запланировано
                     </UiTypography>
                   )}
                 </UiFlex>

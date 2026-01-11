@@ -34,3 +34,17 @@
   color: var(--text-color-1);
   border-color: var(--accent-color-1);
 }
+
+
+[class*='ant-picker'][class*='ant-picker-outlined'][class*='ant-picker-status-error'] {
+  background-color: var(--border-color);
+  color: var(--text-color-1);
+  border-color: var(--background-color-4) !important;
+}
+
+[class*='ant-picker'][class*='ant-picker-outlined'][class*='ant-picker-status-error']:hover {
+  background-color: var(--border-color);
+  color: var(--text-color-1);
+  border-color: var(--accent-color-1) !important;
+}
+//ant-picker-status-error

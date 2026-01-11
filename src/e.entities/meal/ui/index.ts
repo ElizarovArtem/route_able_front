@@ -1,6 +1,5 @@
-export { ManualAddMealForm } from './ManualAddMealForm/ManualAddMealForm.tsx';
-export { MealsList } from './MealsList/MealsList.tsx';
-export { MealsSummaryPerDay } from './MealsSummaryPerDay/MealsSummaryPerDay.tsx';
-export { PhotoAiAddMealForm } from './PhotoAiAddMealForm/PhotoAiAddMealForm.tsx';
-export { PlannedMealsList } from './PlannedMealsList/PlannedMealsList.tsx';
-export { TextAiAddMealForm } from './TextAiAddMealForm/TextAiAddMealForm.tsx';
+export { FatSummary } from './FatSummary/FatSummary';
+export { ManualAddMealForm } from './ManualAddMealForm/ManualAddMealForm';
+export { PhotoAiAddMealForm } from './PhotoAiAddMealForm/PhotoAiAddMealForm';
+export { PlannedMealsList } from './PlannedMealsList/PlannedMealsList';
+export { TextAiAddMealForm } from './TextAiAddMealForm/TextAiAddMealForm';
