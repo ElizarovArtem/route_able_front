@@ -5,7 +5,7 @@ import styles from './UserInfoItem.module.scss';
 
 type TUserInfoItemProps = {
   title: string;
-  value: string;
+  value: string | number;
   className?: string;
 };
 

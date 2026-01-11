@@ -91,8 +91,8 @@ export const UpdateUserModal = ({
         email: user.email || '',
         name: user.name || '',
         phone: user.phone || '',
-        weight: user.weight || '',
-        height: user.height || '',
+        weight: user.weight?.toString() || '',
+        height: user.height?.toString() || '',
         activityLevel: user.activityLevel || '',
         weightGoal: user.weightGoal || '',
       });
