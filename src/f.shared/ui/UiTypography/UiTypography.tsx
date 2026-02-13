@@ -9,11 +9,20 @@ type UiTypographyProps = {
   bold?: boolean;
   type?: 'ordinary' | 'label';
   size?: 'small' | 'medium' | 'large';
+  label?: string;
 } & React.HTMLAttributes<HTMLDivElement>;
 
 export const UiTypography = forwardRef<HTMLDivElement, UiTypographyProps>(
   (
-    { children, className, bold, type = 'ordinary', size = 'medium', ...props },
+    {
+      children,
+      className,
+      bold,
+      type = 'ordinary',
+      size = 'medium',
+      label,
+      ...props
+    },
     ref,
   ) => {
     return (
@@ -28,6 +37,7 @@ export const UiTypography = forwardRef<HTMLDivElement, UiTypographyProps>(
           className,
         )}
       >
+        {label && <div className={styles.label}>{label}</div>}
         {children}
       </div>
     );

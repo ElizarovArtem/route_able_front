@@ -4,6 +4,7 @@ export { UiCard } from './UiCard/UiCard';
 export { FormDatepicker, UiDatepicker } from './UiDatepicker/UiDatepicker';
 export { UiFlex } from './UiFlex/UiFlex';
 export { FormInput, UiInput } from './UiInput/UiInput';
+export { UiLoaderContainer } from './UiLoaderContainer/UiLoaderContainer';
 export { UiModal } from './UiModal/UiModal';
 export { FormSelect, UiSelector } from './UiSelector/UiSelector';
 export { UiTabs } from './UiTabs/UiTabs';

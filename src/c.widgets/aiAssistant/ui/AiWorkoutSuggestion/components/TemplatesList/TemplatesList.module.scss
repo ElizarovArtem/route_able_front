@@ -1,0 +1,40 @@
+.workoutItem {
+  cursor: pointer;
+
+  &:hover {
+    border-color: var(--accent-color-1);
+  }
+}
+
+.collapse {
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid var(--accent-color-1);
+  border-top: 2px solid var(--accent-color-1);
+  transform: rotate(135deg);
+  transition: 0.2s;
+
+  &Open {
+    transform: rotate(315deg);
+  }
+}
+
+.historyWrapper {
+  padding-right: 2px;
+}
+
+.historyList {
+  overflow-y: scroll;
+  max-height: 400px;
+  padding-right: var(--spacing-m);
+
+  &::-webkit-scrollbar {
+    height: 4px;
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: var(--border-radius);
+    background: var(--accent-color-1);
+  }
+}
