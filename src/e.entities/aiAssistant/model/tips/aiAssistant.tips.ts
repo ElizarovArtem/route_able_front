@@ -1,11 +1,13 @@
 import type { Keypoint } from '@tensorflow-models/pose-detection';
 
 import {
+  ExerciseKey,
   ExerciseMode,
   parallelFrontProvider,
   parallelSideProvider,
   SquatRepTracker,
 } from '@/e.entities/aiAssistant';
+import type { ViewAngle } from '@/e.entities/aiAssistant/model/aiAssistant.model.ts';
 
 export function keypointsToMap(keypoints: Keypoint[]) {
   const nameToKeypoint = new Map<string, Keypoint>();
@@ -56,14 +58,15 @@ export function ema(prev: number | null, next: number, alpha: number) {
   return prev == null ? next : prev * (1 - alpha) + next * alpha;
 }
 
-export const getTracker = (mode?: ExerciseMode) => {
+export const getTracker = (view: ViewAngle, mode?: ExerciseKey) => {
   switch (mode) {
-    case ExerciseMode.squatFront: {
-      return new SquatRepTracker('front', [parallelFrontProvider]);
+    case ExerciseKey.SQUAT: {
+      const tracker =
+        view === 'side' ? parallelSideProvider : parallelFrontProvider;
+
+      return new SquatRepTracker(view, [tracker]);
     }
-    case ExerciseMode.squatSide: {
-      return new SquatRepTracker('side', [parallelSideProvider]);
-    }
+
     default: {
       return null;
     }

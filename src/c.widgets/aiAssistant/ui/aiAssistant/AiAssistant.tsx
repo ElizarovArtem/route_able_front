@@ -12,6 +12,7 @@ import React, {
 } from 'react';
 
 import {
+  ExerciseKey,
   ExerciseMode,
   getTracker,
   PoseOverlay,
@@ -22,6 +23,10 @@ import {
   useGetAiAssistantToken,
   usePoseDetectorController,
 } from '@/e.entities/aiAssistant';
+import {
+  EXERCISE_VIEWS,
+  ViewAngle,
+} from '@/e.entities/aiAssistant/model/aiAssistant.model.ts';
 import { UiButton, UiCard, UiSelector } from '@/f.shared/ui';
 import { UiSwitch } from '@/f.shared/ui/UiSwitch/UiSwitch.tsx';
 
@@ -32,12 +37,37 @@ const MODE_OPTIONS: DefaultOptionType[] = [
   { value: ExerciseMode.squatSide, label: 'Приседания - Вид сбоку' },
 ];
 
-export const AiAssistant = () => {
+type AiAssistantProps = {
+  needHeader?: boolean;
+  externalMode?: ExerciseKey;
+  externalStart?: boolean;
+  externalView?: ViewAngle;
+};
+
+export const AiAssistant = ({
+  needHeader = true,
+  externalMode,
+  externalStart,
+  externalView,
+}: AiAssistantProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const trackerRef = useRef<SquatRepTracker | null>(null);
   const lastPhaseRef = useRef<RepPhase>(RepPhase.Standing);
 
-  const [mode, setMode] = useState<ExerciseMode>();
+  const [mode, setMode] = useState<ExerciseKey | undefined>(externalMode);
+
+  const viewOptions = useMemo((): DefaultOptionType[] => {
+    return mode
+      ? (EXERCISE_VIEWS[mode] || []).map((view) => ({
+          value: view,
+          label: view === ViewAngle.side ? 'Сбоку' : 'Спереди',
+        }))
+      : [];
+  }, [mode]);
+
+  const [view, setView] = useState<ViewAngle>(
+    (viewOptions[0]?.value || ViewAngle.side) as ViewAngle,
+  );
 
   const [keypoints, setKeypoints] = useState<Keypoint[]>([]);
   const [tips, setTips] = useState<Tip[]>([]);
@@ -47,7 +77,13 @@ export const AiAssistant = () => {
 
   const [start, setStart] = useState(false);
 
-  const roomId = useMemo(() => `ai-assistant-${mode}`, [mode]);
+  const currentStart = externalStart || start;
+  const selectedMode = externalMode ?? mode;
+
+  const roomId = useMemo(
+    () => `ai-assistant-${externalMode ?? mode}`,
+    [mode, externalMode],
+  );
 
   const { data: tokenPayload } = useGetAiAssistantToken(roomId);
 
@@ -127,7 +163,7 @@ export const AiAssistant = () => {
       });
       return () => mutationObserver.disconnect();
     }
-  }, [tokenPayload, roomId, start]);
+  }, [tokenPayload, roomId, currentStart]);
 
   useEffect(() => {
     setTextTips((prevState) => [...prevState, ...tips]);
@@ -138,38 +174,52 @@ export const AiAssistant = () => {
   }, [tips]);
 
   useEffect(() => {
-    trackerRef.current = getTracker(mode);
+    trackerRef.current = getTracker(view, selectedMode);
     lastPhaseRef.current = RepPhase.Standing;
     setTips([]);
     setTextTips([]);
-  }, [mode]);
+  }, [mode, externalMode]);
 
   useEffect(() => {
-    if (start && hasVideo) {
+    if (currentStart && hasVideo) {
       startDetector();
     }
-  }, [start, hasVideo, startDetector]);
+  }, [currentStart, hasVideo, startDetector]);
 
+  useEffect(() => {
+    if (externalView) {
+      setView(externalView);
+    }
+  }, [externalView]);
+  console.log(externalStart);
   return (
     <div className={styles.aiAssistantWrapper}>
-      <UiCard className={styles.controlWrapper}>
-        <UiSwitch
-          label="Включить голосовые подсказки"
-          checked={needVoiceHelper}
-          onChange={onChangeNeedVoiceHelper}
-        />
-        <UiSelector
-          className={styles.selector}
-          options={MODE_OPTIONS}
-          onChange={setMode}
-          placeholder="Выберите упражнение"
-        />
-        <UiButton disabled={!mode} onClick={() => toggleStart(!start)}>
-          {start ? 'Закончить' : 'Начать'}
-        </UiButton>
-      </UiCard>
+      {needHeader && (
+        <UiCard className={styles.controlWrapper}>
+          <UiSwitch
+            label="Включить голосовые подсказки"
+            checked={needVoiceHelper}
+            onChange={onChangeNeedVoiceHelper}
+          />
+          <UiSelector
+            className={styles.selector}
+            options={MODE_OPTIONS}
+            onChange={setMode}
+            placeholder="Выберите упражнение"
+          />
+          <UiSelector
+            className={styles.selector}
+            options={viewOptions}
+            onChange={setView}
+            placeholder="Выберите вид"
+          />
+          <UiButton disabled={!mode} onClick={() => toggleStart(!currentStart)}>
+            {currentStart ? 'Закончить' : 'Начать'}
+          </UiButton>
+        </UiCard>
+      )}
 
-      {tokenPayload && start && (
+      {tokenPayload && currentStart && (
         <div className={styles.lessonRoom}>
           <UiCard className={styles.videoContainer}>
             <LiveKitRoom
@@ -177,7 +227,7 @@ export const AiAssistant = () => {
               audio
               token={tokenPayload.token}
               serverUrl={tokenPayload.url}
-              connect={start}
+              connect={currentStart}
             >
               <VideoConference />
             </LiveKitRoom>

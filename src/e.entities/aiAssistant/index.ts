@@ -1,15 +1,22 @@
-export { useGetAiAssistantToken } from './api';
+export { useGetAiAssistantToken, useGetAiWorkoutSession } from './api';
 export {
+  AiWorkoutExerciseStatus,
+  AiWorkoutStatus,
+  ExerciseKey,
   ExerciseMode,
   getTracker,
   parallelFrontProvider,
   parallelSideProvider,
-  type PoseDetectionOptions,
   RepPhase,
-  type SpeakOptions,
   speakText,
   SquatRepTracker,
-  type Tip,
   usePoseDetectorController,
+} from './model';
+export type {
+  AiWorkoutExercise,
+  AiWorkoutSession,
+  PoseDetectionOptions,
+  SpeakOptions,
+  Tip,
 } from './model';
 export { PoseOverlay } from './ui';

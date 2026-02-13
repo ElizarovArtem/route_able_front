@@ -1,0 +1,1 @@
+export { WorkoutInProgress } from './WorkoutInProgress';

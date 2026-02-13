@@ -1,5 +1,15 @@
-export type { PoseDetectionOptions, SpeakOptions } from './aiAssistant.model';
-export { ExerciseMode } from './aiAssistant.model';
+export type {
+  AiWorkoutExercise,
+  AiWorkoutSession,
+  PoseDetectionOptions,
+  SpeakOptions,
+} from './aiAssistant.model';
+export {
+  AiWorkoutExerciseStatus,
+  AiWorkoutStatus,
+  ExerciseKey,
+  ExerciseMode,
+} from './aiAssistant.model';
 export { usePoseDetectorController } from './aiAssistant.usePoseDetection';
 export { speakText } from './aiAssistant.voice-helpers';
 export { getTracker } from './tips/aiAssistant.tips';
