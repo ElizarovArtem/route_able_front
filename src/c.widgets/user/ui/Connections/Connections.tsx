@@ -1,23 +1,18 @@
-import type { TabsProps } from 'antd/es/tabs';
-import React, { useMemo, useState } from 'react';
+import { Link } from '@tanstack/react-router';
+import React, { useMemo } from 'react';
 
-import { Roles, userSelector } from '@/e.entities/user';
+import { Roles } from '@/e.entities/user';
 import { useGetConnections } from '@/e.entities/user/api';
 import type { GetConnectionsResponseItem } from '@/e.entities/user/api/requests/get-connections.request.ts';
 import { ConnectionCard } from '@/e.entities/user/ui/ConnectionCard/ConnectionCard.tsx';
-import { useSelector } from '@/f.shared/lib';
-import { UiCard, UiTabs, UiTypography } from '@/f.shared/ui';
+import { UiCard, UiFlex, UiTypography } from '@/f.shared/ui';
+import { UiLink } from '@/f.shared/ui/UiLink/UiLink.tsx';
 
-enum TabsKeys {
-  myClients = 'myClients',
-  myCoaches = 'myCoaches',
-}
+type ConnectionsProps = {
+  connectionsType: 'clients' | 'coaches';
+};
 
-export const Connections = () => {
-  const [currentTab, setCurrentTab] = useState<TabsKeys>(TabsKeys.myCoaches);
-
-  const { user } = useSelector(userSelector);
-
+export const Connections = ({ connectionsType }: ConnectionsProps) => {
   const { data } = useGetConnections();
 
   const { coaches, clients } = useMemo(() => {
@@ -35,13 +30,16 @@ export const Connections = () => {
     );
   }, [data]);
 
-  const tabs = useMemo((): TabsProps['items'] => {
-    return [
-      {
-        key: TabsKeys.myCoaches,
-        label: 'Мои тренеры',
-        children: coaches.length
-          ? coaches.map((coach) => (
+  return (
+    <UiCard>
+      <UiFlex direction="column" gap="xs">
+        <UiTypography bold>
+          {connectionsType === 'coaches' ? 'Мои тренеры' : 'Мои подопечные'}
+        </UiTypography>
+
+        {connectionsType === 'coaches' ? (
+          coaches.length ? (
+            coaches.map((coach) => (
               <ConnectionCard
                 key={coach.clientCoachId}
                 isActive={Boolean(coach.isActive)}
@@ -49,41 +47,29 @@ export const Connections = () => {
                 toRole={Roles.Coach}
               />
             ))
-          : null,
-      },
-      ...(user?.roles.includes(Roles.Coach)
-        ? [
-            {
-              key: TabsKeys.myClients,
-              label: 'Мои клиенты',
-              children: clients ? (
-                clients.map((client) => (
-                  <ConnectionCard
-                    key={client.clientCoachId}
-                    isActive={Boolean(client.isActive)}
-                    connection={client.partner}
-                    toRole={Roles.Client}
-                  />
-                ))
-              ) : (
-                <UiTypography>
-                  У вас пока нет ни одного подопечного
-                </UiTypography>
-              ),
-            },
-          ]
-        : []),
-    ];
-  }, [user, data]);
+          ) : (
+            <UiTypography>
+              У вас пока нет тренера.{' '}
+              <UiLink to="/">Перейти к списку тренеров</UiLink>
+            </UiTypography>
+          )
+        ) : null}
 
-  return (
-    <UiCard>
-      <UiTabs
-        inverse
-        activeKey={currentTab}
-        onChange={(key) => setCurrentTab(key as TabsKeys)}
-        items={tabs}
-      />
+        {connectionsType === 'clients' ? (
+          clients ? (
+            clients.map((client) => (
+              <ConnectionCard
+                key={client.clientCoachId}
+                isActive={Boolean(client.isActive)}
+                connection={client.partner}
+                toRole={Roles.Client}
+              />
+            ))
+          ) : (
+            <UiTypography>У вас пока нет ни одного подопечного</UiTypography>
+          )
+        ) : null}
+      </UiFlex>
     </UiCard>
   );
 };

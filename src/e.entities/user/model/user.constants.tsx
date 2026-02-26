@@ -75,3 +75,10 @@ export const ACTIVITY_OPTIONS: DefaultOptionType[] = [
     ),
   },
 ];
+
+export enum CoachOrClientTabsKeys {
+  chat = 'chat',
+  workoutsPlan = 'workoutsPlan',
+  mealPlan = 'mealPlan',
+  videoChat = 'videoChat',
+}

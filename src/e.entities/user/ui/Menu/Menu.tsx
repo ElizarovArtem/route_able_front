@@ -54,6 +54,9 @@ export const Menu = ({
       <Link to="/ai-lesson" onClick={onMenuItemClick}>
         <UiTypography>ИИ-ассистент</UiTypography>
       </Link>
+      <Link to="/coaches" onClick={onMenuItemClick}>
+        <UiTypography>Тренеры</UiTypography>
+      </Link>
     </div>
   );
 };

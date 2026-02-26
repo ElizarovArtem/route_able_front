@@ -47,46 +47,50 @@ export const UserInfo = () => {
 
         <UiFlex direction="column" flex={isMobile ? 4 : 3}>
           <UiFlex direction="column" gap={isMobile ? 's' : 'm'}>
-            <UiTypography bold>Профиль</UiTypography>
-            <UiFlex
-              wrap="wrap"
-              gap={isMobile ? 's' : 'm'}
-              align={isMobile ? 'start' : 'end'}
-            >
-              <UserInfoItem title="Имя" value={user?.name || ''} />
-              <UserInfoItem title="Рост, см" value={user?.height || ''} />
-              <UserInfoItem title="Вес, кг" value={user?.weight || ''} />
-              <UserInfoItem
-                title="Дата рождения"
-                value={
-                  user
-                    ? format(user.birthDate || '', 'dd MMMM yyyy', {
-                        locale: ru,
-                      })
-                    : ''
-                }
-              />
-              <UserInfoItem
-                title="Пол"
-                value={user ? GenderMap[user.gender] : ''}
-              />
-              <UserInfoItem title="О себе" value={user?.about || ''} />
+            <UiFlex direction="column" gap="xs">
+              <UiTypography bold>Профиль</UiTypography>
+              <UiFlex
+                wrap="wrap"
+                gap={isMobile ? 's' : 'm'}
+                align={isMobile ? 'start' : 'end'}
+              >
+                <UserInfoItem title="Имя" value={user?.name || ''} />
+                <UserInfoItem title="Рост, см" value={user?.height || ''} />
+                <UserInfoItem title="Вес, кг" value={user?.weight || ''} />
+                <UserInfoItem
+                  title="Дата рождения"
+                  value={
+                    user
+                      ? format(user.birthDate || '', 'dd MMMM yyyy', {
+                          locale: ru,
+                        })
+                      : ''
+                  }
+                />
+                <UserInfoItem
+                  title="Пол"
+                  value={user ? GenderMap[user.gender] : ''}
+                />
+                <UserInfoItem title="О себе" value={user?.about || ''} />
+              </UiFlex>
             </UiFlex>
 
-            <UiTypography bold>Тренировочная информация</UiTypography>
-            <UiFlex
-              wrap="wrap"
-              gap={isMobile ? 's' : 'm'}
-              align={isMobile ? 'start' : 'end'}
-            >
-              <UserInfoItem
-                title="Цель"
-                value={user ? WeightGoalMap[user.weightGoal] : ''}
-              />
-              <UserInfoItem
-                title="Уровень активности"
-                value={user ? ActivityLevelMap[user.activityLevel] : ''}
-              />
+            <UiFlex direction="column" gap="xs">
+              <UiTypography bold>Тренировочная информация</UiTypography>
+              <UiFlex
+                wrap="wrap"
+                gap={isMobile ? 's' : 'm'}
+                align={isMobile ? 'start' : 'end'}
+              >
+                <UserInfoItem
+                  title="Цель"
+                  value={user ? WeightGoalMap[user.weightGoal] : ''}
+                />
+                <UserInfoItem
+                  title="Уровень активности"
+                  value={user ? ActivityLevelMap[user.activityLevel] : ''}
+                />
+              </UiFlex>
             </UiFlex>
           </UiFlex>
 

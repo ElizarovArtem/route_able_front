@@ -16,7 +16,7 @@ export const AiAssistantPage = () => {
     return [
       {
         key: TabsKeys.aiSuggestion,
-        label: 'Сгенерировать тренеровку',
+        label: 'Сгенерировать тренировку',
         children: <AiWorkoutSuggestion />,
       },
       {

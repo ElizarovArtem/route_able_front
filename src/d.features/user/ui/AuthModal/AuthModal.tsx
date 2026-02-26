@@ -11,7 +11,7 @@ import {
 import {
   authFormResolver,
   type TAuthFormData,
-} from '@/e.entities/user/model/user.auth-resolver.ts';
+} from '@/e.entities/user/model/resolvers/user.auth-resolver.ts';
 import { useSelector } from '@/f.shared/lib';
 import { UiModal, UiTabs } from '@/f.shared/ui';
 

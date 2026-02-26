@@ -1,7 +1,7 @@
 export {
   type UpdateUserFatGoalsFormData,
   updateUserFatGoalsFormResolver,
-} from '../../../e.entities/user/model/user.update-user-fat-goals-resolver.ts';
+} from '../../../e.entities/user/model/resolvers/user.update-user-fat-goals-resolver.ts';
 export {
   authSelector,
   createAuthSlice,

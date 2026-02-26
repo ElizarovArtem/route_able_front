@@ -1,1 +1,7 @@
-export { AiAssistantPage, ClientPage, CoachPage, LkPage } from './ui';
+export {
+  AiAssistantPage,
+  ClientPage,
+  CoachesPage,
+  CoachPage,
+  LkPage,
+} from './ui';

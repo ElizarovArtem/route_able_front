@@ -40,6 +40,7 @@ export default defineConfig([
       ...eslintConfigPrettier.rules,
       'no-unused-vars': 'off',
       'no-undef': 'warn',
+      'react/prop-types': 'off',
       '@typescript-eslint/no-explicit-any': 'warn',
     },
   },

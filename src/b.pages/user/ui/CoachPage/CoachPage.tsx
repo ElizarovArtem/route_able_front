@@ -1,6 +1,6 @@
-import { useParams } from '@tanstack/react-router';
+import { useNavigate, useParams, useSearch } from '@tanstack/react-router';
 import type { TabsProps } from 'antd/es/tabs';
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 
 import { VideoLessonFromClient } from '@/c.widgets/lessons';
 import {
@@ -10,36 +10,34 @@ import {
 } from '@/c.widgets/user';
 import { PaySubscription } from '@/d.features/user';
 import { useGetRelation } from '@/e.entities/user';
+import { CoachOrClientTabsKeys } from '@/e.entities/user/model/user.constants.tsx';
 import { UiAvatar, UiFlex, UiTabs, UiTypography } from '@/f.shared/ui';
 
 import styles from './CoachPage.module.scss';
 
-enum TabsKeys {
-  chat = 'chat',
-  workoutsPlan = 'workoutsPlan',
-  mealPlan = 'mealPlan',
-  videoChat = 'videoChat',
-}
-
 export const CoachPage = () => {
-  const [currentTab, setCurrentTab] = useState<TabsKeys>(TabsKeys.mealPlan);
+  const { tab: currentTab } = useSearch({
+    from: '/_private/client/$clientId',
+  });
+
   const coachId = useParams({
     from: '/_private/coach/$coachId',
     select: (params) => params.coachId,
   });
 
   const { data } = useGetRelation(coachId);
+  const navigate = useNavigate({ from: '/coach/$coachId' });
 
   const tabs = useMemo((): TabsProps['items'] => {
     return [
       {
-        key: TabsKeys.mealPlan,
+        key: CoachOrClientTabsKeys.mealPlan,
         label: 'План питания',
         children: <MealPlanFromClient relationId={data?.relation?.id} />,
         disabled: !data?.relation?.isActive || false,
       },
       {
-        key: TabsKeys.workoutsPlan,
+        key: CoachOrClientTabsKeys.workoutsPlan,
         label: 'План тренировок',
         children: (
           <WorkoutPlanFromClient
@@ -50,18 +48,27 @@ export const CoachPage = () => {
         disabled: !data?.relation?.isActive || false,
       },
       {
-        key: TabsKeys.chat,
+        key: CoachOrClientTabsKeys.chat,
         label: 'Чат',
-        children: <Chat partnerId={coachId} />,
+        children: <Chat partnerId={coachId} chatId={data?.chat?.id} />,
       },
       {
-        key: TabsKeys.videoChat,
+        key: CoachOrClientTabsKeys.videoChat,
         label: 'Видеосвязь',
         children: <VideoLessonFromClient relationId={data?.relation?.id} />,
         disabled: !data?.relation?.isActive || false,
       },
     ];
   }, [coachId, data]);
+
+  const onTabChange = (tab: CoachOrClientTabsKeys) => {
+    navigate({
+      search: (prev) => ({
+        ...prev,
+        tab,
+      }),
+    });
+  };
 
   return (
     <UiFlex direction="column">
@@ -82,7 +89,7 @@ export const CoachPage = () => {
       <UiTabs
         inverse
         activeKey={currentTab}
-        onChange={(key) => setCurrentTab(key as TabsKeys)}
+        onChange={(key) => onTabChange(key as CoachOrClientTabsKeys)}
         items={tabs}
       />
     </UiFlex>

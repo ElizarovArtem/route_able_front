@@ -9,14 +9,14 @@ import { useAnalyzeBodyFatByPhoto } from '@/d.features/user/api/queries/useAnaly
 import { useUpdateUserFatGoals } from '@/d.features/user/api/queries/useMakeTDEEAnalyze.ts';
 import { userSelector } from '@/e.entities/user';
 import {
+  type UserMakeTDEEAnalyzeFormData,
+  userMakeTDEEAnalyzeResolver,
+} from '@/e.entities/user/model/resolvers/user.make-tdee-analyze-resolver.ts';
+import {
   ACTIVITY_OPTIONS,
   GOAl_OPTIONS,
 } from '@/e.entities/user/model/user.constants.tsx';
 import { Gender } from '@/e.entities/user/model/user.enums.ts';
-import {
-  type UserMakeTDEEAnalyzeFormData,
-  userMakeTDEEAnalyzeResolver,
-} from '@/e.entities/user/model/user.make-tdee-analyze-resolver.ts';
 import { useSelector } from '@/f.shared/lib';
 import { formatDateForServer } from '@/f.shared/lib/formatDateForServer.ts';
 import {

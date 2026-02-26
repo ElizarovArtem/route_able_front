@@ -8,8 +8,8 @@ import { UiCard, UiFlex, UiTypography } from '@/f.shared/ui';
 import styles from './Calendar.module.scss';
 
 export const Calendar = () => {
-  const wrapRef = useRef<HTMLDivElement | null>(null);
   const todayRef = useRef<HTMLButtonElement | null>(null);
+  const daysRef = useRef<HTMLDivElement | null>(null);
 
   const now = new Date();
   const year = now.getFullYear();
@@ -22,6 +22,7 @@ export const Calendar = () => {
     monthName.charAt(0).toUpperCase() + monthName.slice(1);
 
   const [selectedDay, setSelectedDay] = useState<number | null>(null);
+  const [currentDayLeft, setCurrentDayLeft] = useState<number | null>(null);
 
   const dateToOpen = useMemo(() => {
     if (selectedDay) {
@@ -46,18 +47,27 @@ export const Calendar = () => {
   );
 
   useEffect(() => {
+    if (daysRef.current && currentDayLeft) {
+      daysRef.current.scrollTo({
+        left: currentDayLeft - daysRef.current.clientWidth / 2,
+        behavior: 'smooth',
+      });
+    }
+  }, [currentDayLeft]);
+
+  useEffect(() => {
     if (todayRef.current) {
-      todayRef.current.scrollIntoView({ behavior: 'smooth', inline: 'center' });
+      setCurrentDayLeft(todayRef.current.offsetLeft);
     }
   }, []);
 
   return (
-    <UiCard ref={wrapRef} className={styles.calendar}>
+    <UiCard className={styles.calendar}>
       <UiFlex direction="column" gap="s">
         <UiTypography bold className={styles.monthTitle}>
           {monthCapitalized} {now.toLocaleString('ru-RU', { year: 'numeric' })}
         </UiTypography>
-        <UiFlex className={styles.daysRow}>
+        <UiFlex className={styles.daysRow} ref={daysRef}>
           {days.map(({ day, state }) => {
             const isToday = state === 'today';
             const isFuture = state === 'future';
