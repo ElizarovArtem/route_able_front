@@ -46,7 +46,8 @@ export const Header = () => {
     <div className={styles.header}>
       <div className={styles.linksAndLogoWrapper}>
         <Link to="/">
-          <div className={styles.logo}>Route•able</div>
+          {/*<div className={styles.logo}>Route•able</div>*/}
+          <div className={styles.logo}>Роутэйбл</div>
         </Link>
 
         <Menu

@@ -10,7 +10,7 @@ import {
 } from '@/c.widgets/user';
 import { PaySubscription } from '@/d.features/user';
 import { useGetRelation } from '@/e.entities/user';
-import { CoachOrClientTabsKeys } from '@/e.entities/user/model/user.constants.tsx';
+import { CoachOrClientTabsKeys } from '@/e.entities/user/model/user.enums.ts';
 import { UiAvatar, UiFlex, UiTabs, UiTypography } from '@/f.shared/ui';
 
 import styles from './CoachPage.module.scss';

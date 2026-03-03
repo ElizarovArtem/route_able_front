@@ -1,5 +1,6 @@
 import {
   ActivityLevel,
+  CoachVerificationStatus,
   Gender,
   Roles,
   WeightGoal,
@@ -11,7 +12,6 @@ export type User = {
   about?: string;
   phone?: string;
   roles: Roles;
-  isCoach: boolean;
   avatar?: string;
   id: string;
   height?: number;
@@ -50,4 +50,17 @@ export type ClientCoachRelationDto = {
   goalProtein?: number | null;
   goalFat?: number | null;
   goalCarbs?: number | null;
+};
+
+export type CoachVerificationRequest = {
+  id: string;
+  userId: string;
+  user: User;
+  name: string;
+  contactInfo: string;
+  status: CoachVerificationStatus;
+  reviewedByAdminId: string | null;
+  reviewedAt: string;
+  createdAt: string;
+  updatedAt: string;
 };

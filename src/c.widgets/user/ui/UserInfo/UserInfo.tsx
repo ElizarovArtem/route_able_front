@@ -60,7 +60,7 @@ export const UserInfo = () => {
                 <UserInfoItem
                   title="Дата рождения"
                   value={
-                    user
+                    user?.birthDate
                       ? format(user.birthDate || '', 'dd MMMM yyyy', {
                           locale: ru,
                         })

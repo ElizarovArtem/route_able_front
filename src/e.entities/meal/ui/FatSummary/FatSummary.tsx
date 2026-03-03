@@ -34,10 +34,10 @@ export const FatSummary = ({ data, goals }: FatSummaryProps) => {
   const goalsConfig = useMemo(() => {
     if (goalsSource === PERSONAL_OPTION_VALUE) {
       return {
-        calories: goals?.personal.calories,
-        carbs: goals?.personal.carbs,
-        fat: goals?.personal.fat,
-        protein: goals?.personal.protein,
+        calories: goals?.personal?.calories,
+        carbs: goals?.personal?.carbs,
+        fat: goals?.personal?.fat,
+        protein: goals?.personal?.protein,
       };
     } else {
       const coachId = goalsSource.split('-')[1];

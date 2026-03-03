@@ -31,11 +31,13 @@ export const MainPage = () => {
   return (
     <div className={styles.page}>
       <UiFlex direction="column">
-        <UiCard>
-          <UiButton onClick={() => setIsCoachRequestModalOpen(true)}>
-            Я тренер, хочу сотрудничать
-          </UiButton>
-        </UiCard>
+        {user && !user?.isCoachAgreed && (
+          <UiCard>
+            <UiButton onClick={() => setIsCoachRequestModalOpen(true)}>
+              Я тренер, хочу сотрудничать
+            </UiButton>
+          </UiCard>
+        )}
         <UiFlex direction={isMobile ? 'column' : 'row'} align="start">
           <UiCard className={styles.aiAssistantBlock}>
             <UiFlex direction="column">
@@ -55,6 +57,7 @@ export const MainPage = () => {
       <SendCoachCooperationRequestModal
         open={isCoachRequestModalOpen}
         onCancel={() => setIsCoachRequestModalOpen(false)}
+        onClose={() => setIsCoachRequestModalOpen(false)}
       />
     </div>
   );

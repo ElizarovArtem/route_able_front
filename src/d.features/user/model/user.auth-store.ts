@@ -12,7 +12,7 @@ type TAuthState = {
 };
 
 type TAuthActions = {
-  requestCodeByPhone: (phone: string) => Promise<void>;
+  requestCodeByTelegram: (phone: string) => Promise<void>;
   requestCodeByEmail: (phone: string) => Promise<void>;
   login: (data: {
     phone?: string;
@@ -39,8 +39,12 @@ export const createAuthSlice: StateCreator<TRootStore, [], [], TAuthStore> = (
     setState({ isAuthModalOpen });
   },
 
-  requestCodeByPhone: async (phone) => {
-    await api.post('/auth/request-code', { phone }, { withCredentials: true });
+  requestCodeByTelegram: async (phone) => {
+    await api.post(
+      '/auth/request-code-telegram',
+      { phone },
+      { withCredentials: true },
+    );
   },
 
   requestCodeByEmail: async (email) => {
@@ -89,7 +93,7 @@ export const authSelector = (store: TRootStore) => ({
   isAuthModalOpen: store.isAuthModalOpen,
   isInitialized: store.isInitialized,
   setIsAuthModalOpen: store.setIsAuthModalOpen,
-  requestCodeByPhone: store.requestCodeByPhone,
+  requestCodeByTelegram: store.requestCodeByTelegram,
   requestCodeByEmail: store.requestCodeByEmail,
   login: store.login,
   logout: store.logout,

@@ -10,7 +10,7 @@ import {
 } from '@/c.widgets/user';
 import { FatSummary } from '@/e.entities/meal';
 import { useGetRelation } from '@/e.entities/user/api';
-import { CoachOrClientTabsKeys } from '@/e.entities/user/model/user.constants';
+import { CoachOrClientTabsKeys } from '@/e.entities/user/model/user.enums.ts';
 import { formatDateForServer } from '@/f.shared/lib/formatDateForServer.ts';
 import { UiAvatar, UiCard, UiFlex, UiTabs, UiTypography } from '@/f.shared/ui';
 
