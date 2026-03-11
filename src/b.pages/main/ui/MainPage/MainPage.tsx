@@ -7,7 +7,14 @@ import { SendCoachCooperationRequestModal } from '@/d.features/user/ui/SendCoach
 import { userSelector } from '@/e.entities/user';
 import { useSelector } from '@/f.shared/lib';
 import { useMobile } from '@/f.shared/lib/useMobile.ts';
-import { UiButton, UiCard, UiFlex, UiTitle, UiTypography } from '@/f.shared/ui';
+import {
+  UiBanner,
+  UiButton,
+  UiCard,
+  UiFlex,
+  UiTitle,
+  UiTypography,
+} from '@/f.shared/ui';
 
 import styles from './MainPage.module.scss';
 
@@ -32,18 +39,20 @@ export const MainPage = () => {
     <div className={styles.page}>
       <UiFlex direction="column">
         {user && !user?.isCoachAgreed && (
-          <UiCard>
-            <UiButton onClick={() => setIsCoachRequestModalOpen(true)}>
-              Я тренер, хочу сотрудничать
-            </UiButton>
-          </UiCard>
+          <UiBanner
+            preview={false}
+            src="/i_am_coach_banner.png"
+            onClick={() => setIsCoachRequestModalOpen(true)}
+          />
         )}
+
         <UiFlex direction={isMobile ? 'column' : 'row'} align="start">
           <UiCard className={styles.aiAssistantBlock}>
             <UiFlex direction="column">
               <UiTitle size="xl">Тренировка с ИИ-ассистентом</UiTitle>
               <UiTypography type="label">
-                Попробуйте тренировку с ИИ-ассистентом, который доступен 24 / 7
+                Попробуйте тренировку с ИИ-ассистентом, который
+                <br /> доступен 24 / 7
               </UiTypography>
               <UiFlex>
                 <UiButton onClick={onAiAssistantClick}>Начать сессию</UiButton>

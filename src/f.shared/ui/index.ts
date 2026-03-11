@@ -1,4 +1,6 @@
+export { StarIcon } from './icons/StarIcon/StarIcon';
 export { UiAvatar } from './UiAvatar/UiAvatar';
+export { UiBanner } from './UiBanner/UiBanner';
 export { UiButton } from './UiButton/UiButton';
 export { UiCard } from './UiCard/UiCard';
 export { FormDatepicker, UiDatepicker } from './UiDatepicker/UiDatepicker';

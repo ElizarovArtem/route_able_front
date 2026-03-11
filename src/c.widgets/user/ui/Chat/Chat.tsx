@@ -42,7 +42,11 @@ export const Chat = ({ partnerId, chatId, fromCoach }: ChatProps) => {
 
   return (
     <UiCard className={styles.chatWrapper} ref={messagesRef}>
-      <UiFlex direction="column" ref={messagesRef}>
+      <UiFlex
+        direction="column"
+        ref={messagesRef}
+        className={styles.messagesWrapper}
+      >
         {data?.map((message) => (
           <UserMessage
             key={message.id}

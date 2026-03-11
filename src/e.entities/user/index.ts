@@ -10,7 +10,7 @@ export {
   type TUserStore,
   userSelector,
 } from './model/user.store.ts';
-export { type User } from './model/user.types.ts';
+export { type CoachListItem, type User } from './model/user.types.ts';
 export {
   LessonSlot,
   Menu,

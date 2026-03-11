@@ -39,4 +39,5 @@ export enum CoachOrClientTabsKeys {
   workoutsPlan = 'workoutsPlan',
   mealPlan = 'mealPlan',
   videoChat = 'videoChat',
+  reviews = 'reviews',
 }

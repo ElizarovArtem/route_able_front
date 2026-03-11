@@ -4,7 +4,7 @@ import React from 'react';
 
 import { useGetCoaches } from '@/e.entities/user/api/queries/useGetCoaches.ts';
 import { CoachCard } from '@/e.entities/user/ui/CoachCard/CoachCard.tsx';
-import { UiButton, UiCard, UiFlex, UiTitle } from '@/f.shared/ui';
+import { UiButton, UiFlex, UiTitle } from '@/f.shared/ui';
 
 import styles from './CoachesList.module.scss';
 
@@ -18,17 +18,19 @@ export const CoachesList = () => {
   };
 
   return (
-    <UiCard inverse className={styles.coachesList}>
-      <UiFlex direction="column" justify="space-between">
-        <UiTitle size="l">Тренеры месяца</UiTitle>
-        {isLoading && <Spin />}
-        {data &&
-          !isLoading &&
-          data.map((coach) => <CoachCard key={coach.id} coach={coach} />)}
-        <UiFlex justify="end">
-          <UiButton onClick={goToCoaches}>Посмотреть всех</UiButton>
-        </UiFlex>
+    <UiFlex
+      direction="column"
+      justify="space-between"
+      className={styles.coachesList}
+    >
+      <UiTitle size="l">Тренеры месяца</UiTitle>
+      {isLoading && <Spin />}
+      {data &&
+        !isLoading &&
+        data.map((coach) => <CoachCard key={coach.id} coach={coach} />)}
+      <UiFlex justify="end">
+        <UiButton onClick={goToCoaches}>Посмотреть всех</UiButton>
       </UiFlex>
-    </UiCard>
+    </UiFlex>
   );
 };

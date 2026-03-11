@@ -11,13 +11,20 @@ import {
 import { PaySubscription } from '@/d.features/user';
 import { useGetRelation } from '@/e.entities/user';
 import { CoachOrClientTabsKeys } from '@/e.entities/user/model/user.enums.ts';
-import { UiAvatar, UiFlex, UiTabs, UiTypography } from '@/f.shared/ui';
+import {
+  StarIcon,
+  UiAvatar,
+  UiFlex,
+  UiTabs,
+  UiTypography,
+} from '@/f.shared/ui';
 
 import styles from './CoachPage.module.scss';
+import { ReviewsTab } from './components/ReviewsTab/ReviewsTab';
 
 export const CoachPage = () => {
   const { tab: currentTab } = useSearch({
-    from: '/_private/client/$clientId',
+    from: '/_private/coach/$coachId',
   });
 
   const coachId = useParams({
@@ -25,7 +32,7 @@ export const CoachPage = () => {
     select: (params) => params.coachId,
   });
 
-  const { data } = useGetRelation(coachId);
+  const { data, refetch } = useGetRelation(coachId);
   const navigate = useNavigate({ from: '/coach/$coachId' });
 
   const tabs = useMemo((): TabsProps['items'] => {
@@ -58,6 +65,11 @@ export const CoachPage = () => {
         children: <VideoLessonFromClient relationId={data?.relation?.id} />,
         disabled: !data?.relation?.isActive || false,
       },
+      {
+        key: CoachOrClientTabsKeys.reviews,
+        label: 'Отзывы',
+        children: <ReviewsTab refetchCoachData={refetch} />,
+      },
     ];
   }, [coachId, data]);
 
@@ -75,7 +87,14 @@ export const CoachPage = () => {
       <UiFlex className={styles.about}>
         <UiAvatar width={200} src={data?.partner.avatar || ''} />
         <UiFlex direction="column" gap="s">
-          <UiTypography bold>{data?.partner.name}</UiTypography>
+          <UiFlex align="center">
+            <UiTypography bold>{data?.partner.name}</UiTypography>
+            <UiFlex gap="xxs" align="center">
+              <UiTypography bold>{data?.partner.rating?.avg}</UiTypography>{' '}
+              <StarIcon />
+              <UiTypography>({data?.partner.rating?.count})</UiTypography>
+            </UiFlex>
+          </UiFlex>
           <UiTypography>{data?.partner.about}</UiTypography>
         </UiFlex>
         {!data?.relation?.isActive && data?.relation?.id && (

@@ -3,7 +3,8 @@
 .typography {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-xs);
+  gap: var(--spacing-xxs);
+  line-height: var(--line-height-base);
 
   font-size: var(--font-size-m);
 
