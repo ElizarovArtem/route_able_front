@@ -2,6 +2,7 @@ import { useNavigate, useParams, useSearch } from '@tanstack/react-router';
 import type { TabsProps } from 'antd/es/tabs';
 import React, { useMemo } from 'react';
 
+import { ServicesTab } from '@/b.pages/user/ui/CoachPage/components/ServicesTab/ServicesTab.tsx';
 import { VideoLessonFromClient } from '@/c.widgets/lessons';
 import {
   Chat,
@@ -41,7 +42,7 @@ export const CoachPage = () => {
         key: CoachOrClientTabsKeys.mealPlan,
         label: 'План питания',
         children: <MealPlanFromClient relationId={data?.relation?.id} />,
-        disabled: !data?.relation?.isActive || false,
+        disabled: data && data.relation ? !data.relation.isActive : true,
       },
       {
         key: CoachOrClientTabsKeys.workoutsPlan,
@@ -52,7 +53,7 @@ export const CoachPage = () => {
             meRole={data?.meRole}
           />
         ),
-        disabled: !data?.relation?.isActive || false,
+        disabled: data && data.relation ? !data.relation.isActive : true,
       },
       {
         key: CoachOrClientTabsKeys.chat,
@@ -63,7 +64,12 @@ export const CoachPage = () => {
         key: CoachOrClientTabsKeys.videoChat,
         label: 'Видеосвязь',
         children: <VideoLessonFromClient relationId={data?.relation?.id} />,
-        disabled: !data?.relation?.isActive || false,
+        disabled: data && data.relation ? !data.relation.isActive : true,
+      },
+      {
+        key: CoachOrClientTabsKeys.servicesAndSlots,
+        label: 'Услуги',
+        children: <ServicesTab coachId={coachId} />,
       },
       {
         key: CoachOrClientTabsKeys.reviews,

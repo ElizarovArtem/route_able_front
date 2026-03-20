@@ -36,6 +36,9 @@ export type Relation = {
   goalProtein: number;
   goalFat: number;
   goalCarbs: number;
+  sessionsTotal: number;
+  sessionsUsed: number;
+  sessionsRemaining: number;
 };
 
 export type ClientCoachRelationDto = {

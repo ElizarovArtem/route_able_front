@@ -1,4 +1,4 @@
-export { StarIcon } from './icons/StarIcon/StarIcon';
+export { CoachOfferIcon, InfoIcon, StarIcon } from './icons';
 export { UiAvatar } from './UiAvatar/UiAvatar';
 export { UiBanner } from './UiBanner/UiBanner';
 export { UiButton } from './UiButton/UiButton';

@@ -23,7 +23,6 @@ export type GetRelationResponse = {
   chat: {
     id: string;
   } | null;
-  billing: { isActive: boolean; creditsRemaining?: number | null } | null;
   nutrition: NutritionBlock | null;
 };
 

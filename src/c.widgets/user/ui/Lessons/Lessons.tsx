@@ -5,13 +5,17 @@ import { PlannedVideoLesson } from '@/e.entities/lessons/ui/PlannedVideoLesson/P
 import { formatDateForServer } from '@/f.shared/lib/formatDateForServer.ts';
 import { UiCard, UiDatepicker, UiFlex, UiTypography } from '@/f.shared/ui';
 
-export const Lessons = () => {
+type LessonsProps = {
+  className?: string;
+};
+
+export const Lessons = ({ className }: LessonsProps) => {
   const [date, setDate] = useState(new Date());
 
   const { data } = useGetCoachVideoLessons(formatDateForServer(date));
 
   return (
-    <UiCard>
+    <UiCard className={className}>
       <UiFlex direction="column">
         <UiFlex align="center">
           <UiTypography bold>Занятия на:</UiTypography>

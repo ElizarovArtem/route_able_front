@@ -31,19 +31,20 @@ $fontSizeXL: 32px;
 :root {
   /* Colors */
   --main-color: #121A25;
-  --accent-color-1: #22C8A7; /* чуть спокойнее, без неона */
+  --accent-color-1: #38baad; /* чуть спокойнее, без неона */
 
   --background-color-1: #182230; /* surface-1 (карточки) светлее */
-  --background-color-2: #202C3B; /* surface-2 (поля/вторичные) */
+  --background-color-2: #252c3d; /* surface-2 (поля/вторичные) */
   --background-color-3: rgba(34, 211, 166, .15); /* surface-3 (поля/вторичные) */
   --background-color-4: #e83242; /* внимание */
+  --background-color-5: #21293b;
 
   --text-color-1: #EEF2F7; /* основной текст */
   --text-color-2: #B0BAC8; /* вторичный текст */
   --text-color-3: #0D1319; /* текст на акценте */
   --text-color-4: #e83242; /* текст ошибки */
 
-  --border-color: rgba(255, 255, 255, .10);
+  --border-color: rgba(255,255,255,0.06);
   --border-radius: 14px;
 
   --box-shadow: 0 8px 22px rgba(3, 10, 18, .22);

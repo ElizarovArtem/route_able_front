@@ -63,7 +63,7 @@ export const Calendar = () => {
 
   return (
     <UiCard className={styles.calendar}>
-      <UiFlex direction="column" gap="s">
+      <UiFlex direction="column" gap="xxs">
         <UiTypography bold className={styles.monthTitle}>
           {monthCapitalized} {now.toLocaleString('ru-RU', { year: 'numeric' })}
         </UiTypography>

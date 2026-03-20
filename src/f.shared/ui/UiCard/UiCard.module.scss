@@ -1,7 +1,6 @@
 @use "@/a.app/styles/variables";
 
 .uiCard {
-  padding: var(--spacing-m);
   background: var(--background-color-2);
   border-radius: var(--border-radius);
   border: 1px solid var(--border-color);
@@ -13,4 +12,19 @@
 
 .inverse {
   background: var(--main-color);
+}
+
+.contentWrapper {
+  flex: 1;
+  padding: var(--spacing-s);
+}
+
+.cardWithHeader {
+  padding-top: 0;
+}
+
+.cardHeader {
+  background: var(--background-color-5);
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
+  padding: var(--spacing-s);
 }

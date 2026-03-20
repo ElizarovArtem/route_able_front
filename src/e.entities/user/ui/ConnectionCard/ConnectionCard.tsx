@@ -2,7 +2,7 @@ import { Link } from '@tanstack/react-router';
 import React from 'react';
 
 import { Roles, type User } from '@/e.entities/user';
-import { UiAvatar, UiCard } from '@/f.shared/ui';
+import { UiAvatar, UiCard, UiFlex } from '@/f.shared/ui';
 
 import styles from './ConnectionCard.module.scss';
 
@@ -23,7 +23,7 @@ export const ConnectionCard = ({
       params={{ coachId: connection.id, clientId: connection.id }}
       className={styles.link}
     >
-      <UiCard inverse className={styles.connectionCard}>
+      <UiFlex align="center">
         <UiAvatar
           src={connection.avatar}
           width={85}
@@ -36,7 +36,7 @@ export const ConnectionCard = ({
             {isActive ? 'Подписка оформлена' : 'Подписка не оформлена'}
           </span>
         </div>
-      </UiCard>
+      </UiFlex>
     </Link>
   );
 };

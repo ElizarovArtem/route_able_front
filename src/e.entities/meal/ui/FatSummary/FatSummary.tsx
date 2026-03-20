@@ -5,6 +5,8 @@ import type { GetDayMealsSummaryRes } from '@/e.entities/meal';
 import { UiFlex, UiSelector, UiTypography } from '@/f.shared/ui';
 import { UiProgress } from '@/f.shared/ui/UiProgress/UiProgress.tsx';
 
+import styles from './FatSummary.module.scss';
+
 type FatSummaryProps = {
   data?: GetDayMealsSummaryRes['summary'];
   goals?: GetDayMealsSummaryRes['goals'];
@@ -67,13 +69,18 @@ export const FatSummary = ({ data, goals }: FatSummaryProps) => {
         )}
         <UiTypography bold>Всего за день</UiTypography>
       </UiFlex>
-      <UiFlex justify="center" wrap="wrap" align="center">
+      <UiFlex
+        justify="center"
+        wrap="wrap"
+        align="center"
+        className={styles.progressWrapper}
+      >
         <UiProgress
           type="circle"
           percent={((data?.calories || 0) * 100) / (goalsConfig.calories || 0)}
           size={90}
           format={() => (
-            <UiFlex direction="column" gap="xs">
+            <UiFlex direction="column" gap="xxs">
               <UiTypography>{data?.calories}</UiTypography>
               <UiTypography size="small">
                 из {goalsConfig.calories}
@@ -87,7 +94,7 @@ export const FatSummary = ({ data, goals }: FatSummaryProps) => {
           percent={((data?.protein || 0) * 100) / (goalsConfig.protein || 0)}
           size={90}
           format={() => (
-            <UiFlex direction="column" gap="xs">
+            <UiFlex direction="column" gap="xxs">
               <UiTypography>{data?.protein}</UiTypography>
               <UiTypography size="small">из {goalsConfig.protein}</UiTypography>
               <UiTypography size="small">Белки</UiTypography>
@@ -99,7 +106,7 @@ export const FatSummary = ({ data, goals }: FatSummaryProps) => {
           percent={((data?.fat || 0) * 100) / (goalsConfig.fat || 0)}
           size={90}
           format={() => (
-            <UiFlex direction="column" gap="xs">
+            <UiFlex direction="column" gap="xxs">
               <UiTypography>{data?.fat}</UiTypography>
               <UiTypography size="small">из {goalsConfig.fat}</UiTypography>
               <UiTypography size="small">Жиры</UiTypography>
@@ -111,7 +118,7 @@ export const FatSummary = ({ data, goals }: FatSummaryProps) => {
           percent={((data?.carbs || 0) * 100) / (goalsConfig.carbs || 0)}
           size={90}
           format={() => (
-            <UiFlex direction="column" gap="xs">
+            <UiFlex direction="column" gap="xxs">
               <UiTypography>{data?.carbs}</UiTypography>
               <UiTypography size="small">из {goalsConfig.carbs}</UiTypography>
               <UiTypography size="small">Углеводы</UiTypography>

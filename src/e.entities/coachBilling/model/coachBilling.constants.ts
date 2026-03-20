@@ -1,0 +1,13 @@
+export enum CoachOfferType {
+  SINGLE_SESSION = 'SINGLE_SESSION',
+  SESSION_PACK = 'SESSION_PACK',
+}
+
+export enum CoachOrderStatus {
+  CREATED = 'CREATED',
+  PAYMENT_PENDING = 'PAYMENT_PENDING',
+  PAID = 'PAID',
+  FAILED = 'FAILED',
+  CANCELED = 'CANCELED',
+  REFUNDED = 'REFUNDED',
+}

@@ -2,11 +2,11 @@ import type { TabsProps } from 'antd/es/tabs';
 import React, { useMemo, useState } from 'react';
 
 import { AdminTab } from '@/b.pages/user/ui/LkPage/components/AdminTab.tsx';
-import { ClientTab } from '@/b.pages/user/ui/LkPage/components/ClientTab.tsx';
-import { CoachTab } from '@/b.pages/user/ui/LkPage/components/CoachTab.tsx';
+import { ClientTab } from '@/b.pages/user/ui/LkPage/components/ClientTab/ClientTab.tsx';
+import { CoachTab } from '@/b.pages/user/ui/LkPage/components/CoachTab/CoachTab.tsx';
 import { Calendar } from '@/c.widgets/day';
 import { MealsInfo } from '@/c.widgets/meal';
-import { Connections, UserInfo } from '@/c.widgets/user';
+import { Connections } from '@/c.widgets/user';
 import { Roles, userSelector } from '@/e.entities/user';
 import { useSelector } from '@/f.shared/lib';
 import { useMobile } from '@/f.shared/lib/useMobile.ts';
@@ -66,9 +66,7 @@ export const LkPage = () => {
 
   return (
     <UiFlex direction="column">
-      <Calendar />
-
-      <UserInfo />
+      {/*<Calendar />*/}
 
       {(user?.roles.length || 0) > 1 ? (
         <UiTabs
@@ -77,14 +75,7 @@ export const LkPage = () => {
           items={items}
         />
       ) : (
-        <UiFlex
-          className={styles.flexBlock}
-          direction={isMobile ? 'column' : 'row'}
-          gap="s"
-        >
-          <MealsInfo />
-          <Connections connectionsType="coaches" />
-        </UiFlex>
+        <ClientTab />
       )}
     </UiFlex>
   );
