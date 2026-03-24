@@ -40,3 +40,31 @@ body::before {
   font-size: var(--font-size-l);
   color: var(--text-color-1);
 }
+
+.ant-notification-notice-wrapper {
+  background: var(--background-color-5) !important;
+
+  & .ant-notification-notice-message, & .ant-notification-notice-description, .ant-notification-notice-close {
+    color: var(--text-color-1) !important;
+  }
+}
+
+.ant-notification-notice-icon .ant-notification-notice-icon-error {
+  color: var(--background-color-4) !important;
+}
+
+.ant-notification-notice {
+  border-radius: var(--border-radius);
+  background: var(--background-color-5);
+
+}
+
+::-webkit-scrollbar {
+  height: 4px;
+  width: 2px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: var(--border-radius);
+  background: var(--accent-color-1);
+}

@@ -62,14 +62,16 @@ export const CoachPage = () => {
       },
       {
         key: CoachOrClientTabsKeys.videoChat,
-        label: 'Видеосвязь',
+        label: 'Спортзона',
         children: <VideoLessonFromClient relationId={data?.relation?.id} />,
         disabled: data && data.relation ? !data.relation.isActive : true,
       },
       {
         key: CoachOrClientTabsKeys.servicesAndSlots,
         label: 'Услуги',
-        children: <ServicesTab coachId={coachId} />,
+        children: (
+          <ServicesTab coachId={coachId} relationId={data?.relation?.id} />
+        ),
       },
       {
         key: CoachOrClientTabsKeys.reviews,

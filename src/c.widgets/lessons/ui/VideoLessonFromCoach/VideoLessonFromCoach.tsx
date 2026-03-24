@@ -1,18 +1,21 @@
 import '@livekit/components-styles';
 
 import { LiveKitRoom, VideoConference } from '@livekit/components-react';
+import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from '@tanstack/react-router';
 import classNames from 'classnames';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 
 import {
   EARLY_JOIN_MINUTES,
   LATE_JOIN_MINUTES,
   lessonStatusLabels,
-  NOW_REFRESH_MS,
 } from '@/c.widgets/lessons/model/videoLessons.constants.ts';
+import { useConfirmWorkoutByCoach } from '@/d.features/lessons/api/queries/useConfirmWorkoutByCoach.ts';
 import { useGetVideoLessons } from '@/e.entities/lessons';
-import { LessonStatus } from '@/e.entities/lessons/model/lessons.model.ts';
+import { useCanJoin } from '@/e.entities/lessons/api/queries/useCanJoin.ts';
+import { LessonStatus } from '@/e.entities/lessons/model/lessons.types.ts';
+import { CoachWorkoutSession } from '@/e.entities/lessons/ui/CoachWorkoutSession/CoachWorkoutSession.tsx';
 import { Roles } from '@/e.entities/user';
 import { useGetVideoToken } from '@/e.entities/user';
 import { UiButton, UiCard, UiFlex, UiTypography } from '@/f.shared/ui';
@@ -20,6 +23,7 @@ import { UiButton, UiCard, UiFlex, UiTypography } from '@/f.shared/ui';
 import {
   formatRange,
   isWithinJoinWindow,
+  normalizeVideoLessons,
 } from '../../model/videoLessons.helpers';
 import styles from './VideoLessonFromCoach.module.scss';
 
@@ -29,14 +33,7 @@ type VideoChatProps = {
 };
 
 export const VideoLessonFromCoach = ({ relationId }: VideoChatProps) => {
-  const [now, setNow] = useState(() => new Date());
-
   const router = useRouter();
-
-  useEffect(() => {
-    const id = window.setInterval(() => setNow(new Date()), NOW_REFRESH_MS);
-    return () => window.clearInterval(id);
-  }, []);
 
   if (!relationId) {
     router.navigate({ to: '/' });
@@ -44,44 +41,72 @@ export const VideoLessonFromCoach = ({ relationId }: VideoChatProps) => {
     return <></>;
   }
 
-  const { data: lessons } = useGetVideoLessons(relationId);
+  const queryClient = useQueryClient();
+  const { data: lessons, refetch } = useGetVideoLessons(relationId);
+  const { data: canJoin } = useCanJoin(relationId);
+  const { mutate: confirmByCoachMutation } = useConfirmWorkoutByCoach({
+    onSuccess: () => {
+      refetch();
+    },
+  });
+
+  const normalizedLessons = useMemo(
+    () => normalizeVideoLessons(lessons),
+    [lessons, canJoin?.session],
+  );
 
   const activeLesson = useMemo(() => {
-    if (!lessons?.length) return null;
+    if (!normalizedLessons.length) return null;
 
-    return lessons.find((lesson) => isWithinJoinWindow(lesson, now)) ?? null;
-  }, [lessons, now]);
-
-  const joinEnabled = Boolean(activeLesson);
+    return (
+      normalizedLessons.find((lesson) => isWithinJoinWindow(lesson)) ?? null
+    );
+  }, [normalizedLessons, canJoin?.session]);
 
   const {
     data: tokenPayload,
     isFetching: isTokenFetching,
     refetch: refetchToken,
-  } = useGetVideoToken(relationId, { enabled: joinEnabled });
+  } = useGetVideoToken(relationId, { enabled: !!canJoin?.session });
 
   const upcomingLesson = useMemo(() => {
-    if (!lessons?.length) return null;
+    if (!normalizedLessons.length) return null;
     return (
-      lessons.find((lesson) => {
+      normalizedLessons.find((lesson) => {
         if (lesson.status === LessonStatus.CANCELED) return false;
         const start = new Date(lesson.startAt);
-        return start.getTime() > now.getTime();
+        return start.getTime() > new Date().getTime();
       }) ?? null
     );
-  }, [lessons, now]);
+  }, [normalizedLessons]);
+
+  const notConfirmedLessons = useMemo(() => {
+    return normalizedLessons.filter(
+      (lesson) =>
+        !lesson.coachMarkedCompletedAt &&
+        lesson.status === LessonStatus.COMPLETED,
+    );
+  }, [normalizedLessons]);
+
+  const onConfirmWorkout = (lessonId: string) => {
+    confirmByCoachMutation({
+      lessonId,
+    });
+  };
+
+  const onVideoLessonEnd = () => {
+    console.log('DADADAD');
+    queryClient.setQueryData(['videoToken', relationId], null);
+  };
 
   return (
     <>
-      {activeLesson && (
+      {tokenPayload && (
         <UiCard>
           <UiFlex direction="column">
             <UiTypography>
               Идёт урок: {activeLesson ? formatRange(activeLesson) : 'сейчас'}
             </UiTypography>
-            {activeLesson?.title && (
-              <UiTypography type="label">{activeLesson.title}</UiTypography>
-            )}
           </UiFlex>
 
           {tokenPayload && (
@@ -105,12 +130,30 @@ export const VideoLessonFromCoach = ({ relationId }: VideoChatProps) => {
             <UiButton onClick={() => refetchToken()} loading={isTokenFetching}>
               Обновить токен
             </UiButton>
+            <UiButton onClick={onVideoLessonEnd} loading={isTokenFetching}>
+              Завершить видеоурок
+            </UiButton>
           </UiFlex>
         </UiCard>
       )}
 
-      {!activeLesson && (
+      {!tokenPayload && (
         <UiFlex direction="column">
+          {notConfirmedLessons.length && (
+            <>
+              <UiTypography bold>Неподтвержденные занятия</UiTypography>
+              <UiFlex>
+                {notConfirmedLessons.map((lesson) => (
+                  <CoachWorkoutSession
+                    key={lesson.id}
+                    lesson={lesson}
+                    onConfirmWorkout={onConfirmWorkout}
+                  />
+                ))}
+              </UiFlex>
+            </>
+          )}
+
           <UiFlex direction="column">
             <UiCard>
               <UiTypography>
@@ -120,14 +163,9 @@ export const VideoLessonFromCoach = ({ relationId }: VideoChatProps) => {
               </UiTypography>
 
               {upcomingLesson && (
-                <>
-                  {upcomingLesson.title && (
-                    <UiTypography bold>{upcomingLesson.title}</UiTypography>
-                  )}
-                  <UiTypography type="label">
-                    Ближайший урок: {formatRange(upcomingLesson)}
-                  </UiTypography>
-                </>
+                <UiTypography type="label">
+                  Ближайший урок: {formatRange(upcomingLesson)}
+                </UiTypography>
               )}
             </UiCard>
 
@@ -135,8 +173,8 @@ export const VideoLessonFromCoach = ({ relationId }: VideoChatProps) => {
               <UiFlex direction="column">
                 <UiTypography bold>Запланированные занятия</UiTypography>
                 <UiFlex direction="column" gap="s">
-                  {lessons?.length ? (
-                    lessons.map((lesson) => {
+                  {normalizedLessons.length ? (
+                    normalizedLessons.map((lesson) => {
                       return (
                         <UiCard
                           inverse
@@ -146,16 +184,24 @@ export const VideoLessonFromCoach = ({ relationId }: VideoChatProps) => {
                               lesson.id === upcomingLesson?.id,
                           })}
                         >
-                          <UiFlex direction="column">
-                            <UiTypography>{formatRange(lesson)}</UiTypography>
-                            {lesson.title && (
+                          <UiFlex justify="space-between">
+                            <UiFlex>
+                              <UiTypography>{formatRange(lesson)}</UiTypography>
                               <UiTypography type="label">
-                                {lesson.title}
+                                {lessonStatusLabels[lesson.status]}
                               </UiTypography>
-                            )}
-                            <UiTypography size="small" type="label">
-                              Статус: {lessonStatusLabels[lesson.status]}
-                            </UiTypography>
+                              <UiTypography bold>
+                                Занятие подтверждено тренером
+                              </UiTypography>
+                            </UiFlex>
+                            {lesson.status === LessonStatus.COMPLETED &&
+                              !lesson.coachMarkedCompletedAt && (
+                                <UiButton
+                                  onClick={() => onConfirmWorkout(lesson.id)}
+                                >
+                                  Подтвердить проведение занятия
+                                </UiButton>
+                              )}
                           </UiFlex>
                         </UiCard>
                       );

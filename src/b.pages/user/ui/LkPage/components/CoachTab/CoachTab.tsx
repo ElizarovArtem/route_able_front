@@ -17,9 +17,9 @@ export const CoachTab = () => {
       <div className={styles.calendarGridItem}>
         <Calendar />
       </div>
-      <div className={styles.lessonsGridItem}>
-        <Lessons className={styles.item} />
-      </div>
+      {/*<div className={styles.lessonsGridItem}>*/}
+      {/*  <Lessons className={styles.item} />*/}
+      {/*</div>*/}
       <div className={styles.lessonsSlotsGridItem}>
         <LessonSlots className={styles.item} />
       </div>

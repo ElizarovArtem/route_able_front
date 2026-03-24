@@ -1,9 +1,10 @@
 .slot {
-  background-color: var(--background-color-3);
-  padding: var(--spacing-s);
+  padding: var(--spacing-xs);
+  border-radius: var(--border-radius);
   cursor: pointer;
 
   &:hover {
+    background-color: var(--background-color-1);
     border-color: var(--accent-color-1);
   }
 }

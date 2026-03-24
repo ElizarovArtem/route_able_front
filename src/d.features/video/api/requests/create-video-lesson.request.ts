@@ -6,11 +6,8 @@ export type CreateVideoLessonRequest = {
 
 export const createVideoLesson = async ({
   slotId,
-  ...payload
 }: CreateVideoLessonRequest) => {
-  const { data } = await api.post(`/slots/${slotId}/book`, {
-    ...payload,
-  });
+  const { data } = await api.post(`/slots/${slotId}/book`);
 
   return data;
 };

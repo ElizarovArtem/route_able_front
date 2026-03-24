@@ -5,7 +5,7 @@ import {
   createTimeSlot,
   type CreateTimeSlotRequest,
 } from '@/d.features/lessons/api/requests/create-time-slot.request.ts';
-import type { TimeSlotDto } from '@/e.entities/lessons/model/lessons.model.ts';
+import type { TimeSlotDto } from '@/e.entities/lessons/model/lessons.types.ts';
 
 export const useCreateTimeSlot = (
   mutationOptions?: MutationOptions<

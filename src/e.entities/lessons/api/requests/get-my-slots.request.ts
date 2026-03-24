@@ -1,4 +1,4 @@
-import type { TimeSlotDto } from '@/e.entities/lessons/model/lessons.model.ts';
+import type { TimeSlotDto } from '@/e.entities/lessons/model/lessons.types.ts';
 import { api } from '@/f.shared/api';
 
 export type GetMySlotsParams = {

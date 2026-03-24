@@ -15,5 +15,6 @@ export const useGetVideoToken = (
     queryFn: () => getVideoToken(relationId as string),
     enabled: Boolean(relationId) && (options.enabled ?? true),
     refetchOnWindowFocus: false,
+    retry: false,
   });
 };
