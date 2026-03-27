@@ -5,6 +5,7 @@ import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
 import React from 'react';
 
 import { Header } from '@/a.app/layout/Header';
+import { CreateFeedbackModal } from '@/d.features/feedback/ui/CreateFeedbackModal/CreateFeedbackModal.tsx';
 import { AuthModal, CheckAuth } from '@/d.features/user';
 import { UiTypography } from '@/f.shared/ui';
 
@@ -32,6 +33,7 @@ export const Route = createRootRoute({
 
         <CheckAuth />
         <AuthModal />
+        <CreateFeedbackModal />
 
         <TanStackRouterDevtools />
         <ReactQueryDevtools initialIsOpen={false} />

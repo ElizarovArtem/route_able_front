@@ -42,3 +42,9 @@ export enum CoachOrClientTabsKeys {
   reviews = 'reviews',
   servicesAndSlots = 'servicesAndSlots',
 }
+
+export enum LkContentTypeTabKeys {
+  user = 'user',
+  coach = 'coach',
+  admin = 'admin',
+}

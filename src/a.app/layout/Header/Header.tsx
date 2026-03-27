@@ -6,7 +6,7 @@ import { authSelector } from '@/d.features/user';
 import { Menu, userSelector } from '@/e.entities/user';
 import { useSelector } from '@/f.shared/lib';
 import { useMobile } from '@/f.shared/lib/useMobile.ts';
-import { UiButton, UiTypography } from '@/f.shared/ui';
+import { UiButton, UiFlex, UiTypography } from '@/f.shared/ui';
 
 import styles from './Header.module.scss';
 
@@ -44,7 +44,7 @@ export const Header = () => {
 
   return (
     <div className={styles.header}>
-      <div className={styles.linksAndLogoWrapper}>
+      <UiFlex align="center" gap="m">
         <Link to="/">
           {/*<div className={styles.logo}>Route•able</div>*/}
           <div className={styles.logo}>Роутэйбл</div>
@@ -56,7 +56,7 @@ export const Header = () => {
           open={isMenuOpen}
           onClickOutside={() => setIsMenuOpen(false)}
         />
-      </div>
+      </UiFlex>
       <div className={styles.menu}>
         {user ? (
           <>

@@ -1,11 +1,12 @@
 .menu {
   display: flex;
-  gap: var(--font-size-m);
+  gap: var(--spacing-s);
   align-items: center;
   transition: 0.2s;
 
   & [class*='typography']:hover {
     color: var(--accent-color-1);
+    cursor: pointer;
   }
 
   @media (max-width: 640px) {
