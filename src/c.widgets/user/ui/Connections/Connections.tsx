@@ -1,9 +1,8 @@
-import { Link } from '@tanstack/react-router';
 import React, { useMemo } from 'react';
 
 import { Roles } from '@/e.entities/user';
 import { useGetConnections } from '@/e.entities/user/api';
-import type { GetConnectionsResponseItem } from '@/e.entities/user/api/requests/get-connections.request.ts';
+import type { MyConnectionsItem } from '@/e.entities/user/model/user.types.ts';
 import { ConnectionCard } from '@/e.entities/user/ui/ConnectionCard/ConnectionCard.tsx';
 import { UiCard, UiFlex, UiTypography } from '@/f.shared/ui';
 import { UiLink } from '@/f.shared/ui/UiLink/UiLink.tsx';
@@ -24,8 +23,8 @@ export const Connections = ({ connectionsType }: ConnectionsProps) => {
         return acc;
       },
       { clients: [], coaches: [] } as {
-        clients: GetConnectionsResponseItem[];
-        coaches: GetConnectionsResponseItem[];
+        clients: MyConnectionsItem[];
+        coaches: MyConnectionsItem[];
       },
     );
   }, [data]);
@@ -45,6 +44,7 @@ export const Connections = ({ connectionsType }: ConnectionsProps) => {
                 isActive={Boolean(coach.isActive)}
                 connection={coach.partner}
                 toRole={Roles.Coach}
+                sessions={coach.sessions}
               />
             ))
           ) : (

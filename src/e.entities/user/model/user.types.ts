@@ -78,3 +78,20 @@ export interface CoachListItem {
     count: number;
   };
 }
+
+export type MyConnectionsItem = {
+  myRole: Roles;
+  partnerRole: Roles;
+  chatId: string;
+  clientCoachId: string;
+  partner: User;
+  isActive?: boolean;
+  sessions: MyConnectionsItemSessions;
+};
+
+export type MyConnectionsItemSessions = {
+  total: number;
+  used: number;
+  remaining: number;
+  reserved: number;
+};

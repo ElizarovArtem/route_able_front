@@ -6,7 +6,7 @@ import {
   formatRange,
   type VideoLessonWithSessionFields,
 } from '@/c.widgets/lessons/model/videoLessons.helpers.ts';
-import { LessonStatus } from '@/e.entities/lessons/model/lessons.types.ts';
+import { LessonStatus } from '@/e.entities/lessons/model/lessons.constants.ts';
 import { UiButton, UiCard, UiFlex, UiTypography } from '@/f.shared/ui';
 
 import styles from './CoachWorkoutSession.module.scss';

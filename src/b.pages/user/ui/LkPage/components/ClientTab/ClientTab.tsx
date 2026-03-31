@@ -3,24 +3,25 @@ import React from 'react';
 import { Calendar } from '@/c.widgets/day';
 import { MealsInfo } from '@/c.widgets/meal';
 import { Connections, UserInfo } from '@/c.widgets/user';
-
-import styles from './ClientTab.module.scss';
+import { Lessons } from '@/c.widgets/user/ui/Lessons/Lessons.tsx';
+import { Roles } from '@/e.entities/user';
+import { UiFlex } from '@/f.shared/ui';
 
 export const ClientTab = () => {
   return (
-    <div className={styles.coachTabGrid}>
-      <div className={styles.profileGridItem}>
+    <UiFlex direction="column" gap="s">
+      <Calendar />
+
+      <UiFlex gap="s">
         <UserInfo />
-      </div>
-      <div className={styles.calendarGridItem}>
-        <Calendar />
-      </div>
-      <div className={styles.mealsInfoGridItem}>
-        <MealsInfo />
-      </div>
-      <div className={styles.connectionsGridItem}>
+        <UiFlex direction="column" childrenEqualLength flex={1} gap="s">
+          <MealsInfo />
+        </UiFlex>
+      </UiFlex>
+      <UiFlex gap="s" childrenEqualLength>
+        <Lessons forRole={Roles.Client} />
         <Connections connectionsType="coaches" />
-      </div>
-    </div>
+      </UiFlex>
+    </UiFlex>
   );
 };

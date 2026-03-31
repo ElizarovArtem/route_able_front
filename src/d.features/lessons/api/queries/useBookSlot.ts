@@ -5,16 +5,16 @@ import {
   bookSlot,
   type BookSlotRequest,
 } from '@/d.features/lessons/api/requests/book-slot.request.ts';
-import type { VideoLessonDto } from '@/e.entities/lessons/api/requests/get-video-lessons.request.ts';
+import type { CoachWorkoutSession } from '@/e.entities/lessons/model/lessons.types.ts';
 
 export const useBookSlot = (
   mutationOptions?: MutationOptions<
-    VideoLessonDto,
+    CoachWorkoutSession,
     AxiosError,
     BookSlotRequest
   >,
 ) => {
-  return useMutation<VideoLessonDto, AxiosError, BookSlotRequest>({
+  return useMutation<CoachWorkoutSession, AxiosError, BookSlotRequest>({
     mutationFn: bookSlot,
     ...mutationOptions,
   });

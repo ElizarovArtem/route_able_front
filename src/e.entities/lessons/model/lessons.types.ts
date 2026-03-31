@@ -1,11 +1,9 @@
-import { CoachWorkoutSessionStatus } from '@/e.entities/lessons/model/lessons.constants.ts';
-import type { User } from '@/e.entities/user/model/user.types.ts';
-
-export enum TimeSlotStatus {
-  FREE = 'FREE',
-  BOOKED = 'BOOKED',
-  DISABLED = 'DISABLED',
-}
+import {
+  CoachWorkoutSessionStatus,
+  type LessonStatus,
+  TimeSlotStatus,
+} from '@/e.entities/lessons/model/lessons.constants.ts';
+import type { Relation, User } from '@/e.entities/user/model/user.types.ts';
 
 export type TimeSlotDto = {
   id: string;
@@ -26,13 +24,6 @@ export type TimeSlotDto = {
     status: TimeSlotStatus;
   };
 };
-
-export enum LessonStatus {
-  SCHEDULED = 'SCHEDULED',
-  IN_PROGRESS = 'IN_PROGRESS',
-  COMPLETED = 'COMPLETED',
-  CANCELED = 'CANCELED',
-}
 
 export type CoachWorkoutSession = {
   id: string;
@@ -55,4 +46,20 @@ export type CoachWorkoutSession = {
   disputeReason: string;
   createdAt: string;
   updatedAt: string;
+};
+export type PlannedLesson = {
+  id: string;
+  clientCoachId: string;
+  clientId: string;
+  coachId: string;
+  startAt: string;
+  endAt: string;
+  status: LessonStatus;
+  title: string;
+  notes: string;
+  createdBy: string;
+  createdAt: string;
+  updatedAt: string;
+  client: User;
+  relation: Relation;
 };

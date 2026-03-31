@@ -1,17 +1,12 @@
 @use  '@/a.app/styles/variables';
 
 .connectionCard {
-  display: flex;
-  gap: var(--spacing-m);
-}
+  padding: var(--spacing-xs);
+  border-radius: var(--border-radius);
+  cursor: pointer;
 
-.infoWrapper {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-xs);
-}
-
-.link {
-  text-decoration: none;
-  color: var(--text-color-1);
+  &:hover {
+    background-color: var(--background-color-1);
+    border-color: var(--accent-color-1);
+  }
 }

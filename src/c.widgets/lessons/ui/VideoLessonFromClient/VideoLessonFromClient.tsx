@@ -14,7 +14,7 @@ import { useConfirmWorkoutByClient } from '@/d.features/lessons/api/queries/useC
 import { CreateVideoLessonModal } from '@/d.features/video';
 import { useGetVideoLessons } from '@/e.entities/lessons';
 import { useCanJoin } from '@/e.entities/lessons/api/queries/useCanJoin.ts';
-import { LessonStatus } from '@/e.entities/lessons/model/lessons.types.ts';
+import { LessonStatus } from '@/e.entities/lessons/model/lessons.constants.ts';
 import { CoachWorkoutSession } from '@/e.entities/lessons/ui/CoachWorkoutSession/CoachWorkoutSession.tsx';
 import { Roles, useGetVideoToken } from '@/e.entities/user';
 import { UiButton, UiFlex, UiTypography } from '@/f.shared/ui';

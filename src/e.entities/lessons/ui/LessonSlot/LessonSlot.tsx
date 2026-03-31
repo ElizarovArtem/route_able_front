@@ -1,9 +1,7 @@
 import React from 'react';
 
-import {
-  type TimeSlotDto,
-  TimeSlotStatus,
-} from '@/e.entities/lessons/model/lessons.types.ts';
+import { TimeSlotStatus } from '@/e.entities/lessons/model/lessons.constants.ts';
+import { type TimeSlotDto } from '@/e.entities/lessons/model/lessons.types.ts';
 import { UiFlex, UiTypography } from '@/f.shared/ui';
 
 import styles from './LessonSlot.module.scss';

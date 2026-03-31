@@ -5,12 +5,12 @@ import { UiFlex } from '@/f.shared/ui';
 
 import styles from './UiCard.module.scss';
 
-type UiCardProps = React.HTMLAttributes<HTMLDivElement> & {
+type UiCardProps = {
   children?: ReactNode;
   className?: string;
   inverse?: boolean;
   header?: ReactNode;
-};
+} & React.HTMLAttributes<HTMLDivElement>;
 
 export const UiCard = React.forwardRef<HTMLDivElement, UiCardProps>(
   ({ children, className, inverse, header, ...rest }, ref) => {

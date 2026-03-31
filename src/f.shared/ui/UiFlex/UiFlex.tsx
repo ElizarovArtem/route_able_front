@@ -49,7 +49,7 @@ export const UiFlex = forwardRef<HTMLDivElement, UiFlexProps>(
         )}
         style={{
           ...style,
-          flex,
+          ...(flex ? { flex } : {}),
           ...(childrenEqualLength
             ? { '--flex-children-count': childrenCount }
             : {}),
@@ -60,3 +60,5 @@ export const UiFlex = forwardRef<HTMLDivElement, UiFlexProps>(
     );
   },
 );
+
+UiFlex.displayName = 'UiFlex';

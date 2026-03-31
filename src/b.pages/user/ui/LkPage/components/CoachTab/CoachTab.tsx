@@ -5,30 +5,32 @@ import { Calendar } from '@/c.widgets/day';
 import { Connections, UserInfo } from '@/c.widgets/user';
 import { Lessons } from '@/c.widgets/user/ui/Lessons/Lessons.tsx';
 import { LessonSlots } from '@/c.widgets/user/ui/LessonSlots/LessonSlots.tsx';
+import { Roles } from '@/e.entities/user';
+import { UiFlex } from '@/f.shared/ui';
 
 import styles from './CoachTab.module.scss';
 
 export const CoachTab = () => {
   return (
-    <div className={styles.coachTabGrid}>
-      <div className={styles.profileGridItem}>
+    <UiFlex direction="column" gap="s">
+      <Calendar />
+
+      <UiFlex gap="s">
         <UserInfo />
-      </div>
-      <div className={styles.calendarGridItem}>
-        <Calendar />
-      </div>
-      {/*<div className={styles.lessonsGridItem}>*/}
-      {/*  <Lessons className={styles.item} />*/}
-      {/*</div>*/}
-      <div className={styles.lessonsSlotsGridItem}>
-        <LessonSlots className={styles.item} />
-      </div>
-      <div className={styles.coachOffersGridItem}>
-        <CoachOffers className={styles.item} />
-      </div>
-      <div className={styles.clientsGridItem}>
+        <UiFlex
+          flex={1}
+          gap="s"
+          className={styles.stretchRow}
+          childrenEqualLength
+        >
+          <LessonSlots className={styles.stretchCard} />
+          <CoachOffers className={styles.stretchCard} />
+        </UiFlex>
+      </UiFlex>
+      <UiFlex childrenEqualLength gap="s">
         <Connections connectionsType="clients" />
-      </div>
-    </div>
+        <Lessons forRole={Roles.Coach} />
+      </UiFlex>
+    </UiFlex>
   );
 };

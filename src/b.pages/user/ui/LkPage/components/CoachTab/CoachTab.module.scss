@@ -35,7 +35,10 @@
   grid-column: 1 / 13;
 }
 
-.item {
-  height: 306px;
+.stretchRow {
+  align-items: stretch;
 }
 
+.stretchCard {
+  height: 100%;
+}

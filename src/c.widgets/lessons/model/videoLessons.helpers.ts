@@ -1,7 +1,5 @@
-import {
-  type CoachWorkoutSession,
-  LessonStatus,
-} from '@/e.entities/lessons/model/lessons.types.ts';
+import { LessonStatus } from '@/e.entities/lessons/model/lessons.constants.ts';
+import { type CoachWorkoutSession } from '@/e.entities/lessons/model/lessons.types.ts';
 
 import {
   EARLY_JOIN_MINUTES,

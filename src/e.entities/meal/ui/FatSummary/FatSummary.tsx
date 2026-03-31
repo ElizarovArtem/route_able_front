@@ -10,11 +10,12 @@ import styles from './FatSummary.module.scss';
 type FatSummaryProps = {
   data?: GetDayMealsSummaryRes['summary'];
   goals?: GetDayMealsSummaryRes['goals'];
+  circlesSize?: number;
 };
 
 const PERSONAL_OPTION_VALUE = 'personal';
 
-export const FatSummary = ({ data, goals }: FatSummaryProps) => {
+export const FatSummary = ({ data, goals, circlesSize }: FatSummaryProps) => {
   const [goalsSource, setGoalsSource] = useState<string>(PERSONAL_OPTION_VALUE);
 
   const options: DefaultOptionType[] = useMemo(() => {
@@ -57,7 +58,7 @@ export const FatSummary = ({ data, goals }: FatSummaryProps) => {
   }, [goalsSource, goals]);
 
   return (
-    <UiFlex direction="column" align="center">
+    <UiFlex direction="column" align="center" flex={1}>
       <UiFlex align="center" justify="start">
         {goals && (
           <UiSelector
@@ -78,7 +79,7 @@ export const FatSummary = ({ data, goals }: FatSummaryProps) => {
         <UiProgress
           type="circle"
           percent={((data?.calories || 0) * 100) / (goalsConfig.calories || 0)}
-          size={90}
+          size={circlesSize || 90}
           format={() => (
             <UiFlex direction="column" gap="xxs">
               <UiTypography>{data?.calories}</UiTypography>
@@ -92,7 +93,7 @@ export const FatSummary = ({ data, goals }: FatSummaryProps) => {
         <UiProgress
           type="circle"
           percent={((data?.protein || 0) * 100) / (goalsConfig.protein || 0)}
-          size={90}
+          size={circlesSize || 90}
           format={() => (
             <UiFlex direction="column" gap="xxs">
               <UiTypography>{data?.protein}</UiTypography>
@@ -104,7 +105,7 @@ export const FatSummary = ({ data, goals }: FatSummaryProps) => {
         <UiProgress
           type="circle"
           percent={((data?.fat || 0) * 100) / (goalsConfig.fat || 0)}
-          size={90}
+          size={circlesSize || 90}
           format={() => (
             <UiFlex direction="column" gap="xxs">
               <UiTypography>{data?.fat}</UiTypography>
@@ -116,7 +117,7 @@ export const FatSummary = ({ data, goals }: FatSummaryProps) => {
         <UiProgress
           type="circle"
           percent={((data?.carbs || 0) * 100) / (goalsConfig.carbs || 0)}
-          size={90}
+          size={circlesSize || 90}
           format={() => (
             <UiFlex direction="column" gap="xxs">
               <UiTypography>{data?.carbs}</UiTypography>

@@ -1,10 +1,10 @@
 import React from 'react';
 
-import type { GetCoachVideoLesson } from '@/e.entities/lessons/api/requests/get-coach-video-lessons.request.ts';
+import type { PlannedLesson } from '@/e.entities/lessons/model/lessons.types.ts';
 import { UiCard, UiFlex, UiTypography } from '@/f.shared/ui';
 
 type VideoLessonProps = {
-  lesson: GetCoachVideoLesson;
+  lesson: PlannedLesson;
 };
 
 export const PlannedVideoLesson = ({ lesson }: VideoLessonProps) => {

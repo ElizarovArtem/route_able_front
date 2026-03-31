@@ -1,1 +1,1 @@
-export { CoachOffer } from './ui';
+export { CoachOfferItem } from './ui';

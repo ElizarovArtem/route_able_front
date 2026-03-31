@@ -8,7 +8,7 @@ import type { CoachOffer } from '@/e.entities/coachBilling/model/coachBilling.mo
 import { CoachOfferItem } from '@/e.entities/coachBilling/ui';
 import { LessonSlot, useGetCoachSlots } from '@/e.entities/lessons';
 import { formatDateForServer } from '@/f.shared/lib/formatDateForServer.ts';
-import { UiCard, UiFlex, UiTypography } from '@/f.shared/ui';
+import { UiCard, UiDatepicker, UiFlex, UiTypography } from '@/f.shared/ui';
 
 type ServicesTabProps = {
   relationId?: string;
@@ -49,7 +49,18 @@ export const ServicesTab = ({ coachId, relationId }: ServicesTabProps) => {
             ))}
           </UiFlex>
         </UiCard>
-        <UiCard header={<UiTypography bold>Свободные слоты</UiTypography>}>
+        <UiCard
+          header={
+            <UiFlex gap="xs" align="center">
+              <UiTypography bold>Свободные слоты на</UiTypography>
+              <UiDatepicker
+                value={date}
+                minDate={new Date()}
+                onChange={(date) => setDate(date as Date)}
+              />
+            </UiFlex>
+          }
+        >
           <UiFlex direction="column">
             {slots && slots.length ? (
               slots.map((slot) => (
