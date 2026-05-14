@@ -1,12 +1,15 @@
 @use '@/a.app/styles/variables';
 
 .typography {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-xxs);
   line-height: var(--line-height-base);
 
   font-size: var(--font-size-m);
+
+  &Flex {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xxs);
+  }
 
   &-ordinary {
     color: var(--text-color-1);
@@ -26,6 +29,10 @@
 
   &-large {
     font-size: var(--font-size-l);
+  }
+
+  &-xl {
+    font-size: var(--font-size-xl);
   }
 
   &Bold {

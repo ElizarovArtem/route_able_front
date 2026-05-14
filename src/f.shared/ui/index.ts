@@ -1,5 +1,6 @@
 export { CoachOfferIcon, InfoIcon, StarIcon } from './icons';
 export { UiAvatar } from './UiAvatar/UiAvatar';
+export { UiBadge } from './UiBadge/UiBadge';
 export { UiBanner } from './UiBanner/UiBanner';
 export { UiButton } from './UiButton/UiButton';
 export { UiCard } from './UiCard/UiCard';

@@ -28,7 +28,14 @@ export const Header = () => {
     client.resetQueries();
   };
 
-  const onMenuItemClick = () => {
+  const onMenuItemClick = (
+    e?: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
+  ) => {
+    if (!user) {
+      e?.preventDefault();
+      setIsAuthModalOpen(true);
+    }
+
     if (isMobile) {
       setIsMenuOpen(false);
     }
@@ -46,8 +53,8 @@ export const Header = () => {
     <div className={styles.header}>
       <UiFlex align="center" gap="m">
         <Link to="/">
-          {/*<div className={styles.logo}>Route•able</div>*/}
-          <div className={styles.logo}>Роутэйбл</div>
+          <div className={styles.logo}>Route•able</div>
+          {/*<div className={styles.logo}>Роутэйбл</div>*/}
         </Link>
 
         <Menu

@@ -22,6 +22,7 @@ export {
   AuthModal,
   BookClientFromCoachModal,
   CheckAuth,
+  CheckMySubscription,
   CreateLessonSlotModal,
   PaySubscription,
 } from './ui';

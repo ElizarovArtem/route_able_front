@@ -10,7 +10,9 @@ import styles from './Menu.module.scss';
 
 type MenuProps = {
   onClickOutside?: () => void;
-  onMenuItemClick?: () => void;
+  onMenuItemClick?: (
+    e?: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
+  ) => void;
   open: boolean;
   nameRef: RefObject<HTMLDivElement | null>;
 };
@@ -63,6 +65,9 @@ export const Menu = ({
       <UiTypography onClick={() => setIsFeedbackModalOpen(true)}>
         Обратная связь
       </UiTypography>
+      <Link to="/subscriptions" onClick={onMenuItemClick}>
+        <UiTypography>Подписки</UiTypography>
+      </Link>
     </div>
   );
 };

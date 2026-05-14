@@ -12,7 +12,7 @@ button.button[class*='ant-btn'][class*='ant-btn-default'] {
 
 button.button[class*='ant-btn'][class*='ant-btn-default']:hover  {
   color: var(--accent-color-1);
-  border-color: transparent;
+  border-color: var(--accent-color-1);
   background: transparent;
 }
 
