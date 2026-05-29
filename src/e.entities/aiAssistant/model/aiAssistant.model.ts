@@ -52,6 +52,7 @@ export enum ViewAngle {
 
 export const EXERCISE_VIEWS: Partial<Record<ExerciseKey, ViewAngle[]>> = {
   [ExerciseKey.SQUAT]: [ViewAngle.side, ViewAngle.front],
+  [ExerciseKey.PUSHUP]: [ViewAngle.side, ViewAngle.front],
 };
 
 export const exerciseLabels: Record<ExerciseKey, string> = {

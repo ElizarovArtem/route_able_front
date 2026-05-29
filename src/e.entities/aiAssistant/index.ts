@@ -2,14 +2,28 @@ export { useGetAiAssistantToken, useGetAiWorkoutSession } from './api';
 export {
   AiWorkoutExerciseStatus,
   AiWorkoutStatus,
+  cameraQualityProvider,
   ExerciseKey,
   ExerciseMode,
   getTracker,
+  kneeValgusFrontProvider,
   parallelFrontProvider,
   parallelSideProvider,
+  PushupRepTracker,
+  pushupBodyLineSideProvider,
+  pushupCameraQualityProvider,
+  pushupDepthProvider,
+  pushupFrontDepthProvider,
+  pushupHandPositionSideProvider,
+  pushupHandWidthFrontProvider,
+  pushupSymmetryFrontProvider,
+  pushupTempoProvider,
   RepPhase,
   speakText,
   SquatRepTracker,
+  symmetryFrontProvider,
+  tempoProvider,
+  torsoLeanSideProvider,
   usePoseDetectorController,
 } from './model';
 export type {
@@ -18,5 +32,7 @@ export type {
   PoseDetectionOptions,
   SpeakOptions,
   Tip,
+  TrackerController,
+  TrackerUpdateResult,
 } from './model';
 export { PoseOverlay } from './ui';

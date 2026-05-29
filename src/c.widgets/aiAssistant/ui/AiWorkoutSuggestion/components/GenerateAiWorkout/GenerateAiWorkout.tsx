@@ -7,7 +7,7 @@ import type { AiWorkoutSession } from '@/e.entities/aiAssistant';
 import {
   type CreateAiWorkoutFormData,
   createAiWorkoutResolver,
-} from '@/e.entities/aiAssistant/model/create-workout.resolver.ts';
+} from '@/e.entities/aiAssistant/model/resolvers/create-workout.resolver.ts';
 import { useMobile } from '@/f.shared/lib/useMobile.ts';
 import { FormInput, FormSelect, UiButton, UiFlex } from '@/f.shared/ui';
 
