@@ -7,9 +7,8 @@ import {
 
 export const useGetMessages = (chatId: string) => {
   return useQuery<GetMessagesResponse[]>({
-    queryKey: ['messages'],
+    queryKey: ['messages', chatId],
     queryFn: () => getMessages(chatId),
     enabled: !!chatId,
-    refetchInterval: 5000,
   });
 };

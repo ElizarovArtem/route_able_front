@@ -8,7 +8,7 @@ type UiTypographyProps = {
   className?: string;
   bold?: boolean;
   type?: 'ordinary' | 'label';
-  size?: 'small' | 'medium' | 'large';
+  size?: 'small' | 'medium' | 'large' | 'xl' | number;
   label?: string;
 } & React.HTMLAttributes<HTMLDivElement>;
 
@@ -25,13 +25,21 @@ export const UiTypography = forwardRef<HTMLDivElement, UiTypographyProps>(
     },
     ref,
   ) => {
+    const sizeStyle = typeof size === 'number' ? size : null;
+    const sizeClass = typeof size === 'string' ? size : null;
+
     return (
       <div
         ref={ref}
         {...props}
+        style={sizeStyle ? { fontSize: sizeStyle } : {}}
         className={classNames(
           styles.typography,
-          { [styles.typographyBold]: bold },
+          {
+            [styles.typographyBold]: bold,
+            [styles.typographyFlex]: label,
+            [styles[`typography-${size}`]]: sizeClass,
+          },
           styles[`typography-${type}`],
           styles[`typography-${size}`],
           className,

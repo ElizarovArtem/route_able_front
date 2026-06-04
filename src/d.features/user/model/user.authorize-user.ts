@@ -1,5 +1,5 @@
 export enum AuthContentType {
-  phone = 'phone',
+  telegram = 'telegram',
   email = 'email',
   code = 'code',
 }

@@ -1,0 +1,16 @@
+@use '@/a.app/styles/variables';
+
+.body {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--spacing-l);
+  align-items: start;
+}
+
+
+
+@media (max-width: 768px) {
+  .body {
+    grid-template-columns: 1fr;
+  }
+}

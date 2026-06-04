@@ -1,6 +1,6 @@
-import { useParams } from '@tanstack/react-router';
+import { useNavigate, useParams, useSearch } from '@tanstack/react-router';
 import type { TabsProps } from 'antd/es/tabs';
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 
 import { VideoLessonFromCoach } from '@/c.widgets/lessons';
 import {
@@ -10,37 +10,34 @@ import {
 } from '@/c.widgets/user';
 import { FatSummary } from '@/e.entities/meal';
 import { useGetRelation } from '@/e.entities/user/api';
+import { CoachOrClientTabsKeys } from '@/e.entities/user/model/user.enums.ts';
 import { formatDateForServer } from '@/f.shared/lib/formatDateForServer.ts';
 import { UiAvatar, UiCard, UiFlex, UiTabs, UiTypography } from '@/f.shared/ui';
 
 import styles from './ClientPage.module.scss';
 
-enum TabsKeys {
-  chat = 'chat',
-  workoutsPlan = 'workoutsPlan',
-  mealPlan = 'mealPlan',
-  videoChat = 'videoChat',
-}
-
 export const ClientPage = () => {
-  const [currentTab, setCurrentTab] = useState<TabsKeys>(TabsKeys.mealPlan);
-  const [date, setDate] = useState(new Date());
+  const { tab: currentTab } = useSearch({
+    from: '/_private/client/$clientId',
+  });
+
   const clientId = useParams({
     from: '/_private/client/$clientId',
     select: (params) => params.clientId,
   });
 
-  const { data } = useGetRelation(clientId, formatDateForServer(date));
+  const navigate = useNavigate({ from: '/client/$clientId' });
+  const { data } = useGetRelation(clientId, formatDateForServer(new Date()));
 
   const tabs = useMemo((): TabsProps['items'] => {
     return [
       {
-        key: TabsKeys.mealPlan,
+        key: CoachOrClientTabsKeys.mealPlan,
         label: 'План питания',
         children: <MealPlanFromCoach relationId={data?.relation?.id} />,
       },
       {
-        key: TabsKeys.workoutsPlan,
+        key: CoachOrClientTabsKeys.workoutsPlan,
         label: 'План тренировок',
         children: (
           <WorkoutPlanFromCoach
@@ -50,20 +47,29 @@ export const ClientPage = () => {
         ),
       },
       {
-        key: TabsKeys.chat,
+        key: CoachOrClientTabsKeys.chat,
         label: 'Чат',
         children: (
           <Chat partnerId={clientId} chatId={data?.chat?.id || ''} fromCoach />
         ),
       },
       {
-        key: TabsKeys.videoChat,
+        key: CoachOrClientTabsKeys.videoChat,
         label: 'Видеосвязь',
         children: <VideoLessonFromCoach relationId={data?.relation?.id} />,
         disabled: !data?.relation?.isActive || false,
       },
     ];
   }, [clientId, data]);
+
+  const onTabChange = (tab: CoachOrClientTabsKeys) => {
+    navigate({
+      search: (prev) => ({
+        ...prev,
+        tab,
+      }),
+    });
+  };
 
   return (
     <UiFlex direction="column">
@@ -88,7 +94,7 @@ export const ClientPage = () => {
       <UiTabs
         inverse
         activeKey={currentTab}
-        onChange={(key) => setCurrentTab(key as TabsKeys)}
+        onChange={(key) => onTabChange(key as CoachOrClientTabsKeys)}
         items={tabs}
       />
     </UiFlex>

@@ -1,34 +1,38 @@
 import React from 'react';
 
-import type { GetCoachVideoLesson } from '@/e.entities/lessons/api/requests/get-coach-video-lessons.request.ts';
-import { UiCard, UiFlex, UiTypography } from '@/f.shared/ui';
+import type { PlannedLesson } from '@/e.entities/lessons/model/lessons.types.ts';
+
+import styles from './PlannedVideoLesson.module.scss';
 
 type VideoLessonProps = {
-  lesson: GetCoachVideoLesson;
+  lesson: PlannedLesson;
 };
 
 export const PlannedVideoLesson = ({ lesson }: VideoLessonProps) => {
-  const date = new Date(lesson.startAt).toLocaleDateString();
-  const startTime = new Date(lesson.startAt).toLocaleTimeString([], {
+  const startTime = new Date(lesson.startAt).toLocaleTimeString('ru-RU', {
     hour: '2-digit',
     minute: '2-digit',
   });
-  const endTime = new Date(lesson.endAt).toLocaleTimeString([], {
+  const endTime = new Date(lesson.endAt).toLocaleTimeString('ru-RU', {
     hour: '2-digit',
     minute: '2-digit',
+  });
+  const date = new Date(lesson.startAt).toLocaleDateString('ru-RU', {
+    day: 'numeric',
+    month: 'short',
   });
 
   return (
-    <UiCard inverse>
-      <UiFlex justify="space-between">
-        <UiTypography>{date}</UiTypography>
-        <UiFlex gap="xs">
-          <UiTypography>{startTime}</UiTypography>
-          {'-'}
-          <UiTypography>{endTime}</UiTypography>
-        </UiFlex>
-        <UiTypography>{lesson.client.name}</UiTypography>
-      </UiFlex>
-    </UiCard>
+    <div className={styles.lesson}>
+      <div className={styles.timeBlock}>
+        <span className={styles.time}>{startTime}</span>
+        <span className={styles.timeSep}>–</span>
+        <span className={styles.time}>{endTime}</span>
+      </div>
+      <div className={styles.info}>
+        <span className={styles.name}>{lesson.client.name || '—'}</span>
+        <span className={styles.date}>{date}</span>
+      </div>
+    </div>
   );
 };

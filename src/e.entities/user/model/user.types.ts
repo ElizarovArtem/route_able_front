@@ -1,5 +1,6 @@
 import {
   ActivityLevel,
+  CoachVerificationStatus,
   Gender,
   Roles,
   WeightGoal,
@@ -11,7 +12,6 @@ export type User = {
   about?: string;
   phone?: string;
   roles: Roles;
-  isCoach: boolean;
   avatar?: string;
   id: string;
   height?: number;
@@ -36,6 +36,9 @@ export type Relation = {
   goalProtein: number;
   goalFat: number;
   goalCarbs: number;
+  sessionsTotal: number;
+  sessionsUsed: number;
+  sessionsRemaining: number;
 };
 
 export type ClientCoachRelationDto = {
@@ -50,4 +53,45 @@ export type ClientCoachRelationDto = {
   goalProtein?: number | null;
   goalFat?: number | null;
   goalCarbs?: number | null;
+};
+
+export type CoachVerificationRequest = {
+  id: string;
+  userId: string;
+  user: User;
+  name: string;
+  contactInfo: string;
+  status: CoachVerificationStatus;
+  reviewedByAdminId: string | null;
+  reviewedAt: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export interface CoachListItem {
+  id: string;
+  name: string | null;
+  about: string | null;
+  avatar: string | null;
+  rating: {
+    avg: number;
+    count: number;
+  };
+}
+
+export type MyConnectionsItem = {
+  myRole: Roles;
+  partnerRole: Roles;
+  chatId: string;
+  clientCoachId: string;
+  partner: User;
+  isActive?: boolean;
+  sessions: MyConnectionsItemSessions;
+};
+
+export type MyConnectionsItemSessions = {
+  total: number;
+  used: number;
+  remaining: number;
+  reserved: number;
 };

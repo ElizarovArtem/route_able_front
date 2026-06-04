@@ -4,7 +4,7 @@ import {
   getMySlots,
   type GetMySlotsParams,
 } from '@/e.entities/lessons/api/requests/get-my-slots.request.ts';
-import type { TimeSlotDto } from '@/e.entities/lessons/model/lessons.model.ts';
+import type { TimeSlotDto } from '@/e.entities/lessons/model/lessons.types.ts';
 
 export const useGetMySlots = (date?: GetMySlotsParams['date']) => {
   return useQuery<TimeSlotDto[]>({

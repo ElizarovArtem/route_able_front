@@ -40,15 +40,6 @@
   }
 }
 
-.lessonItem {
-  padding: var(--spacing-s);
-}
-
-.lessonItemActive {
-  border-color: var(--accent-color-1);
-  box-shadow: 0 0 0 1px rgba(34, 200, 167, 0.35);
-}
-
 .lessonMeta {
   display: flex;
   flex-direction: column;

@@ -1,10 +1,8 @@
 import React from 'react';
 
-import {
-  type TimeSlotDto,
-  TimeSlotStatus,
-} from '@/e.entities/lessons/model/lessons.model.ts';
-import { UiCard, UiFlex, UiTypography } from '@/f.shared/ui';
+import { TimeSlotStatus } from '@/e.entities/lessons/model/lessons.constants.ts';
+import { type TimeSlotDto } from '@/e.entities/lessons/model/lessons.types.ts';
+import { UiFlex, UiTypography } from '@/f.shared/ui';
 
 import styles from './LessonSlot.module.scss';
 
@@ -24,22 +22,21 @@ export const LessonSlot = ({ timeSlot, ...props }: TimeSlotProps) => {
   });
 
   return (
-    <UiCard className={styles.slot} {...props}>
-      <UiFlex direction="column" gap="xs" align="center">
+    <UiFlex gap="s" align="start" className={styles.slot} {...props}>
+      <UiFlex direction="column" gap="xxs">
         <UiTypography type="label">{date}</UiTypography>
-        <UiTypography>
-          {startTime} - {endTime}
-        </UiTypography>
-
         {timeSlot.status === TimeSlotStatus.FREE && (
-          <UiTypography>Свободно</UiTypography>
+          <UiTypography bold>Свободно</UiTypography>
         )}
         {timeSlot.status === TimeSlotStatus.BOOKED && (
-          <UiTypography>
-            Бронь: {timeSlot.videoLesson?.client.name}
+          <UiTypography bold>
+            Бронь: {timeSlot.bookedSession?.client.name}
           </UiTypography>
         )}
       </UiFlex>
-    </UiCard>
+      <UiTypography>
+        {startTime} - {endTime}
+      </UiTypography>
+    </UiFlex>
   );
 };

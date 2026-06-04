@@ -1,23 +1,25 @@
-import type { TabsProps } from 'antd/es/tabs';
-import React, { useMemo, useState } from 'react';
+import { Link } from '@tanstack/react-router';
+import React, { useMemo } from 'react';
 
-import { Roles, userSelector } from '@/e.entities/user';
+import { Roles } from '@/e.entities/user';
 import { useGetConnections } from '@/e.entities/user/api';
-import type { GetConnectionsResponseItem } from '@/e.entities/user/api/requests/get-connections.request.ts';
-import { ConnectionCard } from '@/e.entities/user/ui/ConnectionCard/ConnectionCard.tsx';
-import { useSelector } from '@/f.shared/lib';
-import { UiCard, UiTabs, UiTypography } from '@/f.shared/ui';
+import type { MyConnectionsItem } from '@/e.entities/user/model/user.types.ts';
+import {
+  UiCard,
+  UiSectionHeader,
+  UiTypography,
+  UsersIcon,
+} from '@/f.shared/ui';
+import { UiAvatar } from '@/f.shared/ui/UiAvatar/UiAvatar.tsx';
+import { UiLink } from '@/f.shared/ui/UiLink/UiLink.tsx';
 
-enum TabsKeys {
-  myClients = 'myClients',
-  myCoaches = 'myCoaches',
-}
+import styles from './Connections.module.scss';
 
-export const Connections = () => {
-  const [currentTab, setCurrentTab] = useState<TabsKeys>(TabsKeys.myCoaches);
+type ConnectionsProps = {
+  connectionsType: 'clients' | 'coaches';
+};
 
-  const { user } = useSelector(userSelector);
-
+export const Connections = ({ connectionsType }: ConnectionsProps) => {
   const { data } = useGetConnections();
 
   const { coaches, clients } = useMemo(() => {
@@ -25,65 +27,67 @@ export const Connections = () => {
       (acc, item) => {
         if (item.partnerRole === Roles.Coach) acc.coaches.push(item);
         if (item.partnerRole === Roles.Client) acc.clients.push(item);
-
         return acc;
       },
       { clients: [], coaches: [] } as {
-        clients: GetConnectionsResponseItem[];
-        coaches: GetConnectionsResponseItem[];
+        clients: MyConnectionsItem[];
+        coaches: MyConnectionsItem[];
       },
     );
   }, [data]);
 
-  const tabs = useMemo((): TabsProps['items'] => {
-    return [
-      {
-        key: TabsKeys.myCoaches,
-        label: 'Мои тренеры',
-        children: coaches.length
-          ? coaches.map((coach) => (
-              <ConnectionCard
-                key={coach.clientCoachId}
-                isActive={Boolean(coach.isActive)}
-                connection={coach.partner}
-                toRole={Roles.Coach}
-              />
-            ))
-          : null,
-      },
-      ...(user?.roles.includes(Roles.Coach)
-        ? [
-            {
-              key: TabsKeys.myClients,
-              label: 'Мои клиенты',
-              children: clients ? (
-                clients.map((client) => (
-                  <ConnectionCard
-                    key={client.clientCoachId}
-                    isActive={Boolean(client.isActive)}
-                    connection={client.partner}
-                    toRole={Roles.Client}
-                  />
-                ))
-              ) : (
-                <UiTypography>
-                  У вас пока нет ни одного подопечного
-                </UiTypography>
-              ),
-            },
-          ]
-        : []),
-    ];
-  }, [user, data]);
+  const isCoaches = connectionsType === 'coaches';
+  const list = isCoaches ? coaches : clients;
 
   return (
     <UiCard>
-      <UiTabs
-        inverse
-        activeKey={currentTab}
-        onChange={(key) => setCurrentTab(key as TabsKeys)}
-        items={tabs}
+      <UiSectionHeader
+        icon={<UsersIcon size={18} />}
+        title={isCoaches ? 'Мои тренеры' : 'Мои подопечные'}
+        subtitle={
+          list.length
+            ? `Активных: ${list.length}`
+            : isCoaches
+              ? 'Пока нет тренера'
+              : 'Пока нет подопечных'
+        }
       />
+
+      {list.length ? (
+        <div className={styles.avatarRow}>
+          {list.map((item) => (
+            <Link
+              key={item.clientCoachId}
+              to={isCoaches ? '/coach/$coachId' : '/client/$clientId'}
+              params={{ coachId: item.partner.id, clientId: item.partner.id }}
+              className={styles.avatarItem}
+            >
+              <div className={styles.avatarWrap}>
+                <UiAvatar
+                  src={item.partner.avatar}
+                  width={52}
+                  height={52}
+                  preview={false}
+                />
+                {item.isActive && <span className={styles.activeDot} />}
+              </div>
+              <span className={styles.avatarName}>
+                {item.partner.name || '—'}
+              </span>
+            </Link>
+          ))}
+        </div>
+      ) : (
+        <UiTypography type="label">
+          {isCoaches ? (
+            <>
+              У вас пока нет тренера. <UiLink to="/">Найти тренера</UiLink>
+            </>
+          ) : (
+            'Нет подопечных'
+          )}
+        </UiTypography>
+      )}
     </UiCard>
   );
 };

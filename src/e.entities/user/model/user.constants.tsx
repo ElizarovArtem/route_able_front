@@ -4,6 +4,7 @@ import React from 'react';
 
 import {
   ActivityLevel,
+  CoachVerificationStatus,
   Gender,
   WeightGoal,
 } from '@/e.entities/user/model/user.enums.ts';
@@ -75,3 +76,9 @@ export const ACTIVITY_OPTIONS: DefaultOptionType[] = [
     ),
   },
 ];
+
+export const VERIFICATION_STATUS: Record<CoachVerificationStatus, string> = {
+  [CoachVerificationStatus.APPROVED]: 'Принято',
+  [CoachVerificationStatus.REJECTED]: 'Отклонено',
+  [CoachVerificationStatus.PENDING]: 'В ожидании',
+};

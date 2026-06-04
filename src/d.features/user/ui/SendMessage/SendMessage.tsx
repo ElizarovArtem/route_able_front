@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 
-import { useSendMessage } from '@/d.features/user';
-import { UiButton, UiInput } from '@/f.shared/ui';
+import { sendMessageWs } from '@/e.entities/user/api/websocket/send-message.ws.ts';
+import { getSocket } from '@/f.shared/api/socket.ts';
+import { UiButton, UiFlex, UiInput } from '@/f.shared/ui';
 
 import styles from './SendMessage.module.scss';
 
@@ -12,15 +13,12 @@ type SendMessageProps = {
 export const SendMessage = ({ chatId }: SendMessageProps) => {
   const [text, setText] = useState('');
 
-  const { mutate } = useSendMessage({
-    onSuccess: () => {
-      setText('');
-    },
-  });
-
   const sendMessage = () => {
-    if (chatId) {
-      mutate({ chatId, text });
+    const socket = getSocket();
+
+    if (chatId && socket) {
+      sendMessageWs({ socket, chatId, text });
+      setText('');
     }
   };
 
@@ -31,14 +29,15 @@ export const SendMessage = ({ chatId }: SendMessageProps) => {
   };
 
   return (
-    <div className={styles.sendMessageWrapper}>
+    <UiFlex className={styles.sendMessageWrapper}>
       <UiInput
         placeholder="Напишите сообщение"
         value={text}
         onKeyDown={onKeyDown}
         onChange={(e) => setText(e.currentTarget.value)}
+        wrapperClassName={styles.input}
       />
       <UiButton onClick={sendMessage}>Отправить</UiButton>
-    </div>
+    </UiFlex>
   );
 };

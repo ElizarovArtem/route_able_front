@@ -1,11 +1,12 @@
 .menu {
   display: flex;
-  gap: var(--font-size-m);
+  gap: var(--spacing-s);
   align-items: center;
   transition: 0.2s;
 
   & [class*='typography']:hover {
     color: var(--accent-color-1);
+    cursor: pointer;
   }
 
   @media (max-width: 640px) {
@@ -22,7 +23,7 @@
     opacity: 0;
 
     &Open {
-      height: 50px;
+      height: 76px;
       padding: var(--spacing-m);
       opacity: 1;
     }

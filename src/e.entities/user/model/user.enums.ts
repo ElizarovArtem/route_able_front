@@ -22,3 +22,29 @@ export enum Roles {
   Coach = 'Coach',
   Client = 'Client',
 }
+
+export enum CoachVerificationStatus {
+  PENDING = 'pending',
+  APPROVED = 'approved',
+  REJECTED = 'rejected',
+}
+
+export enum ReviewDecision {
+  'approve' = 'approve',
+  'reject' = 'reject',
+}
+
+export enum CoachOrClientTabsKeys {
+  chat = 'chat',
+  workoutsPlan = 'workoutsPlan',
+  mealPlan = 'mealPlan',
+  videoChat = 'videoChat',
+  reviews = 'reviews',
+  servicesAndSlots = 'servicesAndSlots',
+}
+
+export enum LkContentTypeTabKeys {
+  user = 'user',
+  coach = 'coach',
+  admin = 'admin',
+}

@@ -11,6 +11,8 @@
 // Import Routes
 
 import { Route as rootRoute } from './../routes/__root'
+import { Route as SubscriptionsImport } from './../routes/subscriptions'
+import { Route as CoachesImport } from './../routes/coaches'
 import { Route as PrivateRouteImport } from './../routes/_private/route'
 import { Route as IndexImport } from './../routes/index'
 import { Route as PrivateLkImport } from './../routes/_private/lk'
@@ -19,6 +21,18 @@ import { Route as PrivateCoachCoachIdImport } from './../routes/_private/coach/$
 import { Route as PrivateClientClientIdImport } from './../routes/_private/client/$clientId'
 
 // Create/Update Routes
+
+const SubscriptionsRoute = SubscriptionsImport.update({
+  id: '/subscriptions',
+  path: '/subscriptions',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const CoachesRoute = CoachesImport.update({
+  id: '/coaches',
+  path: '/coaches',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const PrivateRouteRoute = PrivateRouteImport.update({
   id: '/_private',
@@ -71,6 +85,20 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: ''
       preLoaderRoute: typeof PrivateRouteImport
+      parentRoute: typeof rootRoute
+    }
+    '/coaches': {
+      id: '/coaches'
+      path: '/coaches'
+      fullPath: '/coaches'
+      preLoaderRoute: typeof CoachesImport
+      parentRoute: typeof rootRoute
+    }
+    '/subscriptions': {
+      id: '/subscriptions'
+      path: '/subscriptions'
+      fullPath: '/subscriptions'
+      preLoaderRoute: typeof SubscriptionsImport
       parentRoute: typeof rootRoute
     }
     '/_private/ai-lesson': {
@@ -127,6 +155,8 @@ const PrivateRouteRouteWithChildren = PrivateRouteRoute._addFileChildren(
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '': typeof PrivateRouteRouteWithChildren
+  '/coaches': typeof CoachesRoute
+  '/subscriptions': typeof SubscriptionsRoute
   '/ai-lesson': typeof PrivateAiLessonRoute
   '/lk': typeof PrivateLkRoute
   '/client/$clientId': typeof PrivateClientClientIdRoute
@@ -136,6 +166,8 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '': typeof PrivateRouteRouteWithChildren
+  '/coaches': typeof CoachesRoute
+  '/subscriptions': typeof SubscriptionsRoute
   '/ai-lesson': typeof PrivateAiLessonRoute
   '/lk': typeof PrivateLkRoute
   '/client/$clientId': typeof PrivateClientClientIdRoute
@@ -146,6 +178,8 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/_private': typeof PrivateRouteRouteWithChildren
+  '/coaches': typeof CoachesRoute
+  '/subscriptions': typeof SubscriptionsRoute
   '/_private/ai-lesson': typeof PrivateAiLessonRoute
   '/_private/lk': typeof PrivateLkRoute
   '/_private/client/$clientId': typeof PrivateClientClientIdRoute
@@ -157,16 +191,28 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | ''
+    | '/coaches'
+    | '/subscriptions'
     | '/ai-lesson'
     | '/lk'
     | '/client/$clientId'
     | '/coach/$coachId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '' | '/ai-lesson' | '/lk' | '/client/$clientId' | '/coach/$coachId'
+  to:
+    | '/'
+    | ''
+    | '/coaches'
+    | '/subscriptions'
+    | '/ai-lesson'
+    | '/lk'
+    | '/client/$clientId'
+    | '/coach/$coachId'
   id:
     | '__root__'
     | '/'
     | '/_private'
+    | '/coaches'
+    | '/subscriptions'
     | '/_private/ai-lesson'
     | '/_private/lk'
     | '/_private/client/$clientId'
@@ -177,11 +223,15 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   PrivateRouteRoute: typeof PrivateRouteRouteWithChildren
+  CoachesRoute: typeof CoachesRoute
+  SubscriptionsRoute: typeof SubscriptionsRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   PrivateRouteRoute: PrivateRouteRouteWithChildren,
+  CoachesRoute: CoachesRoute,
+  SubscriptionsRoute: SubscriptionsRoute,
 }
 
 export const routeTree = rootRoute
@@ -195,11 +245,13 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/_private"
+        "/_private",
+        "/coaches",
+        "/subscriptions"
       ]
     },
     "/": {
-      "filePath": "index.tsx"
+      "filePath": "index.ts"
     },
     "/_private": {
       "filePath": "_private/route.tsx",
@@ -209,6 +261,12 @@ export const routeTree = rootRoute
         "/_private/client/$clientId",
         "/_private/coach/$coachId"
       ]
+    },
+    "/coaches": {
+      "filePath": "coaches.tsx"
+    },
+    "/subscriptions": {
+      "filePath": "subscriptions.ts"
     },
     "/_private/ai-lesson": {
       "filePath": "_private/ai-lesson.tsx",

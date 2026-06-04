@@ -1,10 +1,15 @@
 import type { AxiosResponse } from 'axios';
 
-import type { User } from '@/e.entities/user';
+import type { CoachListItem } from '@/e.entities/user/model/user.types.ts';
 import { api } from '@/f.shared/api';
 
-export const getCoaches = async (): Promise<User[]> => {
-  const response = await api.get<null, AxiosResponse<User[]>>('/user/coaches');
+export const getCoaches = async (userId?: string): Promise<CoachListItem[]> => {
+  const response = await api.get<null, AxiosResponse<CoachListItem[]>>(
+    `/user/coaches`,
+    {
+      params: { userId },
+    },
+  );
 
   return response.data;
 };

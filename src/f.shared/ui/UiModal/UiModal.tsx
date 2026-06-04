@@ -11,6 +11,7 @@ export const UiModal = ({ className, ...props }: UiModalProps) => {
     <Modal
       {...props}
       className={classNames(className, styles.modal)}
+      centered
       footer={null}
     />
   );

@@ -13,13 +13,12 @@ import React, {
 
 import {
   ExerciseKey,
-  ExerciseMode,
   getTracker,
   PoseOverlay,
   RepPhase,
   speakText,
-  SquatRepTracker,
   type Tip,
+  type TrackerController,
   useGetAiAssistantToken,
   usePoseDetectorController,
 } from '@/e.entities/aiAssistant';
@@ -27,14 +26,14 @@ import {
   EXERCISE_VIEWS,
   ViewAngle,
 } from '@/e.entities/aiAssistant/model/aiAssistant.model.ts';
-import { UiButton, UiCard, UiSelector } from '@/f.shared/ui';
+import { UiButton, UiCard, UiFlex, UiSelector } from '@/f.shared/ui';
 import { UiSwitch } from '@/f.shared/ui/UiSwitch/UiSwitch.tsx';
 
 import styles from './aiAssistant.module.scss';
 
 const MODE_OPTIONS: DefaultOptionType[] = [
-  { value: ExerciseMode.squatFront, label: 'Приседания - Вид спереди' },
-  { value: ExerciseMode.squatSide, label: 'Приседания - Вид сбоку' },
+  { value: ExerciseKey.SQUAT, label: 'Приседания' },
+  { value: ExerciseKey.PUSHUP, label: 'Отжимания' },
 ];
 
 type AiAssistantProps = {
@@ -51,19 +50,20 @@ export const AiAssistant = ({
   externalView,
 }: AiAssistantProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const trackerRef = useRef<SquatRepTracker | null>(null);
+  const trackerRef = useRef<TrackerController | null>(null);
   const lastPhaseRef = useRef<RepPhase>(RepPhase.Standing);
 
   const [mode, setMode] = useState<ExerciseKey | undefined>(externalMode);
+  const selectedMode = externalMode ?? mode;
 
   const viewOptions = useMemo((): DefaultOptionType[] => {
-    return mode
-      ? (EXERCISE_VIEWS[mode] || []).map((view) => ({
+    return selectedMode
+      ? (EXERCISE_VIEWS[selectedMode] || []).map((view) => ({
           value: view,
           label: view === ViewAngle.side ? 'Сбоку' : 'Спереди',
         }))
       : [];
-  }, [mode]);
+  }, [selectedMode]);
 
   const [view, setView] = useState<ViewAngle>(
     (viewOptions[0]?.value || ViewAngle.side) as ViewAngle,
@@ -77,28 +77,23 @@ export const AiAssistant = ({
 
   const [start, setStart] = useState(false);
 
-  const currentStart = externalStart || start;
-  const selectedMode = externalMode ?? mode;
+  const currentStart = externalStart ?? start;
 
   const roomId = useMemo(
-    () => `ai-assistant-${externalMode ?? mode}`,
-    [mode, externalMode],
+    () => (selectedMode ? `ai-assistant-${selectedMode}` : undefined),
+    [selectedMode],
   );
 
   const { data: tokenPayload } = useGetAiAssistantToken(roomId);
 
   const handlePoseDetected = useCallback((keypoints: Keypoint[]) => {
-    const tracker = trackerRef.current!;
+    const tracker = trackerRef.current;
+    if (!tracker) return;
+
     const result = tracker.update(keypoints);
 
     if (result.event === 'praise') {
-      setTips([
-        {
-          severity: 'success',
-          text: 'Отличный повтор! Всё по технике ✅',
-          rep: result.rep,
-        },
-      ]);
+      setTips([{ severity: 'success', text: result.praise, rep: result.rep }]);
       lastPhaseRef.current = result.phase;
       return;
     }
@@ -145,6 +140,7 @@ export const AiAssistant = ({
       const liveKitVideo = document.querySelector<HTMLVideoElement>(selector);
       if (liveKitVideo && liveKitVideo !== videoRef.current) {
         videoRef.current = liveKitVideo;
+        setHasVideo(true);
         return true;
       }
       return !!liveKitVideo;
@@ -166,19 +162,33 @@ export const AiAssistant = ({
   }, [tokenPayload, roomId, currentStart]);
 
   useEffect(() => {
-    setTextTips((prevState) => [...prevState, ...tips]);
+    if (tips.length === 0) return;
+
+    setTextTips((prevState) => [...prevState, ...tips].slice(-20));
 
     if (needVoiceHelper) {
       tips.forEach((tip) => speakText(tip.text));
     }
-  }, [tips]);
+  }, [needVoiceHelper, tips]);
 
   useEffect(() => {
     trackerRef.current = getTracker(view, selectedMode);
     lastPhaseRef.current = RepPhase.Standing;
     setTips([]);
     setTextTips([]);
-  }, [mode, externalMode]);
+  }, [selectedMode, view]);
+
+  useEffect(() => {
+    if (externalView) {
+      setView(externalView);
+      return;
+    }
+
+    const nextView = viewOptions[0]?.value;
+    if (nextView) {
+      setView(nextView as ViewAngle);
+    }
+  }, [externalView, viewOptions]);
 
   useEffect(() => {
     if (currentStart && hasVideo) {
@@ -186,36 +196,36 @@ export const AiAssistant = ({
     }
   }, [currentStart, hasVideo, startDetector]);
 
-  useEffect(() => {
-    if (externalView) {
-      setView(externalView);
-    }
-  }, [externalView]);
-  console.log(externalStart);
   return (
-    <div className={styles.aiAssistantWrapper}>
+    <UiFlex direction="column">
       {needHeader && (
         <UiCard className={styles.controlWrapper}>
-          <UiSwitch
-            label="Включить голосовые подсказки"
-            checked={needVoiceHelper}
-            onChange={onChangeNeedVoiceHelper}
-          />
-          <UiSelector
-            className={styles.selector}
-            options={MODE_OPTIONS}
-            onChange={setMode}
-            placeholder="Выберите упражнение"
-          />
-          <UiSelector
-            className={styles.selector}
-            options={viewOptions}
-            onChange={setView}
-            placeholder="Выберите вид"
-          />
-          <UiButton disabled={!mode} onClick={() => toggleStart(!currentStart)}>
-            {currentStart ? 'Закончить' : 'Начать'}
-          </UiButton>
+          <UiFlex>
+            <UiSwitch
+              label="Включить голосовые подсказки"
+              checked={needVoiceHelper}
+              onChange={onChangeNeedVoiceHelper}
+            />
+            <UiSelector
+              className={styles.selector}
+              options={MODE_OPTIONS}
+              onChange={setMode}
+              placeholder="Выберите упражнение"
+            />
+            <UiSelector
+              className={styles.selector}
+              options={viewOptions}
+              onChange={setView}
+              placeholder="Выберите вид"
+              disabled={!selectedMode}
+            />
+            <UiButton
+              disabled={!selectedMode && !view}
+              onClick={() => toggleStart(!currentStart)}
+            >
+              {currentStart ? 'Закончить' : 'Начать'}
+            </UiButton>
+          </UiFlex>
         </UiCard>
       )}
 
@@ -246,6 +256,6 @@ export const AiAssistant = ({
           )}
         </div>
       )}
-    </div>
+    </UiFlex>
   );
 };

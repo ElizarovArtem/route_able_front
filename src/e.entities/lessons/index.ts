@@ -1,6 +1,6 @@
 export {
+  useGetCoachLessons,
   useGetCoachSlots,
-  useGetCoachVideoLessons,
   useGetMySlots,
   useGetVideoLessons,
 } from './api';

@@ -4,8 +4,7 @@ import type { StateCreator } from 'zustand';
 import type { TRootStore } from '@/a.app/store/store.ts';
 import type { User } from '@/e.entities/user';
 import { api } from '@/f.shared/api';
-
-// Types
+import { connectSocket, disconnectSocket } from '@/f.shared/api/socket.ts';
 
 type TAuthState = {
   isAuthModalOpen: boolean;
@@ -13,7 +12,7 @@ type TAuthState = {
 };
 
 type TAuthActions = {
-  requestCodeByPhone: (phone: string) => Promise<void>;
+  requestCodeByTelegram: (phone: string) => Promise<void>;
   requestCodeByEmail: (phone: string) => Promise<void>;
   login: (data: {
     phone?: string;
@@ -40,8 +39,12 @@ export const createAuthSlice: StateCreator<TRootStore, [], [], TAuthStore> = (
     setState({ isAuthModalOpen });
   },
 
-  requestCodeByPhone: async (phone) => {
-    await api.post('/auth/request-code', { phone }, { withCredentials: true });
+  requestCodeByTelegram: async (phone) => {
+    await api.post(
+      '/auth/request-code-telegram',
+      { phone },
+      { withCredentials: true },
+    );
   },
 
   requestCodeByEmail: async (email) => {
@@ -60,12 +63,15 @@ export const createAuthSlice: StateCreator<TRootStore, [], [], TAuthStore> = (
       AxiosResponse<{ user: User }>
     >(loginUrl, data, { withCredentials: true });
 
+    connectSocket();
+
     getState().setUser(user.data.user);
   },
 
   logout: async () => {
     await api.delete('/auth/logout', { withCredentials: true });
     setState({ user: null });
+    disconnectSocket();
   },
 
   checkAuth: async () => {
@@ -73,6 +79,8 @@ export const createAuthSlice: StateCreator<TRootStore, [], [], TAuthStore> = (
       const response = await api.post('/auth/check-auth', {
         withCredentials: true,
       });
+
+      connectSocket();
 
       getState().setUser(response.data.user);
     } catch {
@@ -85,7 +93,7 @@ export const authSelector = (store: TRootStore) => ({
   isAuthModalOpen: store.isAuthModalOpen,
   isInitialized: store.isInitialized,
   setIsAuthModalOpen: store.setIsAuthModalOpen,
-  requestCodeByPhone: store.requestCodeByPhone,
+  requestCodeByTelegram: store.requestCodeByTelegram,
   requestCodeByEmail: store.requestCodeByEmail,
   login: store.login,
   logout: store.logout,

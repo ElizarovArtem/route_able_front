@@ -1,4 +1,4 @@
-import { LessonStatus } from '@/e.entities/lessons/model/lessons.model.ts';
+import { LessonStatus } from '@/e.entities/lessons/model/lessons.constants.ts';
 
 export const EARLY_JOIN_MINUTES = 5;
 export const LATE_JOIN_MINUTES = 10;

@@ -1,0 +1,56 @@
+.scanner {
+  width: 100%;
+}
+
+.video {
+  width: 100%;
+  min-height: 260px;
+  max-height: 360px;
+  object-fit: cover;
+  border-radius: 8px;
+  background: #111827;
+}
+
+.manualForm {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  align-items: end;
+}
+
+.productPreview {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  gap: 12px;
+  align-items: center;
+}
+
+.productImage {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 8px;
+  background: #f2f4f7;
+}
+
+.nutritionGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 640px) {
+  .manualForm {
+    grid-template-columns: 1fr;
+  }
+
+  .nutritionGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

@@ -4,9 +4,11 @@ import { useStartChat } from '@/d.features/user/api/queries/useStartChat.ts';
 import { SendMessage } from '@/d.features/user/ui/SendMessage/SendMessage.tsx';
 import { userSelector } from '@/e.entities/user';
 import { useGetMessages } from '@/e.entities/user/api';
+import { useChatRealtime } from '@/e.entities/user/model/heplers/user.useChatRealtime.ts';
 import { UserMessage } from '@/e.entities/user/ui/UserMessage/UserMessage.tsx';
+import { getSocket } from '@/f.shared/api/socket.ts';
 import { useSelector } from '@/f.shared/lib';
-import { UiCard } from '@/f.shared/ui';
+import { UiCard, UiFlex } from '@/f.shared/ui';
 
 import styles from './Chat.module.scss';
 
@@ -24,6 +26,8 @@ export const Chat = ({ partnerId, chatId, fromCoach }: ChatProps) => {
 
   const { user } = useSelector(userSelector);
 
+  useChatRealtime(getSocket(), chatId);
+
   useEffect(() => {
     if (!fromCoach) {
       startChat({ otherUserId: partnerId });
@@ -37,8 +41,12 @@ export const Chat = ({ partnerId, chatId, fromCoach }: ChatProps) => {
   }, [data]);
 
   return (
-    <UiCard className={styles.chatWrapper}>
-      <div className={styles.messages} ref={messagesRef}>
+    <UiCard className={styles.chatWrapper} ref={messagesRef}>
+      <UiFlex
+        direction="column"
+        ref={messagesRef}
+        className={styles.messagesWrapper}
+      >
         {data?.map((message) => (
           <UserMessage
             key={message.id}
@@ -47,7 +55,7 @@ export const Chat = ({ partnerId, chatId, fromCoach }: ChatProps) => {
             fromCoach={fromCoach}
           />
         ))}
-      </div>
+      </UiFlex>
 
       <SendMessage chatId={chatId || chatData?.id} />
     </UiCard>

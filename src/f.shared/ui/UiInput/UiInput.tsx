@@ -10,6 +10,7 @@ import styles from './UiInput.module.scss';
 type UiInputProps = {
   error?: string;
   label?: string;
+  wrapperClassName?: string;
 } & InputProps;
 
 export const UiInput = ({
@@ -17,10 +18,11 @@ export const UiInput = ({
   placeholder,
   className,
   label,
+  wrapperClassName,
   ...props
 }: UiInputProps) => {
   return (
-    <UiFlex direction="column" gap="xxs">
+    <UiFlex direction="column" gap="xxs" className={wrapperClassName}>
       {label && <UiTypography type="label">{label}</UiTypography>}
       <Input
         {...props}

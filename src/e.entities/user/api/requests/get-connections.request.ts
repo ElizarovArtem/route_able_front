@@ -1,24 +1,12 @@
 import type { AxiosResponse } from 'axios';
 
-import { Roles, type User } from '@/e.entities/user';
+import type { MyConnectionsItem } from '@/e.entities/user/model/user.types.ts';
 import { api } from '@/f.shared/api';
 
-export type GetConnectionsResponseItem = {
-  myRole: Roles;
-  partnerRole: Roles;
-  chatId: string;
-  clientCoachId: string;
-  partner: User;
-  isActive?: boolean;
-};
-
-export const getConnections = async (): Promise<
-  GetConnectionsResponseItem[]
-> => {
-  const response = await api.get<
-    null,
-    AxiosResponse<GetConnectionsResponseItem[]>
-  >(`/client-coach/my`);
+export const getConnections = async (): Promise<MyConnectionsItem[]> => {
+  const response = await api.get<null, AxiosResponse<MyConnectionsItem[]>>(
+    `/client-coach/my`,
+  );
 
   return response.data;
 };

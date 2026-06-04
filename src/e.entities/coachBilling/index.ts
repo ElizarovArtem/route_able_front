@@ -1,0 +1,1 @@
+export { CoachOfferItem } from './ui';

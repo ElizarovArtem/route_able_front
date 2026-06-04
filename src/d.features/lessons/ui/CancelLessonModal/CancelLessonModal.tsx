@@ -5,14 +5,12 @@ import { useCancelLesson } from '@/d.features/lessons/api';
 import { UiButton, UiFlex, UiModal } from '@/f.shared/ui';
 
 type CancelLessonModalProps = {
-  relationId: string;
-  lessonId: string | null;
+  sessionId: string | null;
   onSuccess: () => void;
 } & ModalProps;
 
 export const CancelLessonModal = ({
-  lessonId,
-  relationId,
+  sessionId,
   onSuccess,
   ...props
 }: CancelLessonModalProps) => {
@@ -21,14 +19,14 @@ export const CancelLessonModal = ({
   });
 
   const onCancelLessonClick = () => {
-    if (lessonId) {
-      mutate({ lessonId, relationId });
+    if (sessionId) {
+      mutate({ sessionId });
     }
   };
 
   return (
     <UiModal
-      open={!!lessonId}
+      open={!!sessionId}
       centered
       title="Отменить это занятие?"
       {...props}

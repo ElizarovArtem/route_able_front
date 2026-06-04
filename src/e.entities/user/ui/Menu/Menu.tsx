@@ -2,13 +2,17 @@ import { Link } from '@tanstack/react-router';
 import classNames from 'classnames';
 import React, { type RefObject, useEffect, useRef } from 'react';
 
+import { feedbackSelector } from '@/e.entities/feedback/model/feedback.store.ts';
+import { useSelector } from '@/f.shared/lib';
 import { UiTypography } from '@/f.shared/ui';
 
 import styles from './Menu.module.scss';
 
 type MenuProps = {
   onClickOutside?: () => void;
-  onMenuItemClick?: () => void;
+  onMenuItemClick?: (
+    e?: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
+  ) => void;
   open: boolean;
   nameRef: RefObject<HTMLDivElement | null>;
 };
@@ -20,6 +24,7 @@ export const Menu = ({
   onMenuItemClick,
 }: MenuProps) => {
   const ref = useRef<HTMLDivElement>(null);
+  const { setIsFeedbackModalOpen } = useSelector(feedbackSelector);
 
   useEffect(() => {
     const listener = (event: MouseEvent | TouchEvent) => {
@@ -53,6 +58,15 @@ export const Menu = ({
       </Link>
       <Link to="/ai-lesson" onClick={onMenuItemClick}>
         <UiTypography>ИИ-ассистент</UiTypography>
+      </Link>
+      <Link to="/coaches" onClick={onMenuItemClick}>
+        <UiTypography>Тренеры</UiTypography>
+      </Link>
+      <UiTypography onClick={() => setIsFeedbackModalOpen(true)}>
+        Обратная связь
+      </UiTypography>
+      <Link to="/subscriptions" onClick={onMenuItemClick}>
+        <UiTypography>Подписки</UiTypography>
       </Link>
     </div>
   );

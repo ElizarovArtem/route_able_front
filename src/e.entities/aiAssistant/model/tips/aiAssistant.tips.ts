@@ -1,11 +1,25 @@
 import type { Keypoint } from '@tensorflow-models/pose-detection';
 
+import type { TrackerUpdateResult } from '@/e.entities/aiAssistant';
 import {
+  cameraQualityProvider,
   ExerciseKey,
-  ExerciseMode,
+  kneeValgusFrontProvider,
   parallelFrontProvider,
   parallelSideProvider,
+  pushupBodyLineSideProvider,
+  pushupCameraQualityProvider,
+  pushupDepthProvider,
+  pushupFrontDepthProvider,
+  pushupHandPositionSideProvider,
+  pushupHandWidthFrontProvider,
+  PushupRepTracker,
+  pushupSymmetryFrontProvider,
+  pushupTempoProvider,
   SquatRepTracker,
+  symmetryFrontProvider,
+  tempoProvider,
+  torsoLeanSideProvider,
 } from '@/e.entities/aiAssistant';
 import type { ViewAngle } from '@/e.entities/aiAssistant/model/aiAssistant.model.ts';
 
@@ -58,13 +72,52 @@ export function ema(prev: number | null, next: number, alpha: number) {
   return prev == null ? next : prev * (1 - alpha) + next * alpha;
 }
 
+export type TrackerController = {
+  update: (keypoints: Keypoint[]) => TrackerUpdateResult;
+  reset: (nextView?: ViewAngle) => void;
+};
+
 export const getTracker = (view: ViewAngle, mode?: ExerciseKey) => {
   switch (mode) {
     case ExerciseKey.SQUAT: {
       const tracker =
-        view === 'side' ? parallelSideProvider : parallelFrontProvider;
+        view === 'side'
+          ? [
+              cameraQualityProvider,
+              parallelSideProvider,
+              torsoLeanSideProvider,
+              tempoProvider,
+            ]
+          : [
+              cameraQualityProvider,
+              parallelFrontProvider,
+              kneeValgusFrontProvider,
+              symmetryFrontProvider,
+              tempoProvider,
+            ];
 
-      return new SquatRepTracker(view, [tracker]);
+      return new SquatRepTracker(view, tracker);
+    }
+
+    case ExerciseKey.PUSHUP: {
+      const tracker =
+        view === 'side'
+          ? [
+              pushupCameraQualityProvider,
+              pushupDepthProvider,
+              pushupBodyLineSideProvider,
+              pushupHandPositionSideProvider,
+              pushupTempoProvider,
+            ]
+          : [
+              pushupCameraQualityProvider,
+              pushupFrontDepthProvider,
+              pushupHandWidthFrontProvider,
+              pushupSymmetryFrontProvider,
+              pushupTempoProvider,
+            ];
+
+      return new PushupRepTracker(view, tracker);
     }
 
     default: {

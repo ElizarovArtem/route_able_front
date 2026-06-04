@@ -21,3 +21,8 @@ div.uiTabs div[role='tablist'] [class*='ant-tabs-tab'][class*='ant-tabs-tab-acti
 .uiTabs [class*='ant-tabs']:before {
   border-bottom-color: transparent;
 }
+
+.uiTabs div[role='tablist'] [class*='ant-tabs-tab'][class*='ant-tabs-tab-disabled'] [class*='ant-tabs-tab'] {
+  color: var(--text-color-2);
+  opacity: 0.3;
+}

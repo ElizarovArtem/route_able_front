@@ -17,7 +17,11 @@ import {
 
 import styles from './LessonSlots.module.scss';
 
-export const LessonSlots = () => {
+type LessonSlotsProps = {
+  className?: string;
+};
+
+export const LessonSlots = ({ className }: LessonSlotsProps) => {
   const [open, setOpen] = useState(false);
   const [currentSlotId, setCurrentSlotId] = useState<string | null>(null);
   const [date, setDate] = useState(new Date());
@@ -25,8 +29,9 @@ export const LessonSlots = () => {
   const { data } = useGetMySlots(formatDateForServer(date));
 
   return (
-    <UiCard className={styles.lessonSlot}>
-      <UiFlex direction="column">
+    <UiCard
+      className={className}
+      header={
         <UiFlex align="center" justify="space-between">
           <UiFlex align="center">
             <UiTypography bold>Мои слоты на:</UiTypography>
@@ -36,10 +41,11 @@ export const LessonSlots = () => {
               onChange={(date) => setDate(date as Date)}
             />
           </UiFlex>
-          <UiButton onClick={() => setOpen(true)}>Добавить слот</UiButton>
         </UiFlex>
-
-        <UiFlex wrap="wrap">
+      }
+    >
+      <UiFlex direction="column" className={styles.lessonSlotsWrapper}>
+        <UiFlex wrap="wrap" className={styles.lessonSlotsList}>
           {data?.map((slot) => (
             <LessonSlot
               key={slot.id}
@@ -47,6 +53,9 @@ export const LessonSlots = () => {
               onClick={() => setCurrentSlotId(slot.id)}
             />
           ))}
+        </UiFlex>
+        <UiFlex justify="end">
+          <UiButton onClick={() => setOpen(true)}>Добавить слот</UiButton>
         </UiFlex>
       </UiFlex>
 

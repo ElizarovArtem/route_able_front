@@ -1,7 +1,7 @@
-.lessonSlot {
-  min-height: 250px;
+.lessonSlotsWrapper {
+  height: 100%;
+}
 
-  &Open {
-    height: auto;
-  }
+.lessonSlotsList {
+  overflow-y: scroll;
 }

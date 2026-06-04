@@ -1,25 +1,22 @@
 import type { Keypoint } from '@tensorflow-models/pose-detection';
 
+import { RepTracker } from '../aiAssistant.tips.repTracker.ts';
+import type { CameraView, TipProvider } from '../aiAssistant.tips.shared.types.ts';
+import { RepPhase } from '../aiAssistant.tips.shared.types.ts';
 import { DEFAULT_THRESHOLDS } from './aiAssistant.tips.squat.constants.ts';
 import {
   measureMetricsForFront,
   measureMetricsForSide,
 } from './aiAssistant.tips.squat.ts';
-import {
-  type CameraView,
-  type FrameMetrics,
-  type FrontTrendState,
-  type ProviderTip,
-  RepPhase,
-  type SideTrendState,
-  type Thresholds,
-  type Tip,
-  type TipContext,
-  type TipProvider,
-  type TrackerUpdateResult,
+import type {
+  FrameMetrics,
+  FrontTrendState,
+  SideTrendState,
+  Thresholds,
+  TipContext,
 } from './aiAssistant.tips.squat.types.ts';
 
-export class SquatRepTracker {
+export class SquatRepTracker extends RepTracker<FrameMetrics, TipContext, Thresholds> {
   private sideState: SideTrendState = {
     emaAngle: null,
     prevAngle: null,
@@ -31,266 +28,74 @@ export class SquatRepTracker {
     repMaxDepthRatio: null,
   };
 
-  private currentPhase: RepPhase = RepPhase.Standing;
-  private prevPhase: RepPhase = RepPhase.Standing;
-  private hadIssuesInThisRep = false;
-  private reachedParallelThisRep = false;
-
-  private completedReps = 0;
-  private activeRepNumber: number | null = null;
-
-  private lastTipAtByText = new Map<string, number>();
-  private lastPraiseAt = 0;
-
   constructor(
-    private currentView: CameraView,
-    private readonly tipProviders: TipProvider[], // ⚡️ сюда складываем функции подсказок
-    private readonly thresholds: Thresholds = DEFAULT_THRESHOLDS,
-  ) {}
-
-  /** Полная зачистка состояния (при смене вида/упражнения/камеры и т.п.) */
-  reset(nextView?: CameraView, opts: { keepTipCooldown?: boolean } = {}) {
-    if (nextView) this.currentView = nextView;
-
-    // фазы
-    this.prevPhase = RepPhase.Standing;
-    this.currentPhase = RepPhase.Standing;
-    this.completedReps = 0;
-    this.activeRepNumber = null;
-    this.hadIssuesInThisRep = false;
-    this.reachedParallelThisRep = false;
-
-    this.sideState = { emaAngle: null, prevAngle: null, repMinKneeAngle: null };
-    this.frontState = {
-      emaDepth: null,
-      prevDepth: null,
-      repMaxDepthRatio: null,
-    };
-
-    // антиспам подсказок
-    if (!opts.keepTipCooldown) this.lastTipAtByText.clear();
-
-    // антиспам похвалы
-    this.lastPraiseAt = 0;
+    view: CameraView,
+    providers: TipProvider<TipContext>[],
+    thresholds: Thresholds = DEFAULT_THRESHOLDS,
+  ) {
+    super(view, providers, thresholds);
   }
 
-  /** Вычисление обновлений в повторе для текущего кадра  */
-  update(keypoints: Keypoint[]): TrackerUpdateResult {
-    let frameMetrics: FrameMetrics;
-    let velocity: number | null;
+  protected resetState(): void {
+    this.sideState = { emaAngle: null, prevAngle: null, repMinKneeAngle: null };
+    this.frontState = { emaDepth: null, prevDepth: null, repMaxDepthRatio: null };
+  }
 
+  protected onTopReached(): void {
+    this.sideState.repMinKneeAngle = null;
+    this.frontState.repMaxDepthRatio = null;
+  }
+
+  protected measure(
+    keypoints: Keypoint[],
+  ): { metrics: FrameMetrics; velocity: number | null } {
     if (this.currentView === 'side') {
       const res = measureMetricsForSide(keypoints, this.sideState, {
         emaAlpha: 0.4,
       });
       this.sideState = res.state;
-      frameMetrics = res.metrics;
-      velocity = res.velocity;
-    } else {
-      const res = measureMetricsForFront(keypoints, this.frontState, {
-        emaAlpha: 0.4,
-      });
-      this.frontState = res.state;
-      frameMetrics = res.metrics;
-      velocity = res.velocity;
+      return { metrics: res.metrics, velocity: res.velocity };
     }
-
-    const isStandingNow =
-      frameMetrics.view === 'side'
-        ? frameMetrics.kneeAngleDegrees != null &&
-          frameMetrics.kneeAngleDegrees >= this.thresholds.kneeAngleStandingDeg
-        : frameMetrics.depthRatio != null &&
-          frameMetrics.depthRatio < this.thresholds.depthRatioStanding;
-
-    // 3) смена фазы по развороту тренда
-    let nextPhase = this.currentPhase;
-    let isFirstFrameInAscending = false;
-
-    if (isStandingNow) {
-      nextPhase = RepPhase.Standing;
-      // сброс экстремумов для нового спуска
-      this.sideState.repMinKneeAngle = null;
-      this.frontState.repMaxDepthRatio = null;
-    } else {
-      if (frameMetrics.view === 'side') {
-        // спуск: угол уменьшается (velocity < 0), подъём: угол растёт (velocity > 0)
-        if (
-          (this.currentPhase === RepPhase.Standing ||
-            this.currentPhase === RepPhase.Ascending) &&
-          velocity != null &&
-          velocity < -this.thresholds.velEpsAngle
-        ) {
-          nextPhase = RepPhase.Descending;
-        } else if (
-          (this.currentPhase === RepPhase.Descending ||
-            this.currentPhase === RepPhase.Bottom) &&
-          velocity != null &&
-          velocity > this.thresholds.velEpsAngle
-        ) {
-          nextPhase = RepPhase.Ascending;
-          isFirstFrameInAscending = true;
-        } else if (
-          this.currentPhase === RepPhase.Descending &&
-          velocity != null &&
-          Math.abs(velocity) <= this.thresholds.velEpsAngle
-        ) {
-          nextPhase = RepPhase.Bottom;
-        }
-      } else {
-        // анфас: глубина растёт на спуске (velocity > 0), падает на подъёме (velocity < 0)
-        if (
-          (this.currentPhase === RepPhase.Standing ||
-            this.currentPhase === RepPhase.Ascending) &&
-          velocity != null &&
-          velocity > this.thresholds.velEpsDepth
-        ) {
-          nextPhase = RepPhase.Descending;
-        } else if (
-          (this.currentPhase === RepPhase.Descending ||
-            this.currentPhase === RepPhase.Bottom) &&
-          velocity != null &&
-          velocity < -this.thresholds.velEpsDepth
-        ) {
-          nextPhase = RepPhase.Ascending;
-          isFirstFrameInAscending = true;
-        } else if (
-          this.currentPhase === RepPhase.Descending &&
-          velocity != null &&
-          Math.abs(velocity) <= this.thresholds.velEpsDepth
-        ) {
-          nextPhase = RepPhase.Bottom;
-        }
-      }
-    }
-
-    // 4) применяем фазу и отмечаем достижения цели по ЭКСТРЕМУМУ повтора
-    const phaseChanged = nextPhase !== this.currentPhase;
-    const prevPhase = this.currentPhase;
-    this.prevPhase = prevPhase;
-    this.currentPhase = nextPhase;
-
-    const startedRepNow =
-      prevPhase === RepPhase.Standing &&
-      (this.currentPhase === RepPhase.Descending ||
-        this.currentPhase === RepPhase.Bottom ||
-        this.currentPhase === RepPhase.Ascending);
-
-    if (startedRepNow && this.activeRepNumber == null) {
-      this.activeRepNumber = this.completedReps + 1;
-    }
-
-    if (frameMetrics.view === 'side') {
-      const minAngle = frameMetrics.repMinKneeAngle;
-      if (
-        minAngle != null &&
-        minAngle <= this.thresholds.kneeAngleParallelDeg
-      ) {
-        this.reachedParallelThisRep = true;
-      }
-    } else {
-      const maxDepth = frameMetrics.repMaxDepthRatio;
-      if (maxDepth != null && maxDepth >= this.thresholds.depthRatioParallel) {
-        this.reachedParallelThisRep = true;
-      }
-    }
-
-    // 5) завершение повтора: Ascending → Standing → возможно, praise
-    if (
-      prevPhase === RepPhase.Ascending &&
-      this.currentPhase === RepPhase.Standing
-    ) {
-      const shouldPraise =
-        this.reachedParallelThisRep && !this.hadIssuesInThisRep;
-
-      const repNumber = this.activeRepNumber ?? this.completedReps + 1;
-
-      // сброс под следующий повтор
-      this.hadIssuesInThisRep = false;
-      this.reachedParallelThisRep = false;
-      this.activeRepNumber = null;
-      this.completedReps += 1;
-
-      if (shouldPraise) {
-        const now = Date.now();
-        if (now - this.lastPraiseAt >= this.thresholds.praiseCooldownMs) {
-          this.lastPraiseAt = now;
-          return {
-            phase: this.currentPhase,
-            tips: [],
-            event: 'praise',
-            praise: 'Отличный повтор! Всё по технике ✅',
-            rep: repNumber,
-          };
-        }
-      }
-
-      return {
-        phase: this.currentPhase,
-        tips: [],
-        event: 'phase-change',
-      };
-    }
-
-    // 6) Standing (и это не закрытие повтора) — тишина
-    if (this.currentPhase === RepPhase.Standing) {
-      return {
-        phase: this.currentPhase,
-        tips: [],
-        event: phaseChanged ? 'phase-change' : 'none',
-      };
-    }
-
-    // 7) собираем подсказки провайдерами
-    const context: TipContext = {
-      keypoints,
-      view: this.currentView,
-      phase: this.currentPhase,
-      prevPhase: this.prevPhase,
-      isFirstFrameInAscending,
-      metrics: frameMetrics,
-    };
-    const rawTips = this.runTipProviders(context);
-
-    if (rawTips.some((t) => t.severity === 'warn' || t.severity === 'error')) {
-      this.hadIssuesInThisRep = true;
-    }
-
-    const cooledTips = this.applyTipsCooldown(rawTips);
-
-    const repForTips: number = this.activeRepNumber ?? this.completedReps + 1;
-
-    const tips: Tip[] = cooledTips.map((tip) => ({ ...tip, rep: repForTips }));
-
-    return {
-      phase: this.currentPhase,
-      tips,
-      event: phaseChanged ? 'phase-change' : 'none',
-    };
+    const res = measureMetricsForFront(keypoints, this.frontState, {
+      emaAlpha: 0.4,
+    });
+    this.frontState = res.state;
+    return { metrics: res.metrics, velocity: res.velocity };
   }
 
-  // =============== Подсказчики и антиспам ===============
-
-  private runTipProviders(context: TipContext): ProviderTip[] {
-    // В Standing подсказки не считаем (страховка)
-    if (context.phase === RepPhase.Standing) return [];
-    let tips: ProviderTip[] = [];
-    for (const provider of this.tipProviders) {
-      const got = provider(context) ?? [];
-      if (got.length) tips = tips.concat(got);
-    }
-    return tips;
+  protected isTopNow(metrics: FrameMetrics): boolean {
+    return metrics.view === 'side'
+      ? metrics.kneeAngleDegrees != null &&
+          metrics.kneeAngleDegrees >= this.thresholds.kneeAngleStandingDeg
+      : metrics.depthRatio != null &&
+          metrics.depthRatio < this.thresholds.depthRatioStanding;
   }
 
-  private applyTipsCooldown(tips: ProviderTip[]): ProviderTip[] {
-    const now = Date.now();
-    const result: ProviderTip[] = [];
-    for (const tip of tips) {
-      const lastAt = this.lastTipAtByText.get(tip.text) ?? 0;
-      if (now - lastAt >= this.thresholds.tipsGlobalCooldownMs) {
-        this.lastTipAtByText.set(tip.text, now);
-        result.push(tip);
-      }
+  protected isDepthReached(metrics: FrameMetrics): boolean {
+    if (metrics.view === 'side') {
+      return (
+        metrics.repMinKneeAngle != null &&
+        metrics.repMinKneeAngle <= this.thresholds.kneeAngleParallelDeg
+      );
     }
-    return result;
+    return (
+      metrics.repMaxDepthRatio != null &&
+      metrics.repMaxDepthRatio >= this.thresholds.depthRatioParallel
+    );
+  }
+
+  protected buildContext(params: {
+    keypoints: Keypoint[];
+    phase: RepPhase;
+    prevPhase: RepPhase;
+    isFirstFrameInAscending: boolean;
+    velocity: number | null;
+    metrics: FrameMetrics;
+  }): TipContext {
+    return { ...params, view: this.currentView };
+  }
+
+  protected getPraiseText(): string {
+    return 'Отличный повтор! Всё по технике ✅';
   }
 }

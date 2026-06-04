@@ -11,18 +11,18 @@ import {
 import {
   authFormResolver,
   type TAuthFormData,
-} from '@/e.entities/user/model/user.auth-resolver.ts';
+} from '@/e.entities/user/model/resolvers/user.auth-resolver.ts';
 import { useSelector } from '@/f.shared/lib';
 import { UiModal, UiTabs } from '@/f.shared/ui';
 
 export const AuthModal = () => {
   const [contentType, setContentType] = useState<AuthContentType>(
-    AuthContentType.email,
+    AuthContentType.telegram,
   );
   const {
     isAuthModalOpen,
     setIsAuthModalOpen,
-    requestCodeByPhone,
+    requestCodeByTelegram,
     requestCodeByEmail,
   } = useSelector(authSelector);
 
@@ -40,9 +40,9 @@ export const AuthModal = () => {
           }
           break;
         }
-        case AuthContentType.phone: {
+        case AuthContentType.telegram: {
           if (data.phone) {
-            await requestCodeByPhone(data.phone);
+            await requestCodeByTelegram(data.phone);
             break;
           }
         }
@@ -67,16 +67,15 @@ export const AuthModal = () => {
   const tabs = useMemo((): TabsProps['items'] => {
     return [
       {
-        key: AuthContentType.phone,
-        label: 'Номер телефона',
-        disabled: true,
+        key: AuthContentType.telegram,
+        label: 'Telegram',
         children: (
           <UserAuthPhoneForm control={control} onGetCodeClick={onRequestCode} />
         ),
       },
       {
         key: AuthContentType.email,
-        label: 'Электоронная почта',
+        label: 'Электронная почта',
         children: (
           <UserAuthEmailForm control={control} onGetCodeClick={onRequestCode} />
         ),

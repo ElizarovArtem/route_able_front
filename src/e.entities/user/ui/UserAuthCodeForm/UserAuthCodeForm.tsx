@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { authSelector } from '@/d.features/user';
-import type { TAuthFormData } from '@/e.entities/user/model/user.auth-resolver.ts';
+import type { TAuthFormData } from '@/e.entities/user/model/resolvers/user.auth-resolver.ts';
 import { useSelector } from '@/f.shared/lib';
 import { UiButton, UiInput } from '@/f.shared/ui';
 

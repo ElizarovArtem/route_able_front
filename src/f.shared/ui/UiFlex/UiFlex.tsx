@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { type ReactNode } from 'react';
+import React, { forwardRef, type ReactNode } from 'react';
 
 import styles from './UiFlex.module.scss';
 
@@ -14,43 +14,51 @@ type UiFlexProps = {
   childrenEqualLength?: boolean;
 } & React.HTMLAttributes<HTMLDivElement>;
 
-export const UiFlex = ({
-  children,
-  direction = 'row',
-  gap = 'm',
-  justify = 'start',
-  align,
-  wrap,
-  flex,
-  childrenEqualLength,
-  className,
-  ...props
-}: UiFlexProps) => {
-  return (
-    <div
-      {...props}
-      className={classNames(
-        styles.uiFlex,
-        className,
-        styles[`uiFlexGap-${gap}`],
-        styles[`uiFlex-${direction}`],
-        styles[`uiFlexJustify-${justify}`],
-        styles[`uiFlexAlign-${align}`],
-        styles[`uiFlexWrap-${wrap}`],
-        { [styles.uiFlexChildrenEqualLength]: childrenEqualLength },
-      )}
-      style={{
-        flex,
-        ...(childrenEqualLength
-          ? {
-              '--flex-children-count': Array.isArray(children)
-                ? children.length
-                : 1,
-            }
-          : {}),
-      }}
-    >
-      {children}
-    </div>
-  );
-};
+export const UiFlex = forwardRef<HTMLDivElement, UiFlexProps>(
+  (
+    {
+      children,
+      direction = 'row',
+      gap = 'm',
+      justify = 'start',
+      align,
+      wrap,
+      flex,
+      childrenEqualLength,
+      className,
+      style,
+      ...props
+    },
+    ref,
+  ) => {
+    const childrenCount = Array.isArray(children) ? children.length : 1;
+
+    return (
+      <div
+        {...props}
+        ref={ref}
+        className={classNames(
+          styles.uiFlex,
+          className,
+          styles[`uiFlexGap-${gap}`],
+          styles[`uiFlex-${direction}`],
+          styles[`uiFlexJustify-${justify}`],
+          styles[`uiFlexAlign-${align}`],
+          styles[`uiFlexWrap-${wrap}`],
+          { [styles.uiFlexChildrenEqualLength]: childrenEqualLength },
+        )}
+        style={{
+          ...style,
+          ...(flex ? { flex } : {}),
+          ...(childrenEqualLength
+            ? { '--flex-children-count': childrenCount }
+            : {}),
+        }}
+      >
+        {children}
+      </div>
+    );
+  },
+);
+
+UiFlex.displayName = 'UiFlex';

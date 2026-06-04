@@ -1,27 +1,29 @@
 import {
   type ProviderTip,
   RepPhase,
-  type TipContext,
-} from '../aiAssistant.tips.squat.types.ts';
+  type TipProvider,
+} from '../../aiAssistant.tips.shared.types.ts';
+import {
+  SQUAT_PARALLEL_SOFT_DEG,
+  SQUAT_PARALLEL_TARGET_DEG,
+} from '../aiAssistant.tips.squat.constants.ts';
+import type { TipContext } from '../aiAssistant.tips.squat.types.ts';
 
-const TARGET = 100; // параллель
-const SOFT = 5;
-
-export function parallelSideProvider(context: TipContext): ProviderTip[] {
+export const parallelSideProvider: TipProvider<TipContext> = (
+  context,
+): ProviderTip[] => {
   if (context.view !== 'side') return [];
   if (
     !(context.phase === RepPhase.Ascending && context.isFirstFrameInAscending)
-  )
+  ) {
     return [];
+  }
 
   const repMin =
     context.metrics.view === 'side' ? context.metrics.repMinKneeAngle : null;
-  if (repMin == null) return [];
+  if (repMin == null || repMin <= SQUAT_PARALLEL_TARGET_DEG) return [];
 
-  // глубже или ровно цели — молчим (похвала сделает трекер по завершении)
-  if (repMin <= TARGET) return [];
-
-  if (repMin <= TARGET + SOFT) {
+  if (repMin <= SQUAT_PARALLEL_TARGET_DEG + SQUAT_PARALLEL_SOFT_DEG) {
     return [
       {
         severity: 'info',
@@ -36,4 +38,4 @@ export function parallelSideProvider(context: TipContext): ProviderTip[] {
       text: `До параллели не дошёл: минимальный угол ≈ ${repMin.toFixed(1)}°. В следующем повторе садись ниже.`,
     },
   ];
-}
+};

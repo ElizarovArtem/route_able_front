@@ -5,13 +5,13 @@ import { useForm } from 'react-hook-form';
 import { useUpdateUser } from '@/d.features/user/api/queries/useUpdateUser.ts';
 import { type User, userSelector } from '@/e.entities/user';
 import {
+  type TUpdateUserFormData,
+  updateUserFormResolver,
+} from '@/e.entities/user/model/resolvers/user.update-user-resolver.ts';
+import {
   ACTIVITY_OPTIONS,
   GOAl_OPTIONS,
 } from '@/e.entities/user/model/user.constants.tsx';
-import {
-  type TUpdateUserFormData,
-  updateUserFormResolver,
-} from '@/e.entities/user/model/user.update-user-resolver.ts';
 import { useSelector } from '@/f.shared/lib';
 import { useMobile } from '@/f.shared/lib/useMobile.ts';
 import {

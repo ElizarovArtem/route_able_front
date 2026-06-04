@@ -1,46 +1,82 @@
-import React from 'react';
+import { useNavigate, useSearch } from '@tanstack/react-router';
+import type { TabsProps } from 'antd/es/tabs';
+import React, { useMemo } from 'react';
 
-import { Calendar } from '@/c.widgets/day';
-import { MealsInfo } from '@/c.widgets/meal';
-import { Connections, UserInfo } from '@/c.widgets/user';
-import { Lessons } from '@/c.widgets/user/ui/Lessons/Lessons.tsx';
-import { LessonSlots } from '@/c.widgets/user/ui/LessonSlots/LessonSlots.tsx';
+import { AdminTab } from '@/b.pages/user/ui/LkPage/components/AdminTab.tsx';
+import { ClientTab } from '@/b.pages/user/ui/LkPage/components/ClientTab/ClientTab.tsx';
+import { CoachTab } from '@/b.pages/user/ui/LkPage/components/CoachTab/CoachTab.tsx';
 import { Roles, userSelector } from '@/e.entities/user';
+import { LkContentTypeTabKeys } from '@/e.entities/user/model/user.enums.ts';
 import { useSelector } from '@/f.shared/lib';
-import { useMobile } from '@/f.shared/lib/useMobile.ts';
-import { UiFlex } from '@/f.shared/ui';
+import { UiFlex, UiTabs } from '@/f.shared/ui';
 
-import styles from './LkPage.module.scss';
+enum LkContentType {
+  user = 'user',
+  coach = 'coach',
+  admin = 'admin',
+}
 
 export const LkPage = () => {
-  const { user } = useSelector(userSelector);
+  const { tab: currentTab } = useSearch({
+    from: '/_private/lk',
+  });
 
-  const isMobile = useMobile();
+  const { user } = useSelector(userSelector);
+  const navigate = useNavigate({ from: '/lk' });
+
+  const items = useMemo((): TabsProps['items'] => {
+    return [
+      {
+        key: LkContentType.user,
+        label: 'Клиентская',
+        children: <ClientTab />,
+      },
+      ...(user?.roles.includes(Roles.Coach)
+        ? [
+            {
+              key: LkContentType.coach,
+              label: 'Тренерская',
+              disabled: !user?.roles.includes(Roles.Coach),
+              children: <CoachTab />,
+            },
+          ]
+        : []),
+
+      ...(user?.roles.includes(Roles.Admin)
+        ? [
+            {
+              key: LkContentType.admin,
+              label: 'Админская',
+              disabled: !user?.roles.includes(Roles.Coach),
+              children: <AdminTab />,
+            },
+          ]
+        : []),
+    ];
+  }, [user]);
+
+  const onTabChange = (tab: LkContentTypeTabKeys) => {
+    navigate({
+      search: (prev) => ({
+        ...prev,
+        tab,
+      }),
+    });
+  };
 
   return (
-    <>
-      <Calendar />
-      <UiFlex gap="s" direction="column" className={styles.mainContentWrapper}>
-        <UserInfo />
-        <UiFlex
-          className={styles.flexBlock}
-          direction={isMobile ? 'column' : 'row'}
-          gap="s"
-        >
-          <MealsInfo />
-          <Connections />
-        </UiFlex>
-        {user?.roles.includes(Roles.Coach) && (
-          <UiFlex
-            className={styles.flexBlock}
-            direction={isMobile ? 'column' : 'row'}
-            gap="s"
-          >
-            <Lessons />
-            <LessonSlots />
-          </UiFlex>
-        )}
-      </UiFlex>
-    </>
+    <UiFlex direction="column">
+      {/*<Calendar />*/}
+
+      {(user?.roles.length || 0) > 1 ? (
+        <UiTabs
+          activeKey={currentTab}
+          onChange={(key) => onTabChange(key as LkContentTypeTabKeys)}
+          items={items}
+        />
+      ) : (
+        <ClientTab />
+      )}
+    </UiFlex>
   );
 };

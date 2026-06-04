@@ -1,40 +1,20 @@
-import type { User } from '@/e.entities/user';
-import type { Relation } from '@/e.entities/user/model/user.types.ts';
+import type { PlannedLesson } from '@/e.entities/lessons/model/lessons.types.ts';
 import { api } from '@/f.shared/api';
 
-export type GetCoachVideoLessonsParams = {
+export type GetCoachLessonsParams = {
   date: string;
 };
 
-export enum LessonStatus {
-  SCHEDULED = 'SCHEDULED',
-  IN_PROGRESS = 'IN_PROGRESS',
-  COMPLETED = 'COMPLETED',
-  CANCELED = 'CANCELED',
-}
-
-export type GetCoachVideoLesson = {
-  id: string;
-  clientCoachId: string;
-  clientId: string;
-  coachId: string;
-  startAt: string;
-  endAt: string;
-  status: LessonStatus;
-  title: string;
-  notes: string;
-  createdBy: string;
-  createdAt: string;
-  updatedAt: string;
-  client: User;
-  relation: Relation;
+export type GetCoachLessonsResponse = {
+  items: PlannedLesson[];
+  total: number;
+  skip: number;
+  take: number;
 };
 
-export const getCoachVideoLessons = async ({
-  date,
-}: GetCoachVideoLessonsParams) => {
-  const { data } = await api.get<GetCoachVideoLesson[]>(
-    '/coach/video-lessons',
+export const getCoachLessons = async ({ date }: GetCoachLessonsParams) => {
+  const { data } = await api.get<GetCoachLessonsResponse>(
+    '/coach-workout-sessions/coach/day',
     {
       params: { date },
     },

@@ -1,6 +1,6 @@
 import type { AxiosResponse } from 'axios';
 
-import type { UserMakeTDEEAnalyzeFormData } from '@/e.entities/user/model/user.make-tdee-analyze-resolver.ts';
+import type { UserMakeTDEEAnalyzeFormData } from '@/e.entities/user/model/resolvers/user.make-tdee-analyze-resolver.ts';
 import { api } from '@/f.shared/api';
 
 export type MakeUserTDEEAnalyzeRequest = Omit<

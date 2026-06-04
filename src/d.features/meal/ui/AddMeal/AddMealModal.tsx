@@ -11,6 +11,7 @@ import {
   type TCreateMealFormData,
   useAddMeal,
 } from '@/d.features/meal';
+import { BarcodeMealScanner } from '@/d.features/meal/ui/BarcodeMealScanner';
 import {
   type GetDayMealsSummaryRes,
   ManualAddMealForm,
@@ -28,6 +29,7 @@ enum TabsKeys {
   manual = 'manual',
   text = 'text',
   photo = 'photo',
+  barcode = 'barcode',
 }
 
 type TMealFormProps = {
@@ -122,6 +124,11 @@ export const AddMealModal = ({
             setAiSuggestion={setAiSuggestion}
           />
         ),
+      },
+      {
+        key: TabsKeys.barcode,
+        label: 'Штрихкод',
+        children: <BarcodeMealScanner setMealSuggestion={setAiSuggestion} />,
       },
     ];
   }, [aiSuggestion, setAiSuggestion]);

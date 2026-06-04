@@ -1,4 +1,4 @@
-import type { VideoLessonDto } from '@/e.entities/lessons/api/requests/get-video-lessons.request.ts';
+import type { CoachWorkoutSession } from '@/e.entities/lessons/model/lessons.types.ts';
 import { api } from '@/f.shared/api';
 
 export type BookSlotRequest = {
@@ -8,7 +8,7 @@ export type BookSlotRequest = {
 };
 
 export const bookSlot = async ({ slotId, ...payload }: BookSlotRequest) => {
-  const { data } = await api.post<VideoLessonDto>(
+  const { data } = await api.post<CoachWorkoutSession>(
     `/slots/${slotId}/book`,
     payload,
   );

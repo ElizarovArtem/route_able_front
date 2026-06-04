@@ -1,32 +1,52 @@
 import React, { useState } from 'react';
 
-import { useGetCoachVideoLessons } from '@/e.entities/lessons/api/queries/useGetCoachVideoLessons.ts';
+import { useLessons } from '@/e.entities/lessons/model/lessons.utils.ts';
 import { PlannedVideoLesson } from '@/e.entities/lessons/ui/PlannedVideoLesson/PlannedVideoLesson.tsx';
-import { formatDateForServer } from '@/f.shared/lib/formatDateForServer.ts';
-import { UiCard, UiDatepicker, UiFlex, UiTypography } from '@/f.shared/ui';
+import { Roles } from '@/e.entities/user';
+import {
+  UiCard,
+  UiDatepicker,
+  UiFlex,
+  UiSectionHeader,
+  UiTypography,
+  VideoIcon,
+} from '@/f.shared/ui';
 
-export const Lessons = () => {
+type LessonsProps = {
+  className?: string;
+  forRole: Roles;
+};
+
+export const Lessons = ({ forRole, className }: LessonsProps) => {
   const [date, setDate] = useState(new Date());
 
-  const { data } = useGetCoachVideoLessons(formatDateForServer(date));
+  const { data } = useLessons(forRole, date);
+
+  const items = data?.items || [];
 
   return (
-    <UiCard>
-      <UiFlex direction="column">
-        <UiFlex align="center">
-          <UiTypography bold>Занятия на:</UiTypography>
+    <UiCard className={className}>
+      <UiSectionHeader
+        icon={<VideoIcon size={18} />}
+        title="Занятия"
+        subtitle={items.length ? `На выбранную дату: ${items.length}` : 'На выбранную дату нет занятий'}
+        action={
           <UiDatepicker
             defaultValue={date}
             minDate={new Date()}
-            onChange={(date) => setDate(date as Date)}
+            onChange={(d) => setDate(d as Date)}
           />
-        </UiFlex>
+        }
+      />
 
-        <UiFlex direction="column" gap="xs">
-          {(data || []).map((lesson) => (
+      <UiFlex direction="column" gap="xs">
+        {items.length ? (
+          items.map((lesson) => (
             <PlannedVideoLesson key={lesson.id} lesson={lesson} />
-          ))}
-        </UiFlex>
+          ))
+        ) : (
+          <UiTypography type="label">Свободный день — выбери другую дату или забронируй занятие.</UiTypography>
+        )}
       </UiFlex>
     </UiCard>
   );

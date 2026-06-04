@@ -135,7 +135,10 @@ export const WorkoutInProgress = ({
           />
         )}
         <UiFlex justify="end">
-          <UiButton onClick={isSetStarted ? onEndSet : onStartSet}>
+          <UiButton
+            styleType={isSetStarted ? 'primary' : 'secondary'}
+            onClick={isSetStarted ? onEndSet : onStartSet}
+          >
             {isSetStarted ? 'Завершить подход' : 'Начать подход'}
           </UiButton>
         </UiFlex>

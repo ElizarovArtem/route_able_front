@@ -5,7 +5,8 @@ import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
 import React from 'react';
 
 import { Header } from '@/a.app/layout/Header';
-import { AuthModal, CheckAuth } from '@/d.features/user';
+import { CreateFeedbackModal } from '@/d.features/feedback/ui/CreateFeedbackModal/CreateFeedbackModal.tsx';
+import { AuthModal, CheckAuth, CheckMySubscription } from '@/d.features/user';
 import { UiTypography } from '@/f.shared/ui';
 
 import { Layout } from '../layout/Layout';
@@ -31,7 +32,9 @@ export const Route = createRootRoute({
         )}
 
         <CheckAuth />
+        <CheckMySubscription />
         <AuthModal />
+        <CreateFeedbackModal />
 
         <TanStackRouterDevtools />
         <ReactQueryDevtools initialIsOpen={false} />

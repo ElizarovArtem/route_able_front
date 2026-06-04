@@ -4,7 +4,7 @@ import {
   getCoachSlots,
   type GetCoachSlotsParams,
 } from '@/e.entities/lessons/api/requests/get-coach-slots.request.ts';
-import type { TimeSlotDto } from '@/e.entities/lessons/model/lessons.model.ts';
+import type { TimeSlotDto } from '@/e.entities/lessons/model/lessons.types.ts';
 
 export const useGetCoachSlots = (
   coachId?: GetCoachSlotsParams['coachId'],
