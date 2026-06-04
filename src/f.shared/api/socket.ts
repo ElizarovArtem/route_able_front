@@ -6,7 +6,7 @@ let socket: Socket | null = null;
 
 export function connectSocket() {
   if (!socket) {
-    socket = io(`${config.API_URL}/chats`, {
+    socket = io(`${config.API_SOCKET_URL}/chats`, {
       transports: ['websocket'],
       withCredentials: true,
     });
