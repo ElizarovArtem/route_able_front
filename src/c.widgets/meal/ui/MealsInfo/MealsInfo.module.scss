@@ -1,8 +1,16 @@
-.mealsInfo {
-  height: 100%;
+@use '@/a.app/styles/variables';
+
+.body {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--spacing-l);
+  align-items: start;
 }
 
-.mealsWrapper {
-  overflow-y: scroll;
-  max-height: 180px;
+
+
+@media (max-width: 768px) {
+  .body {
+    grid-template-columns: 1fr;
+  }
 }

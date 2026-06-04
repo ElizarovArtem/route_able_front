@@ -1,9 +1,27 @@
-import { Badge } from 'antd';
-import type { BadgeProps } from 'antd/es/badge';
-import React from 'react';
+import classNames from 'classnames';
+import React, { type ReactNode } from 'react';
 
-type UiBadgeProps = {} & BadgeProps;
+import styles from './UiBadge.module.scss';
 
-export const UiBadge = (props: UiBadgeProps) => {
-  return <Badge {...props} />;
+type UiBadgeTone = 'accent' | 'warn' | 'danger' | 'neutral';
+
+type UiBadgeProps = {
+  children: ReactNode;
+  tone?: UiBadgeTone;
+  icon?: ReactNode;
+  className?: string;
+};
+
+export const UiBadge = ({
+  children,
+  tone = 'accent',
+  icon,
+  className,
+}: UiBadgeProps) => {
+  return (
+    <span className={classNames(styles.badge, styles[`tone-${tone}`], className)}>
+      {icon && <span className={styles.icon}>{icon}</span>}
+      {children}
+    </span>
+  );
 };

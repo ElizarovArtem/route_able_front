@@ -1,13 +1,38 @@
 @use "@/a.app/styles/variables";
 
 .uiCard {
-  background: var(--background-color-2);
   border-radius: var(--border-radius);
   border: 1px solid var(--border-color);
+  transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
 
   @media (max-width: 640px) {
     padding: var(--spacing-s);
   }
+}
+
+.tone-default {
+  background: var(--surface-1);
+}
+
+.tone-elevated {
+  background: var(--surface-3);
+  border-color: var(--border-color-strong);
+  box-shadow: var(--shadow-elevated);
+}
+
+.tone-subtle {
+  background: transparent;
+  border-color: var(--border-color);
+}
+
+.interactive {
+  cursor: pointer;
+}
+
+.interactive:hover {
+  transform: translateY(-1px);
+  border-color: var(--border-color-strong);
+  box-shadow: var(--shadow-soft);
 }
 
 .inverse {
@@ -19,12 +44,17 @@
   padding: var(--spacing-s);
 }
 
+.cardWithHeader .contentWrapper {
+  padding-top: var(--spacing-s);
+}
+
 .cardWithHeader {
   padding-top: 0;
 }
 
 .cardHeader {
-  background: var(--background-color-5);
+  background: rgba(255, 255, 255, .02);
+  border-bottom: 1px solid var(--border-color);
   border-radius: var(--border-radius) var(--border-radius) 0 0;
   padding: var(--spacing-s);
 }

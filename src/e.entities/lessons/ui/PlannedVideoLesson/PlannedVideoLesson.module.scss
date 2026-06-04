@@ -1,0 +1,58 @@
+@use '@/a.app/styles/variables';
+
+.lesson {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-m);
+  padding: var(--spacing-s);
+  border-radius: var(--border-radius-s);
+  background: var(--surface-2);
+  border: 1px solid var(--border-color);
+  transition: border-color .15s ease, background .15s ease;
+
+  &:hover {
+    border-color: var(--border-color-strong);
+    background: var(--surface-3);
+  }
+}
+
+.timeBlock {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.time {
+  font-size: var(--font-size-l);
+  font-weight: var(--font-weight-bold);
+  color: var(--accent-color-1);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.timeSep {
+  font-size: var(--font-size-m);
+  color: var(--text-color-muted);
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.name {
+  font-size: var(--font-size-m);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-color-1);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.date {
+  font-size: var(--font-size-s);
+  color: var(--text-color-muted);
+}

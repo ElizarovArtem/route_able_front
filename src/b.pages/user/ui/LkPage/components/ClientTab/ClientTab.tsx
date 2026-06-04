@@ -7,21 +7,18 @@ import { Lessons } from '@/c.widgets/user/ui/Lessons/Lessons.tsx';
 import { Roles } from '@/e.entities/user';
 import { UiFlex } from '@/f.shared/ui';
 
+import styles from './ClientTab.module.scss';
+
 export const ClientTab = () => {
   return (
-    <UiFlex direction="column" gap="s">
+    <UiFlex direction="column" gap="m">
+      <UserInfo />
       <Calendar />
-
-      <UiFlex gap="s">
-        <UserInfo />
-        <UiFlex direction="column" childrenEqualLength flex={1} gap="s">
-          <MealsInfo />
-        </UiFlex>
-      </UiFlex>
-      <UiFlex gap="s" childrenEqualLength>
+      <MealsInfo />
+      <div className={styles.grid}>
         <Lessons forRole={Roles.Client} />
         <Connections connectionsType="coaches" />
-      </UiFlex>
+      </div>
     </UiFlex>
   );
 };

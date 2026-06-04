@@ -5,15 +5,30 @@ import { UiFlex } from '@/f.shared/ui';
 
 import styles from './UiCard.module.scss';
 
+type UiCardTone = 'default' | 'elevated' | 'subtle';
+
 type UiCardProps = {
   children?: ReactNode;
   className?: string;
   inverse?: boolean;
+  tone?: UiCardTone;
+  interactive?: boolean;
   header?: ReactNode;
 } & React.HTMLAttributes<HTMLDivElement>;
 
 export const UiCard = React.forwardRef<HTMLDivElement, UiCardProps>(
-  ({ children, className, inverse, header, ...rest }, ref) => {
+  (
+    {
+      children,
+      className,
+      inverse,
+      tone = 'default',
+      interactive,
+      header,
+      ...rest
+    },
+    ref,
+  ) => {
     return (
       <UiFlex
         direction="column"
@@ -21,7 +36,12 @@ export const UiCard = React.forwardRef<HTMLDivElement, UiCardProps>(
         ref={ref}
         className={classNames(
           styles.uiCard,
-          { [styles.inverse]: inverse, [styles.cardWithHeader]: header },
+          styles[`tone-${tone}`],
+          {
+            [styles.inverse]: inverse,
+            [styles.cardWithHeader]: header,
+            [styles.interactive]: interactive,
+          },
           className,
         )}
         {...rest}

@@ -1,9 +1,58 @@
-@use  '@/a.app/styles/variables';
+@use '@/a.app/styles/variables';
 
-.connectionsWrapper {
-  background: var(--background-color-1);
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius);
-  box-shadow: var(--box-shadow);
-  padding: var(--spacing-m);
+.avatarRow {
+  display: flex;
+  gap: var(--spacing-m);
+  overflow-x: auto;
+  padding: var(--spacing-xs) 2px;
+
+  &::-webkit-scrollbar {
+    height: 0;
+  }
+}
+
+.avatarItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  flex-shrink: 0;
+
+  &:hover .avatarWrap {
+    transform: translateY(-2px);
+    border-color: var(--accent-color-1);
+  }
+}
+
+.avatarWrap {
+  position: relative;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 2px solid var(--border-color);
+  overflow: hidden;
+  transition: transform .15s ease, border-color .15s ease;
+  flex-shrink: 0;
+}
+
+.activeDot {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent-color-1);
+  border: 2px solid var(--surface-1);
+}
+
+.avatarName {
+  font-size: var(--font-size-s);
+  color: var(--text-color-2);
+  max-width: 64px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

@@ -1,0 +1,48 @@
+@use '@/a.app/styles/variables';
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xxs);
+  padding: var(--spacing-s);
+  background: rgba(255, 255, 255, .02);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-s);
+  min-width: 0;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-color-muted);
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+}
+
+.tone-accent .icon { color: var(--accent-color-1); }
+.tone-warn .icon { color: var(--warn-color); }
+
+.label {
+  font-size: 12px;
+  font-weight: var(--font-weight-medium);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+.value {
+  font-size: 24px;
+  font-weight: var(--font-weight-bold);
+  color: var(--text-color-1);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+}
+
+.hint {
+  font-size: 12px;
+  color: var(--text-color-2);
+}

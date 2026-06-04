@@ -5,49 +5,66 @@ button.button[class*='ant-btn'][class*='ant-btn-default'] {
   border-color: var(--accent-color-1);
   color: var(--main-color);
   font-family: Inter, sans-serif;
-  font-weight: bold;
-  transition: 0.1s;
+  font-weight: var(--font-weight-semibold);
+  transition: background .15s ease, transform .15s ease, box-shadow .15s ease,
+    border-color .15s ease, color .15s ease;
   font-size: var(--font-size-m);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, .08) inset,
+    0 4px 12px rgba(34, 200, 167, .18);
 }
 
-button.button[class*='ant-btn'][class*='ant-btn-default']:hover  {
-  color: var(--accent-color-1);
-  border-color: var(--accent-color-1);
-  background: transparent;
+button.button[class*='ant-btn'][class*='ant-btn-default']:hover {
+  background: var(--accent-color-hover);
+  border-color: var(--accent-color-hover);
+  color: var(--main-color);
+  transform: translateY(-1px);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, .12) inset,
+    0 8px 18px rgba(34, 200, 167, .26);
+}
+
+button.button[class*='ant-btn'][class*='ant-btn-default']:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, .06) inset,
+    0 2px 6px rgba(34, 200, 167, .18);
 }
 
 button.button.secondary[class*='ant-btn'][class*='ant-btn-default'] {
-  background: var(--main-color);
-  border-color: var(--main-color);
-  color: var(--accent-color-1);
-  font-family: Inter, sans-serif;
-  font-weight: bold;
-  transition: 0.1s;
+  background: transparent;
+  border-color: var(--border-color-strong);
+  color: var(--text-color-1);
+  box-shadow: none;
 }
 
-button.button.secondary[class*='ant-btn'][class*='ant-btn-default']:hover  {
+button.button.secondary[class*='ant-btn'][class*='ant-btn-default']:hover {
+  background: var(--surface-hover);
+  border-color: var(--accent-color-1);
   color: var(--accent-color-1);
-  border-color: transparent;
-  background: transparent;
+  transform: translateY(-1px);
+  box-shadow: none;
 }
 
 button.button.danger[class*='ant-btn'][class*='ant-btn-default'] {
-  background: var(--background-color-4);
-  border-color: var(--background-color-4);
+  background: var(--danger-color);
+  border-color: var(--danger-color);
   color: var(--text-color-1);
   font-family: Inter, sans-serif;
-  font-weight: bold;
-  transition: 0.1s;
+  font-weight: var(--font-weight-semibold);
+  box-shadow: 0 4px 12px rgba(232, 50, 66, .18);
 }
 
-button.button.danger[class*='ant-btn'][class*='ant-btn-default']:hover  {
-  color: var(--accent-color-1);
-  border-color: transparent;
-  background: transparent;
+button.button.danger[class*='ant-btn'][class*='ant-btn-default']:hover {
+  background: #f24351;
+  border-color: #f24351;
+  color: var(--text-color-1);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(232, 50, 66, .26);
 }
 
-button.button[class*='ant-btn'][class*='ant-btn-default']:disabled, button.button[class*='ant-btn'][class*='ant-btn-default']:disabled:hover {
-  background: var(--border-color);
+button.button[class*='ant-btn'][class*='ant-btn-default']:disabled,
+button.button[class*='ant-btn'][class*='ant-btn-default']:disabled:hover {
+  background: var(--surface-2);
   border-color: var(--border-color);
-  color: var(--text-color-2);
+  color: var(--text-color-muted);
+  transform: none;
+  box-shadow: none;
 }

@@ -4,9 +4,10 @@ import React, { useRef, useState } from 'react';
 
 import { authSelector } from '@/d.features/user';
 import { Menu, userSelector } from '@/e.entities/user';
+import { config } from '@/f.shared/config';
 import { useSelector } from '@/f.shared/lib';
 import { useMobile } from '@/f.shared/lib/useMobile.ts';
-import { UiButton, UiFlex, UiTypography } from '@/f.shared/ui';
+import { UiButton, UiFlex } from '@/f.shared/ui';
 
 import styles from './Header.module.scss';
 
@@ -49,12 +50,24 @@ export const Header = () => {
     }
   };
 
+  const userInitials = (user?.name || user?.email || '?')
+    .trim()
+    .charAt(0)
+    .toUpperCase();
+
   return (
     <div className={styles.header}>
       <UiFlex align="center" gap="m">
-        <Link to="/">
-          <div className={styles.logo}>Route•able</div>
-          {/*<div className={styles.logo}>Роутэйбл</div>*/}
+        <Link to="/" className={styles.logoLink}>
+          <span className={styles.logoMark} aria-hidden>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M4 17 L9 12 L13 16 L20 7" />
+              <circle cx="20" cy="7" r="1.5" fill="currentColor" />
+            </svg>
+          </span>
+          <div className={styles.logo}>
+            Route<span className={styles.accent}>•</span>able
+          </div>
         </Link>
 
         <Menu
@@ -67,15 +80,28 @@ export const Header = () => {
       <div className={styles.menu}>
         {user ? (
           <>
-            <UiTypography
+            <div
               ref={nameRef}
-              className={styles.userName}
+              className={styles.userChip}
               onClick={onUserNameClick}
-              bold
             >
-              {user.name || user.email}
-            </UiTypography>{' '}
-            <UiButton onClick={onLogout}>Выйти</UiButton>
+              <span className={styles.userChipAvatar}>
+                {user.avatar ? (
+                  <img
+                    src={`${config.API_URL}/uploads/${user.avatar}`}
+                    alt=""
+                  />
+                ) : (
+                  userInitials
+                )}
+              </span>
+              <span className={styles.userChipName}>
+                {user.name || user.email}
+              </span>
+            </div>
+            <UiButton styleType="secondary" onClick={onLogout}>
+              Выйти
+            </UiButton>
           </>
         ) : (
           <UiButton onClick={() => setIsAuthModalOpen(true)}>Войти</UiButton>

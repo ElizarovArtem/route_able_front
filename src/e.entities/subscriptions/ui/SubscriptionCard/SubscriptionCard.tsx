@@ -60,10 +60,7 @@ export const SubscriptionCard = ({
                 {priceYear} ₽
               </UiTypography>
               <UiTypography type="label">/ год</UiTypography>
-              <UiBadge
-                color={subscriptionColors[code]}
-                count={`-${discount}%`}
-              />
+              <UiBadge tone="accent">{`-${discount}%`}</UiBadge>
             </UiFlex>
           )}
           <UiFlex direction="column">

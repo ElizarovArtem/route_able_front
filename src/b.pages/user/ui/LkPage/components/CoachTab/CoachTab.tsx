@@ -11,23 +11,14 @@ import styles from './CoachTab.module.scss';
 
 export const CoachTab = () => {
   return (
-    <UiFlex direction="column" gap="s">
-      <UiFlex gap="s">
-        <UserInfo />
-        <UiFlex
-          flex={1}
-          gap="s"
-          className={styles.stretchRow}
-          childrenEqualLength
-        >
-          <LessonSlots className={styles.stretchCard} />
-          <CoachOffers className={styles.stretchCard} />
-        </UiFlex>
-      </UiFlex>
-      <UiFlex childrenEqualLength gap="s">
+    <UiFlex direction="column" gap="m">
+      <UserInfo />
+      <div className={styles.grid}>
+        <LessonSlots />
+        <CoachOffers />
         <Connections connectionsType="clients" />
         <Lessons forRole={Roles.Coach} />
-      </UiFlex>
+      </div>
     </UiFlex>
   );
 };

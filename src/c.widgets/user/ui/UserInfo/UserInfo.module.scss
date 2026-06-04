@@ -1,0 +1,76 @@
+@use '@/a.app/styles/variables';
+
+.hero {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: var(--spacing-m);
+  align-items: center;
+}
+
+.avatar {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid var(--border-color-strong);
+  background: var(--surface-2);
+  flex-shrink: 0;
+}
+
+.avatar img,
+.avatar :global(.ant-image),
+.avatar :global(.ant-image-img) {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover;
+  border-radius: 50% !important;
+}
+
+.identity {
+  min-width: 0;
+}
+
+.name {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -0.02em;
+  color: var(--text-color-1);
+  line-height: 1.1;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.actions {
+  flex-shrink: 0;
+  align-self: flex-start;
+}
+
+@media (max-width: 720px) {
+  .hero {
+    grid-template-columns: auto 1fr;
+    grid-template-areas:
+      'avatar identity'
+      'actions actions';
+    row-gap: var(--spacing-s);
+  }
+
+  .avatar {
+    grid-area: avatar;
+    width: 64px;
+    height: 64px;
+  }
+
+  .identity {
+    grid-area: identity;
+  }
+
+  .actions {
+    grid-area: actions;
+  }
+
+  .name {
+    font-size: var(--font-size-l);
+  }
+}

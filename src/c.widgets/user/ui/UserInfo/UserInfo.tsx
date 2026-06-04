@@ -4,8 +4,10 @@ import { CalculateTDEEModal } from '@/d.features/user/ui/CalculateTDEEModal/Calc
 import { UpdateUserModal } from '@/d.features/user/ui/UpdateUserModal/UpdateUserModal.tsx';
 import { userSelector } from '@/e.entities/user';
 import { useSelector } from '@/f.shared/lib';
-import { UiButton, UiCard, UiFlex, UiTypography } from '@/f.shared/ui';
+import { PencilIcon, TargetIcon, UiBadge, UiButton, UiCard, UiFlex } from '@/f.shared/ui';
 import { UiAvatar } from '@/f.shared/ui/UiAvatar/UiAvatar.tsx';
+
+import styles from './UserInfo.module.scss';
 
 export const UserInfo = () => {
   const { user } = useSelector(userSelector);
@@ -13,24 +15,39 @@ export const UserInfo = () => {
   const [isTDEEModalOpen, setIsTDEEModalOpen] = useState(false);
 
   return (
-    <UiCard style={{ flex: 0.3 }}>
-      <UiFlex direction="column" align="center" gap="s">
-        <UiFlex justify="center">
-          <UiAvatar src={user?.avatar} height="auto" />
+    <UiCard tone="elevated">
+      <div className={styles.hero}>
+        <div className={styles.avatar}>
+          <UiAvatar src={user?.avatar} preview={false} />
+        </div>
+
+        <UiFlex direction="column" gap="xs" className={styles.identity}>
+          <h1 className={styles.name}>{user?.name || 'Без имени'}</h1>
+          <UiFlex wrap="wrap" gap="xs">
+            <UiBadge tone="accent">
+              {user?.isCoachAgreed ? 'Тренер' : 'Клиент'}
+            </UiBadge>
+            {user?.email && <UiBadge tone="neutral">{user.email}</UiBadge>}
+          </UiFlex>
         </UiFlex>
-        <UiTypography bold>{user?.name}</UiTypography>
-        <UiTypography type="label">
-          {user?.isCoachAgreed ? 'Тренер' : 'Клиент'}
-        </UiTypography>
-        <UiFlex direction="column" gap="xs">
-          <UiButton onClick={() => setIsUpdateUserModalOpen(true)}>
-            Редактировать
-          </UiButton>
-          <UiButton onClick={() => setIsTDEEModalOpen(true)}>
-            Рассчитать TDEE
-          </UiButton>
+
+        <UiFlex gap="xs" className={styles.actions}>
+          <UiButton
+            styleType="secondary"
+            size="middle"
+            icon={<PencilIcon size={16} />}
+            title="Редактировать профиль"
+            onClick={() => setIsUpdateUserModalOpen(true)}
+          />
+          <UiButton
+            styleType="secondary"
+            size="middle"
+            icon={<TargetIcon size={16} />}
+            title="Рассчитать TDEE"
+            onClick={() => setIsTDEEModalOpen(true)}
+          />
         </UiFlex>
-      </UiFlex>
+      </div>
 
       <UpdateUserModal
         setOpenModal={setIsUpdateUserModalOpen}
