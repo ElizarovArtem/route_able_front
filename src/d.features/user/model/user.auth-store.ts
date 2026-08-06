@@ -84,6 +84,8 @@ export const createAuthSlice: StateCreator<TRootStore, [], [], TAuthStore> = (
 
       getState().setUser(response.data.user);
     } catch {
+      setState({ user: null });
+    } finally {
       setState({ isInitialized: true });
     }
   },

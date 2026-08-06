@@ -1,0 +1,26 @@
+@use '@/a.app/styles/variables';
+
+.shell {
+  width: 100%;
+  max-width: 1480px;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 0 var(--spacing-s) var(--spacing-l);
+  box-sizing: border-box;
+}
+
+.body {
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr);
+  gap: var(--spacing-l);
+}
+
+.content {
+  min-width: 0;
+}
+
+@media (max-width: 1024px) {
+  .body {
+    display: block;
+  }
+}

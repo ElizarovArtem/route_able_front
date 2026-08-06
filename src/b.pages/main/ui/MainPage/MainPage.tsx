@@ -1,9 +1,8 @@
 import { useRouter } from '@tanstack/react-router';
-import React, { useState } from 'react';
+import React from 'react';
 
 import { CoachesList } from '@/c.widgets/user';
 import { authSelector } from '@/d.features/user';
-import { SendCoachCooperationRequestModal } from '@/d.features/user/ui/SendCoachCooperationRequestModal/SendCoachCooperationRequestModal.tsx';
 import { userSelector } from '@/e.entities/user';
 import { useSelector } from '@/f.shared/lib';
 import { useMobile } from '@/f.shared/lib/useMobile.ts';
@@ -19,8 +18,6 @@ import {
 import styles from './MainPage.module.scss';
 
 export const MainPage = () => {
-  const [isCoachRequestModalOpen, setIsCoachRequestModalOpen] = useState(false);
-
   const { setIsAuthModalOpen } = useSelector(authSelector);
   const { user } = useSelector(userSelector);
 
@@ -38,13 +35,11 @@ export const MainPage = () => {
   return (
     <div className={styles.page}>
       <UiFlex direction="column">
-        {user && !user?.isCoachAgreed && (
-          <UiBanner
-            preview={false}
-            src="/i_am_coach_banner.png"
-            onClick={() => setIsCoachRequestModalOpen(true)}
-          />
-        )}
+        <UiBanner
+          preview={false}
+          src="/i_am_coach_banner.png"
+          onClick={() => setIsAuthModalOpen(true)}
+        />
 
         <UiFlex direction={isMobile ? 'column' : 'row'} align="start">
           <UiCard className={styles.aiAssistantBlock}>
@@ -62,12 +57,6 @@ export const MainPage = () => {
           <CoachesList />
         </UiFlex>
       </UiFlex>
-
-      <SendCoachCooperationRequestModal
-        open={isCoachRequestModalOpen}
-        onCancel={() => setIsCoachRequestModalOpen(false)}
-        onClose={() => setIsCoachRequestModalOpen(false)}
-      />
     </div>
   );
 };

@@ -11,7 +11,15 @@ import { UiButton, UiFlex } from '@/f.shared/ui';
 
 import styles from './Header.module.scss';
 
-export const Header = () => {
+type HeaderProps = {
+  showNavigation?: boolean;
+  onSidebarToggle?: () => void;
+};
+
+export const Header = ({
+  showNavigation = true,
+  onSidebarToggle,
+}: HeaderProps) => {
   const { logout, setIsAuthModalOpen } = useSelector(authSelector);
   const { user } = useSelector(userSelector);
   const router = useRouter();
@@ -43,7 +51,7 @@ export const Header = () => {
   };
 
   const onUserNameClick = () => {
-    if (isMobile) {
+    if (isMobile && showNavigation) {
       setIsMenuOpen((prev) => !prev);
     } else {
       router.navigate({ to: '/lk', replace: true });
@@ -58,9 +66,32 @@ export const Header = () => {
   return (
     <div className={styles.header}>
       <UiFlex align="center" gap="m">
+        {!showNavigation && (
+          <UiButton
+            aria-label="Открыть боковое меню"
+            title="Открыть меню"
+            size="middle"
+            styleType="secondary"
+            className={styles.sidebarToggle}
+            onClick={onSidebarToggle}
+            icon={
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden>
+                <path d="M4 7h16M4 12h16M4 17h16" />
+              </svg>
+            }
+          />
+        )}
+
         <Link to="/" className={styles.logoLink}>
           <span className={styles.logoMark} aria-hidden>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
               <path d="M4 17 L9 12 L13 16 L20 7" />
               <circle cx="20" cy="7" r="1.5" fill="currentColor" />
             </svg>
@@ -70,12 +101,14 @@ export const Header = () => {
           </div>
         </Link>
 
-        <Menu
-          onMenuItemClick={onMenuItemClick}
-          nameRef={nameRef}
-          open={isMenuOpen}
-          onClickOutside={() => setIsMenuOpen(false)}
-        />
+        {showNavigation && (
+          <Menu
+            onMenuItemClick={onMenuItemClick}
+            nameRef={nameRef}
+            open={isMenuOpen}
+            onClickOutside={() => setIsMenuOpen(false)}
+          />
+        )}
       </UiFlex>
       <div className={styles.menu}>
         {user ? (

@@ -29,8 +29,8 @@
   display: grid;
   place-items: center;
   border-radius: 8px;
-  background: linear-gradient(135deg, var(--accent-color-1), #1FB394);
-  box-shadow: 0 4px 12px rgba(34, 200, 167, .25);
+  background: linear-gradient(135deg, var(--accent-color-1), #1fb394);
+  box-shadow: 0 4px 12px rgba(34, 200, 167, 0.25);
 }
 
 .logoMark svg {
@@ -56,6 +56,20 @@
   gap: var(--spacing-s);
 }
 
+.sidebarToggle {
+  display: none;
+  width: 38px;
+  padding: 0 !important;
+
+  & svg {
+    width: 20px;
+    height: 20px;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+  }
+}
+
 .userChip {
   display: flex;
   align-items: center;
@@ -65,7 +79,9 @@
   background: var(--surface-2);
   border: 1px solid var(--border-color);
   cursor: pointer;
-  transition: background .15s ease, border-color .15s ease;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
 }
 
 .userChip:hover {
@@ -105,5 +121,11 @@
 @media (max-width: 640px) {
   .userChipName {
     display: none;
+  }
+}
+
+@media (max-width: 1024px) {
+  .sidebarToggle {
+    display: inline-flex;
   }
 }
