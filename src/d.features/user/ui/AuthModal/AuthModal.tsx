@@ -87,8 +87,17 @@ export const AuthModal = () => {
     <UiModal
       open={isAuthModalOpen}
       onCancel={onModalClose}
-      title="Авторизация / Регистрация"
-      centered
+      title={
+        contentType === AuthContentType.code
+          ? 'Подтвердите вход'
+          : 'Войти в Роутайбл'
+      }
+      description={
+        contentType === AuthContentType.code
+          ? 'Введите код, который мы отправили выбранным способом.'
+          : 'Новый аккаунт создастся автоматически — отдельно регистрироваться не нужно.'
+      }
+      size="small"
     >
       {contentType === AuthContentType.code ? (
         <UserAuthCodeForm values={getValues()} onModalClose={onModalClose} />

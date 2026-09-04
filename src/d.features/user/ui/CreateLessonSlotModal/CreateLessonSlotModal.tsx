@@ -8,7 +8,7 @@ import {
   UiDatepicker,
   UiFlex,
   UiModal,
-  UiTypography,
+  UiModalActions,
 } from '@/f.shared/ui';
 
 type CreateLessonSlotProps = {
@@ -26,7 +26,7 @@ export const CreateLessonSlotModal = ({
 
   const queryClient = useQueryClient();
 
-  const { mutate } = useCreateTimeSlot({
+  const { isPending, mutate } = useCreateTimeSlot({
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['coach-slots', selectedDate],
@@ -45,28 +45,48 @@ export const CreateLessonSlotModal = ({
   };
 
   return (
-    <UiModal {...props} title="Создание слота" centered>
-      <UiFlex direction="column">
-        <UiFlex>
+    <UiModal
+      {...props}
+      title="Новый слот в расписании"
+      description="Укажите начало и окончание периода, доступного для бронирования."
+      onCancel={() => setOpen(false)}
+      size="medium"
+    >
+      <UiFlex direction="column" gap="s">
+        <UiFlex gap="s" childrenEqualLength wrap="wrap">
           <UiDatepicker
             defaultValue={startDate}
             placeholder="Начало"
+            label="Начало"
             showTime
             onChange={(date) => setStartDate(date as Date)}
           />
-          <UiTypography> - </UiTypography>
           <UiDatepicker
             defaultValue={endDate}
             minDate={startDate}
             placeholder="Окончание"
+            label="Окончание"
             showTime
             onChange={(date) => setEndDate(date as Date)}
           />
         </UiFlex>
 
-        <UiFlex justify="end">
-          <UiButton onClick={createLessonSlot}>Добавить</UiButton>
-        </UiFlex>
+        <UiModalActions>
+          <UiButton
+            styleType="secondary"
+            onClick={() => setOpen(false)}
+            disabled={isPending}
+          >
+            Отмена
+          </UiButton>
+          <UiButton
+            loading={isPending}
+            disabled={endDate <= startDate}
+            onClick={createLessonSlot}
+          >
+            Добавить слот
+          </UiButton>
+        </UiModalActions>
       </UiFlex>
     </UiModal>
   );

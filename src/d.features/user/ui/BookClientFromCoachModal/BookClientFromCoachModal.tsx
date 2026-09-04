@@ -5,7 +5,14 @@ import React, { useMemo, useState } from 'react';
 
 import { useCoachBookSlot, useDeleteTimeSlot } from '@/d.features/lessons';
 import { Roles, useGetConnections } from '@/e.entities/user';
-import { UiButton, UiFlex, UiModal, UiSelector } from '@/f.shared/ui';
+import {
+  UiButton,
+  UiFlex,
+  UiModal,
+  UiModalActions,
+  UiSelector,
+  UiTypography,
+} from '@/f.shared/ui';
 
 type BookClientFromCoachModalProps = {
   slotId: string | null;
@@ -17,6 +24,7 @@ export const BookClientFromCoachModal = ({
   slotId,
   setOpen,
   selectedDate,
+  onCancel,
   ...props
 }: BookClientFromCoachModalProps) => {
   const [clientId, setClientId] = useState<string | null>(null);
@@ -24,7 +32,7 @@ export const BookClientFromCoachModal = ({
   const queryClient = useQueryClient();
 
   const { data: connections } = useGetConnections();
-  const { mutate: bookClientMutate } = useCoachBookSlot({
+  const { isPending: isBooking, mutate: bookClientMutate } = useCoachBookSlot({
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['coach-video-lesson', selectedDate],
@@ -32,7 +40,7 @@ export const BookClientFromCoachModal = ({
       setOpen(null);
     },
   });
-  const { mutate: deleteMutate } = useDeleteTimeSlot({
+  const { isPending: isDeleting, mutate: deleteMutate } = useDeleteTimeSlot({
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['coach-slots', selectedDate],
@@ -70,23 +78,42 @@ export const BookClientFromCoachModal = ({
   return (
     <UiModal
       {...props}
-      centered
       open={!!slotId}
       title="Забронировать для клиента"
+      description="Назначьте свободное время одному из ваших клиентов или удалите слот из расписания."
+      onCancel={onCancel}
+      size="small"
     >
-      <UiFlex direction="column">
+      <UiFlex direction="column" gap="s">
         <UiSelector
+          label="Клиент"
           options={clientsOptions}
           onChange={setClientId}
           placeholder="Выберите клиента"
         />
-        <UiFlex justify="end">
-          <UiButton onClick={onSlotBook}>Забронировать</UiButton>
-          <UiButton styleType="danger" onClick={onSlotDelete}>
-            Удалить
-          </UiButton>
-        </UiFlex>
+        {!clientsOptions.length && (
+          <UiTypography type="secondary" size="small">
+            В списке пока нет подключённых клиентов.
+          </UiTypography>
+        )}
       </UiFlex>
+      <UiModalActions>
+        <UiButton
+          styleType="danger"
+          loading={isDeleting}
+          disabled={isBooking}
+          onClick={onSlotDelete}
+        >
+          Удалить слот
+        </UiButton>
+        <UiButton
+          loading={isBooking}
+          disabled={!clientId || isDeleting}
+          onClick={onSlotBook}
+        >
+          Забронировать
+        </UiButton>
+      </UiModalActions>
     </UiModal>
   );
 };

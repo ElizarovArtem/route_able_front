@@ -1,15 +1,22 @@
-@use "@/a.app/styles/variables";
+@use '@/a.app/styles/variables';
+
+.datepicker {
+  width: 100%;
+}
 
 [class*='ant-picker-outlined'] {
   border-color: var(--border-color);
 }
 
-[class*='ant-picker-outlined'], [class*='ant-picker-outlined']:focus, [class*='ant-picker-outlined']:hover {
+[class*='ant-picker-outlined'],
+[class*='ant-picker-outlined']:focus,
+[class*='ant-picker-outlined']:hover {
   background-color: var(--border-color);
   color: var(--text-color-1);
 }
 
-[class*='ant-picker-outlined']:hover, [class*='ant-picker-outlined']:focus {
+[class*='ant-picker-outlined']:hover,
+[class*='ant-picker-outlined']:focus {
   border-color: var(--accent-color-1);
 }
 
@@ -21,7 +28,8 @@
   color: var(--text-color-1) !important;
 }
 
-[class*='ant-picker'] span[class*='ant-picker-suffix'], [class*='ant-picker'] span[class*='ant-picker-clear'] {
+[class*='ant-picker'] span[class*='ant-picker-suffix'],
+[class*='ant-picker'] span[class*='ant-picker-clear'] {
   color: var(--text-color-1);
 }
 
@@ -34,7 +42,6 @@
   color: var(--text-color-1);
   border-color: var(--accent-color-1);
 }
-
 
 [class*='ant-picker'][class*='ant-picker-outlined'][class*='ant-picker-status-error'] {
   background-color: var(--border-color);

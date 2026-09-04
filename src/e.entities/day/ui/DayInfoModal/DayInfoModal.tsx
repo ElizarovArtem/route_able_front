@@ -5,7 +5,7 @@ import React from 'react';
 
 import { FatSummary, useGetMealByDay } from '@/e.entities/meal';
 import { MealItem } from '@/e.entities/meal/ui/MealItem/MealItem.tsx';
-import { UiFlex } from '@/f.shared/ui';
+import { UiFlex, UiTypography } from '@/f.shared/ui';
 import { UiModal } from '@/f.shared/ui/UiModal/UiModal.tsx';
 
 type TDayInfoModalProps = {
@@ -22,12 +22,20 @@ export const DayInfoModal = ({ selectedDay, ...props }: TDayInfoModalProps) => {
       title={
         selectedDay ? format(selectedDay, 'd MMMM yyyy', { locale: ru }) : ''
       }
+      description="Итоги питания и все приёмы пищи за выбранный день."
+      size="medium"
     >
       <UiFlex direction="column">
         <FatSummary data={data?.summary} goals={data?.goals} />
 
         <UiFlex direction="column" gap="xs">
-          {data?.meals.map((meal) => <MealItem key={meal.id} meal={meal} />)}
+          {data?.meals.length ? (
+            data.meals.map((meal) => <MealItem key={meal.id} meal={meal} />)
+          ) : (
+            <UiTypography type="secondary">
+              За этот день приёмы пищи ещё не добавлены.
+            </UiTypography>
+          )}
         </UiFlex>
       </UiFlex>
     </UiModal>

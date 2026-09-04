@@ -24,6 +24,7 @@ export { UiFlex } from './UiFlex/UiFlex';
 export { FormInput, UiInput } from './UiInput/UiInput';
 export { UiLoaderContainer } from './UiLoaderContainer/UiLoaderContainer';
 export { UiModal } from './UiModal/UiModal';
+export { UiModalActions } from './UiModalActions/UiModalActions';
 export { FormSelect, UiSelector } from './UiSelector/UiSelector';
 export { UiSectionHeader } from './UiSectionHeader/UiSectionHeader';
 export { UiStatTile } from './UiStatTile/UiStatTile';

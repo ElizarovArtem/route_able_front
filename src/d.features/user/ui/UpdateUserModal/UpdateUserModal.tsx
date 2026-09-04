@@ -23,6 +23,7 @@ import {
   UiButton,
   UiFlex,
   UiModal,
+  UiModalActions,
   UiTypography,
 } from '@/f.shared/ui';
 
@@ -44,7 +45,7 @@ export const UpdateUserModal = ({
 
   const isMobile = useMobile();
 
-  const { mutate } = useUpdateUser({
+  const { isPending, mutate } = useUpdateUser({
     onSuccess: (data: User) => {
       setUser(data);
       setOpenModal(false);
@@ -100,7 +101,13 @@ export const UpdateUserModal = ({
   }, [user]);
 
   return (
-    <UiModal title="Обновить информацию о пользователе" centered {...props}>
+    <UiModal
+      title="Редактирование профиля"
+      description="Контактные данные видны только там, где они нужны для работы сервиса."
+      size="large"
+      onCancel={() => setOpenModal(false)}
+      {...props}
+    >
       <form
         onSubmit={handleSubmit(updateUser, (errors) => {
           console.log(errors);
@@ -115,7 +122,7 @@ export const UpdateUserModal = ({
             customRequest={() => {}}
             beforeUpload={beforeUpload}
           >
-            <UiButton>Загрузить фото</UiButton>
+            <UiButton styleType="secondary">Загрузить фото</UiButton>
           </FormUpload>
         </UiFlex>
 
@@ -193,7 +200,18 @@ export const UpdateUserModal = ({
           />
         </UiFlex>
 
-        <UiButton htmlType="submit">Обновить</UiButton>
+        <UiModalActions>
+          <UiButton
+            styleType="secondary"
+            onClick={() => setOpenModal(false)}
+            disabled={isPending}
+          >
+            Отмена
+          </UiButton>
+          <UiButton htmlType="submit" loading={isPending}>
+            Сохранить изменения
+          </UiButton>
+        </UiModalActions>
       </form>
     </UiModal>
   );

@@ -7,10 +7,14 @@ import React from 'react';
 
 import { withForm } from '@/f.shared/lib';
 
+import { UiFlex } from '../UiFlex/UiFlex';
+import { UiTypography } from '../UiTypography/UiTypography';
+
 import styles from './UiDatepicker.module.scss';
 
 type UiDatepickerProps = {
   error?: string;
+  label?: string;
 } & PickerProps<Date>;
 
 const MyDatePicker = DatePicker.generatePicker<Date>(dateFnsGenerateConfig);
@@ -18,15 +22,20 @@ const MyDatePicker = DatePicker.generatePicker<Date>(dateFnsGenerateConfig);
 export const UiDatepicker = ({
   error,
   className,
+  label,
   ...props
 }: UiDatepickerProps) => {
   return (
     <ConfigProvider locale={ru_RU}>
-      <MyDatePicker
-        {...props}
-        status={error && 'error'}
-        className={classNames(styles.datepicker, className)}
-      />
+      <UiFlex direction="column" gap="xxs">
+        {label && <UiTypography type="label">{label}</UiTypography>}
+        <MyDatePicker
+          {...props}
+          size="large"
+          status={error && 'error'}
+          className={classNames(styles.datepicker, className)}
+        />
+      </UiFlex>
     </ConfigProvider>
   );
 };

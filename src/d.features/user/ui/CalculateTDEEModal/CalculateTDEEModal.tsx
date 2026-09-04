@@ -26,6 +26,7 @@ import {
   UiButton,
   UiFlex,
   UiModal,
+  UiModalActions,
   UiTypography,
   UiUpload,
 } from '@/f.shared/ui';
@@ -54,14 +55,15 @@ export const CalculateTDEEModal = ({
       resolver: userMakeTDEEAnalyzeResolver,
     });
 
-  const { mutate: makeTDEEAnalyzeMutation } = useUpdateUserFatGoals({
-    onSuccess: () => {
-      if (user) {
-        getUser(user.id);
-        onClose();
-      }
-    },
-  });
+  const { isPending: isCalculating, mutate: makeTDEEAnalyzeMutation } =
+    useUpdateUserFatGoals({
+      onSuccess: () => {
+        if (user) {
+          getUser(user.id);
+          onClose();
+        }
+      },
+    });
 
   const { mutate: analyzeBodyFatMutation, isPending } =
     useAnalyzeBodyFatByPhoto({
@@ -100,99 +102,129 @@ export const CalculateTDEEModal = ({
   }, [user]);
 
   return (
-    <UiModal {...props} title="Расчет TDEE">
+    <UiModal
+      {...props}
+      title="Расчёт дневной нормы"
+      description="Уточните параметры — мы рассчитаем расход калорий и персональные цели КБЖУ."
+      size="large"
+      onCancel={onClose}
+    >
       <UiFlex direction="column" gap="s">
-        <UiTypography>
-          TDEE (Total Daily Energy Expenditure) — это общий суточный расход
-          энергии, то есть общее количество калорий, которое ваш организм
-          сжигает за день, включая базовый метаболизм, переваривание пищи и
-          любую физическую активность, от тренировок до повседневных движений, и
-          он нужен, чтобы понимать, сколько калорий потреблять для поддержания,
-          набора или снижения веса.
+        <UiTypography type="secondary" size="small">
+          TDEE — примерное количество энергии, которое организм расходует за
+          сутки с учётом повседневной активности и тренировок.
         </UiTypography>
         <form
           onSubmit={handleSubmit(onFormSubmit, (errors) => {
             console.log(errors);
           })}
         >
-          <UiFlex direction="column">
-            <UiFlex gap="s" childrenEqualLength>
+          <UiFlex direction="column" gap="s">
+            <UiFlex
+              className={styles.fieldsRow}
+              gap="s"
+              childrenEqualLength
+              wrap="wrap"
+            >
               <FormSelect
                 name="gender"
                 control={control}
                 placeholder="Пол"
+                label="Пол"
                 options={GENDER_OPTIONS}
               />
               <FormInput
                 name="height"
                 control={control}
-                placeholder="Рост"
+                placeholder="Например, 178"
+                label="Рост, см"
                 type="number"
               />
               <FormInput
                 name="weight"
                 control={control}
-                placeholder="Вес"
+                placeholder="Например, 72"
+                label="Вес, кг"
                 type="number"
               />
             </UiFlex>
 
-            <UiFlex gap="s" childrenEqualLength>
+            <UiFlex
+              className={styles.fieldsRow}
+              gap="s"
+              childrenEqualLength
+              wrap="wrap"
+            >
               <FormDatepicker
                 name="birthDate"
                 control={control}
                 placeholder="Дата рождения"
+                label="Дата рождения"
               />
               <FormSelect
                 name="activityLevel"
                 control={control}
                 placeholder="Активность"
+                label="Уровень активности"
                 options={ACTIVITY_OPTIONS}
               />
               <FormSelect
                 name="weightGoal"
                 control={control}
                 placeholder="Цель"
+                label="Ваша цель"
                 options={GOAl_OPTIONS}
               />
             </UiFlex>
 
-            <UiFlex align="center">
+            <UiFlex className={styles.fatField} align="end" gap="s" wrap="wrap">
               <FormInput
                 name="bodyFatPercent"
                 control={control}
-                placeholder="Процент жира"
+                placeholder="Например, 18"
+                label="Процент жира"
+                type="number"
               />
-              <UiTypography
-                size="small"
+              <UiButton
+                styleType="secondary"
+                size="middle"
                 className={styles.detectFatByPhotoLabel}
                 onClick={() =>
                   setCalculateFatByPhotoOpen((prevState) => !prevState)
                 }
               >
                 {calculateFatByPhotoOpen
-                  ? 'Скрыть'
-                  : 'Не заню, определить по фото'}
-              </UiTypography>
+                  ? 'Скрыть загрузку фото'
+                  : 'Не знаю — определить по фото'}
+              </UiButton>
             </UiFlex>
             {calculateFatByPhotoOpen && (
-              <UiFlex direction="column">
-                <UiTypography>
-                  <UiTypography>
-                    <b>Внимание:</b> эта оценка по фото может быть неточной
-                    (погрешность до ±6%). Используйте её только как ориентир.
-                    Для точного % жира рекомендуем: DEXA-скан, BIA-анализ (в
-                    спортзале/клинике), Skinfold-калипер
-                  </UiTypography>
+              <UiFlex className={styles.photoPanel} direction="column" gap="s">
+                <UiTypography type="secondary" size="small">
+                  Оценка по фото ориентировочная, возможна погрешность до ±6%.
+                  Для точного результата используйте DEXA, BIA или калипер.
                 </UiTypography>
                 <UiUpload onChange={onPhotoUploadSuccess}>
-                  {isPending ? <Spin /> : <UiButton>Загрузить фото</UiButton>}
+                  {isPending ? (
+                    <Spin />
+                  ) : (
+                    <UiButton styleType="secondary">Загрузить фото</UiButton>
+                  )}
                 </UiUpload>
               </UiFlex>
             )}
-            <UiFlex justify="end">
-              <UiButton htmlType="submit">Расчитать</UiButton>
-            </UiFlex>
+            <UiModalActions>
+              <UiButton
+                styleType="secondary"
+                onClick={onClose}
+                disabled={isCalculating}
+              >
+                Отмена
+              </UiButton>
+              <UiButton htmlType="submit" loading={isCalculating}>
+                Рассчитать
+              </UiButton>
+            </UiModalActions>
           </UiFlex>
         </form>
       </UiFlex>

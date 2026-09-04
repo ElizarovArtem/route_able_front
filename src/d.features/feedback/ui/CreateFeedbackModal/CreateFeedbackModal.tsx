@@ -17,6 +17,8 @@ import {
   UiButton,
   UiFlex,
   UiModal,
+  UiModalActions,
+  UiTypography,
 } from '@/f.shared/ui';
 
 export const feedbackTypeOptions = [
@@ -33,12 +35,13 @@ export const CreateFeedbackModal = ({ ...props }: FeedbackModalProps) => {
   const { isFeedbackModalOpen, setIsFeedbackModalOpen } =
     useSelector(feedbackSelector);
 
-  const { control, handleSubmit } = useForm<TCreateFeedbackFormData>({
+  const { control, handleSubmit, reset } = useForm<TCreateFeedbackFormData>({
     resolver: createFeedbackFormResolver,
   });
 
-  const { mutate: createFeedbackMutation } = useCreateFeedback({
+  const { isPending, mutate: createFeedbackMutation } = useCreateFeedback({
     onSuccess: () => {
+      reset();
       setIsFeedbackModalOpen(false);
     },
   });
@@ -52,32 +55,52 @@ export const CreateFeedbackModal = ({ ...props }: FeedbackModalProps) => {
   return (
     <UiModal
       title="Оставить отзыв или пожелание"
+      description="Расскажите, что понравилось или что можно улучшить. Мы читаем каждое сообщение."
       open={isFeedbackModalOpen}
       onCancel={() => setIsFeedbackModalOpen(false)}
+      size="medium"
       {...props}
     >
       <UiFlex direction="column" gap="s">
-        <UiFlex childrenEqualLength gap="s" align="end">
-          <FormInput label="Имя" name="name" control={control} />
-          <FormInput label="Контакт" name="contact" control={control} />
-          <FormSelect
-            label="Тип отзыва"
-            name="type"
-            options={feedbackTypeOptions}
-            control={control}
-          />
-        </UiFlex>
+        <FormSelect
+          label="Тема сообщения"
+          name="type"
+          options={feedbackTypeOptions}
+          control={control}
+        />
         <FormTextarea
           disableResize
-          label="Отзыв"
+          label="Сообщение"
           name="message"
           control={control}
-          rows={4}
+          rows={5}
+          placeholder="Опишите вашу идею или проблему подробнее"
         />
-        <UiFlex justify="end">
-          <UiButton onClick={onCreateFeedbackClick}>Отправить</UiButton>
+        <UiFlex childrenEqualLength gap="s" align="end" wrap="wrap">
+          <FormInput label="Имя" name="name" control={control} />
+          <FormInput
+            label="Контакт для ответа"
+            name="contact"
+            control={control}
+            placeholder="Email или Telegram"
+          />
         </UiFlex>
+        <UiTypography size="small" type="secondary">
+          Контакт нужен только в том случае, если потребуется уточнить детали.
+        </UiTypography>
       </UiFlex>
+      <UiModalActions>
+        <UiButton
+          styleType="secondary"
+          onClick={() => setIsFeedbackModalOpen(false)}
+          disabled={isPending}
+        >
+          Отмена
+        </UiButton>
+        <UiButton loading={isPending} onClick={onCreateFeedbackClick}>
+          Отправить
+        </UiButton>
+      </UiModalActions>
     </UiModal>
   );
 };
