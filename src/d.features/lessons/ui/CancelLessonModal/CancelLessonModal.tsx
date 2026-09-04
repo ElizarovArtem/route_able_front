@@ -2,7 +2,7 @@ import type { ModalProps } from 'antd';
 import React from 'react';
 
 import { useCancelLesson } from '@/d.features/lessons/api';
-import { UiButton, UiFlex, UiModal } from '@/f.shared/ui';
+import { UiButton, UiModal, UiModalActions, UiTypography } from '@/f.shared/ui';
 
 type CancelLessonModalProps = {
   sessionId: string | null;
@@ -12,9 +12,10 @@ type CancelLessonModalProps = {
 export const CancelLessonModal = ({
   sessionId,
   onSuccess,
+  onCancel,
   ...props
 }: CancelLessonModalProps) => {
-  const { mutate } = useCancelLesson({
+  const { isPending, mutate } = useCancelLesson({
     onSuccess,
   });
 
@@ -27,13 +28,29 @@ export const CancelLessonModal = ({
   return (
     <UiModal
       open={!!sessionId}
-      centered
       title="Отменить это занятие?"
+      description="Бронирование будет отменено. Если занятие уже оплачено, условия возврата зависят от правил тренера."
+      onCancel={onCancel}
+      size="small"
+      tone="danger"
       {...props}
     >
-      <UiFlex justify="center">
-        <UiButton onClick={onCancelLessonClick}>Отменить</UiButton>
-      </UiFlex>
+      <UiTypography type="secondary">
+        Это действие нельзя отменить. При необходимости вы сможете выбрать
+        другой свободный слот.
+      </UiTypography>
+      <UiModalActions>
+        <UiButton styleType="secondary" onClick={onCancel} disabled={isPending}>
+          Оставить занятие
+        </UiButton>
+        <UiButton
+          styleType="danger"
+          loading={isPending}
+          onClick={onCancelLessonClick}
+        >
+          Отменить занятие
+        </UiButton>
+      </UiModalActions>
     </UiModal>
   );
 };

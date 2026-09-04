@@ -1,15 +1,13 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { createRootRoute, Outlet } from '@tanstack/react-router';
+import { createRootRoute } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
 import React from 'react';
 
-import { Header } from '@/a.app/layout/Header';
+import { RootLayout } from '@/a.app/layout/RootLayout';
 import { CreateFeedbackModal } from '@/d.features/feedback/ui/CreateFeedbackModal/CreateFeedbackModal.tsx';
 import { AuthModal, CheckAuth, CheckMySubscription } from '@/d.features/user';
 import { UiTypography } from '@/f.shared/ui';
-
-import { Layout } from '../layout/Layout';
 
 const queryClient = new QueryClient();
 
@@ -25,10 +23,7 @@ export const Route = createRootRoute({
             </UiTypography>
           </div>
         ) : (
-          <Layout>
-            <Header />
-            <Outlet />
-          </Layout>
+          <RootLayout />
         )}
 
         <CheckAuth />

@@ -10,6 +10,7 @@ import {
   UiButton,
   UiFlex,
   UiModal,
+  UiModalActions,
 } from '@/f.shared/ui';
 
 type CreateCoachOfferModalProps = {
@@ -22,7 +23,7 @@ export const CreateCoachOfferModal = ({
   onClose,
   ...props
 }: CreateCoachOfferModalProps) => {
-  const { mutate: createOfferMutation } = useCreateCoachOffer({
+  const { isPending, mutate: createOfferMutation } = useCreateCoachOffer({
     onSuccess: () => {
       refetchOffers();
       onClose();
@@ -43,9 +44,15 @@ export const CreateCoachOfferModal = ({
   };
 
   return (
-    <UiModal title="Добавить услугу" {...props}>
+    <UiModal
+      title="Новая услуга"
+      description="Опишите предложение так, чтобы клиент сразу понимал формат, объём и стоимость."
+      onCancel={onClose}
+      size="medium"
+      {...props}
+    >
       <UiFlex direction="column" gap="s">
-        <UiFlex childrenEqualLength>
+        <UiFlex childrenEqualLength wrap="wrap">
           <FormInput name="title" control={control} label="Название" />
           <FormInput
             name="sessionCount"
@@ -55,13 +62,22 @@ export const CreateCoachOfferModal = ({
           />
         </UiFlex>
         <FormTextarea name="description" control={control} label="Описание" />
-        <UiFlex childrenEqualLength>
+        <UiFlex childrenEqualLength wrap="wrap">
           <FormInput name="price" control={control} label="Цена" />
           <FormInput name="currency" control={control} label="Валюта" />
         </UiFlex>
-        <UiFlex justify="center">
-          <UiButton onClick={onCreateOffer}>Добавить</UiButton>
-        </UiFlex>
+        <UiModalActions>
+          <UiButton
+            styleType="secondary"
+            onClick={onClose}
+            disabled={isPending}
+          >
+            Отмена
+          </UiButton>
+          <UiButton loading={isPending} onClick={onCreateOffer}>
+            Добавить услугу
+          </UiButton>
+        </UiModalActions>
       </UiFlex>
     </UiModal>
   );

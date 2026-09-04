@@ -13,7 +13,7 @@ import {
   UiButton,
   UiFlex,
   UiModal,
-  UiTypography,
+  UiModalActions,
 } from '@/f.shared/ui';
 
 type UpdateUserFatGoalsProps = {
@@ -24,13 +24,14 @@ type UpdateUserFatGoalsProps = {
 export const UpdateUserFatGoals = ({
   onSuccess,
   goals,
+  onCancel,
   ...props
 }: UpdateUserFatGoalsProps) => {
   const { control, handleSubmit, reset } = useForm<UpdateUserFatGoalsFormData>({
     resolver: updateUserFatGoalsFormResolver,
   });
 
-  const { mutate } = useUpdateUserFatGoals({ onSuccess });
+  const { isPending, mutate } = useUpdateUserFatGoals({ onSuccess });
 
   const onFatGoalsSubmit = () => {
     handleSubmit((data) => {
@@ -43,29 +44,32 @@ export const UpdateUserFatGoals = ({
   }, [goals]);
 
   return (
-    <UiModal title="Обновить цели КБЖУ" centered {...props}>
-      <UiFlex direction="column">
-        <UiFlex>
-          <UiFlex direction="column" gap="xs" align="center">
-            <UiTypography type="label">Кал</UiTypography>
-            <FormInput name="calories" control={control} />
-          </UiFlex>
-          <UiFlex direction="column" gap="xs" align="center">
-            <UiTypography type="label">Белки</UiTypography>
-            <FormInput name="protein" control={control} />
-          </UiFlex>
-          <UiFlex direction="column" gap="xs" align="center">
-            <UiTypography type="label">Жиры</UiTypography>
-            <FormInput name="fat" control={control} />
-          </UiFlex>
-          <UiFlex direction="column" gap="xs" align="center">
-            <UiTypography type="label">Углеводы</UiTypography>
-            <FormInput name="carbs" control={control} />
-          </UiFlex>
+    <UiModal
+      title="Цели КБЖУ"
+      description="Задайте дневные ориентиры для отслеживания рациона."
+      size="medium"
+      onCancel={onCancel}
+      {...props}
+    >
+      <UiFlex direction="column" gap="s">
+        <UiFlex gap="s" childrenEqualLength wrap="wrap">
+          <FormInput label="Калории, ккал" name="calories" control={control} />
+          <FormInput label="Белки, г" name="protein" control={control} />
+          <FormInput label="Жиры, г" name="fat" control={control} />
+          <FormInput label="Углеводы, г" name="carbs" control={control} />
         </UiFlex>
-        <UiFlex direction="column" justify="end">
-          <UiButton onClick={onFatGoalsSubmit}>Обновить</UiButton>
-        </UiFlex>
+        <UiModalActions>
+          <UiButton
+            styleType="secondary"
+            onClick={onCancel}
+            disabled={isPending}
+          >
+            Отмена
+          </UiButton>
+          <UiButton loading={isPending} onClick={onFatGoalsSubmit}>
+            Сохранить цели
+          </UiButton>
+        </UiModalActions>
       </UiFlex>
     </UiModal>
   );

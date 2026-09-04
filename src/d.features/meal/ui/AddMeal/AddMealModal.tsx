@@ -54,7 +54,7 @@ export const AddMealModal = ({
     resolver: mealFormResolver,
   });
 
-  const { mutate: createMealMutation } = useAddMeal({
+  const { isPending, mutate: createMealMutation } = useAddMeal({
     onSuccess: () => {
       console.log('meals created successfully.');
       refetch();
@@ -137,9 +137,10 @@ export const AddMealModal = ({
     <UiModal
       {...props}
       destroyOnHidden
-      centered
-      title="Добавить прием пищи"
+      title="Добавить приём пищи"
+      description="Введите данные вручную или распознайте блюдо по описанию, фото либо штрихкоду."
       onCancel={onModalClose}
+      size="large"
     >
       <UiTabs
         activeKey={currentTab}
@@ -165,10 +166,14 @@ export const AddMealModal = ({
             )}
           </UiCard>
           <div className={styles.buttonsWrapper}>
-            <UiButton onClick={correctAiSuggestion}>Скоррекировать</UiButton>
-            <UiButton onClick={aiSuggestionAgree}>Сохранить</UiButton>
+            <UiButton styleType="secondary" onClick={correctAiSuggestion}>
+              Скорректировать
+            </UiButton>
+            <UiButton loading={isPending} onClick={aiSuggestionAgree}>
+              Сохранить
+            </UiButton>
             <UiButton styleType="secondary" onClick={aiSuggestionCancel}>
-              Отменить
+              Сбросить
             </UiButton>
           </div>
         </UiFlex>

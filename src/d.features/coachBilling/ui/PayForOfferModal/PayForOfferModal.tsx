@@ -6,7 +6,14 @@ import { useMakePayment } from '@/d.features/coachBilling/api/queries/useMakePay
 import { useGetOrderStatus } from '@/e.entities/coachBilling/api/queries/useGetOrderStatus.ts';
 import { CoachOrderStatus } from '@/e.entities/coachBilling/model/coachBilling.constants.ts';
 import type { CoachOffer } from '@/e.entities/coachBilling/model/coachBilling.model.ts';
-import { UiButton, UiFlex, UiModal, UiTypography } from '@/f.shared/ui';
+import {
+  UiButton,
+  UiCard,
+  UiFlex,
+  UiModal,
+  UiModalActions,
+  UiTypography,
+} from '@/f.shared/ui';
 
 import styles from './PayForOfferModal.module.scss';
 
@@ -35,24 +42,26 @@ export const PayForOfferModal = ({
     null,
   );
 
-  const { mutate: createOderMutation } = useCreateOrder({
-    onSuccess: (data) => {
-      if (data.orderId) {
-        setSOrderId(data.orderId);
-        setPaymentType(PAYMENT_TYPE.makePayment);
-      }
-    },
-  });
+  const { isPending: isCreatingOrder, mutate: createOderMutation } =
+    useCreateOrder({
+      onSuccess: (data) => {
+        if (data.orderId) {
+          setSOrderId(data.orderId);
+          setPaymentType(PAYMENT_TYPE.makePayment);
+        }
+      },
+    });
 
-  const { mutate: makePaymentMutation } = useMakePayment({
-    onSuccess: (data) => {
-      if (data.paymentUrl) {
-        window.open(data.paymentUrl, '_blank');
-        setPaymentType(PAYMENT_TYPE.waitForSuccess);
-        setSOrderIdForPooling(orderId as string);
-      }
-    },
-  });
+  const { isPending: isCreatingPayment, mutate: makePaymentMutation } =
+    useMakePayment({
+      onSuccess: (data) => {
+        if (data.paymentUrl) {
+          window.open(data.paymentUrl, '_blank');
+          setPaymentType(PAYMENT_TYPE.waitForSuccess);
+          setSOrderIdForPooling(orderId as string);
+        }
+      },
+    });
 
   const { data } = useGetOrderStatus(orderIdForPooling);
 
@@ -75,6 +84,8 @@ export const PayForOfferModal = ({
   const onOkClick = () => {
     onClose();
     setPaymentType(PAYMENT_TYPE.makeOrder);
+    setSOrderId(null);
+    setSOrderIdForPooling(null);
   };
 
   useEffect(() => {
@@ -85,38 +96,94 @@ export const PayForOfferModal = ({
   }, [data]);
 
   return (
-    <UiModal title="Оплата услуги" {...props}>
+    <UiModal
+      title="Оплата услуги"
+      description="Проверьте состав заказа перед переходом на страницу оплаты."
+      size="medium"
+      onCancel={onOkClick}
+      {...props}
+    >
       <div className={styles.contentWrapper}>
         {paymentType === PAYMENT_TYPE.makeOrder && (
           <UiFlex direction="column" gap="m">
-            <UiFlex gap="s">
-              <UiTypography label="Название">{offer?.title}</UiTypography>
-              <UiTypography label="Цена">{offer?.price}₽</UiTypography>
-              <UiTypography label="Количество занятий">
-                {offer?.sessionCount}
-              </UiTypography>
-            </UiFlex>
-            <UiButton onClick={onOrderCreate}>Создать заказ</UiButton>
+            <UiCard tone="elevated">
+              <UiFlex direction="column" gap="s">
+                <UiFlex justify="space-between" align="center" gap="s">
+                  <UiTypography bold>{offer?.title}</UiTypography>
+                  <UiTypography bold size="large">
+                    {offer?.price} ₽
+                  </UiTypography>
+                </UiFlex>
+                <UiTypography type="secondary" size="small">
+                  {offer?.description}
+                </UiTypography>
+                <UiTypography label="Количество занятий">
+                  {offer?.sessionCount}
+                </UiTypography>
+              </UiFlex>
+            </UiCard>
+            <UiModalActions>
+              <UiButton styleType="secondary" onClick={onOkClick}>
+                Отмена
+              </UiButton>
+              <UiButton loading={isCreatingOrder} onClick={onOrderCreate}>
+                Продолжить
+              </UiButton>
+            </UiModalActions>
           </UiFlex>
         )}
 
         {paymentType === PAYMENT_TYPE.makePayment && (
-          <UiFlex gap="xs" direction="column">
-            <UiTypography>Заказ создан</UiTypography>
-            <UiButton onClick={onMakePayment}>Оплатить</UiButton>
+          <UiFlex
+            className={styles.status}
+            gap="s"
+            direction="column"
+            align="center"
+          >
+            <UiTypography bold size="large">
+              Заказ создан
+            </UiTypography>
+            <UiTypography type="secondary">
+              Нажмите «Оплатить», чтобы перейти на защищённую страницу оплаты.
+            </UiTypography>
+            <UiButton loading={isCreatingPayment} onClick={onMakePayment}>
+              Оплатить
+            </UiButton>
           </UiFlex>
         )}
 
         {paymentType === PAYMENT_TYPE.waitForSuccess && (
-          <UiFlex justify="center" align="center">
+          <UiFlex
+            className={styles.status}
+            justify="center"
+            align="center"
+            direction="column"
+            gap="s"
+          >
             <Spin />
+            <UiTypography bold>Ожидаем подтверждение оплаты</UiTypography>
+            <UiTypography type="secondary" size="small">
+              Завершите оплату в открывшейся вкладке.
+            </UiTypography>
           </UiFlex>
         )}
 
         {paymentType === PAYMENT_TYPE.success && (
-          <UiFlex justify="center" align="center" direction="column">
-            <UiTypography>Оплата прошла успешно</UiTypography>
-            <UiButton onClick={onOkClick}>Ок</UiButton>
+          <UiFlex
+            className={styles.status}
+            justify="center"
+            align="center"
+            direction="column"
+            gap="s"
+          >
+            <div className={styles.successIcon}>✓</div>
+            <UiTypography bold size="large">
+              Оплата прошла успешно
+            </UiTypography>
+            <UiTypography type="secondary">
+              Услуга добавлена, можно переходить к занятиям.
+            </UiTypography>
+            <UiButton onClick={onOkClick}>Готово</UiButton>
           </UiFlex>
         )}
       </div>

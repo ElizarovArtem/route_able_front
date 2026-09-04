@@ -7,7 +7,7 @@ type UiTypographyProps = {
   children: ReactNode;
   className?: string;
   bold?: boolean;
-  type?: 'ordinary' | 'label';
+  type?: 'ordinary' | 'label' | 'secondary';
   size?: 'small' | 'medium' | 'large' | 'xl' | number;
   label?: string;
 } & React.HTMLAttributes<HTMLDivElement>;

@@ -1,0 +1,19 @@
+.actions {
+  margin-top: var(--spacing-m);
+  padding-top: var(--spacing-s);
+  border-top: 1px solid var(--border-color);
+}
+
+.actions > button {
+  min-width: 132px;
+}
+
+@media (max-width: 480px) {
+  .actions {
+    flex-direction: column-reverse;
+  }
+
+  .actions > button {
+    width: 100%;
+  }
+}

@@ -1,12 +1,30 @@
 .detectFatByPhotoLabel {
-  cursor: pointer;
-
-  &:hover {
-    color: var(--accent-color-1);
-  }
+  flex: 0 0 auto;
 }
 
-.icon {
-  border: 1px solid var(--accent-color);
-  border-radius: 50%;
+.fieldsRow > * {
+  min-width: 180px;
+}
+
+.fatField > :first-child {
+  min-width: 220px;
+  flex: 1;
+}
+
+.photoPanel {
+  padding: var(--spacing-s);
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-soft-border);
+  border-radius: var(--border-radius-s);
+}
+
+@media (max-width: 640px) {
+  .fieldsRow {
+    flex-direction: column;
+  }
+
+  .fieldsRow > *,
+  .fatField > * {
+    width: 100%;
+  }
 }
