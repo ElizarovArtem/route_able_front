@@ -1,4 +1,3 @@
-import type { DefaultOptionType } from 'rc-select/lib/Select';
 import React from 'react';
 import type { Control } from 'react-hook-form';
 

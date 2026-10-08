@@ -1,6 +1,6 @@
 import {
-  RepPhase,
   type ProviderTip,
+  RepPhase,
   type TipProvider,
 } from '../../aiAssistant.tips.shared.types.ts';
 import { SQUAT_TORSO_LEAN_WARN_DEG } from '../aiAssistant.tips.squat.constants.ts';

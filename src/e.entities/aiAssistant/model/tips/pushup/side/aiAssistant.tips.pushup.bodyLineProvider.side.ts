@@ -1,6 +1,6 @@
 import {
-  RepPhase,
   type ProviderTip,
+  RepPhase,
 } from '../../aiAssistant.tips.shared.types.ts';
 import { PUSHUP_BODY_LINE_MIN_DEG } from '../aiAssistant.tips.pushup.constants.ts';
 import type {

@@ -1,6 +1,6 @@
 import {
-  RepPhase,
   type ProviderTip,
+  RepPhase,
   type TipProvider,
 } from '../../aiAssistant.tips.shared.types.ts';
 import { SQUAT_KNEE_VALGUS_WARN_RATIO } from '../aiAssistant.tips.squat.constants.ts';

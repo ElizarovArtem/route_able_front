@@ -1,6 +1,6 @@
 import {
-  RepPhase,
   type ProviderTip,
+  RepPhase,
 } from '../../aiAssistant.tips.shared.types.ts';
 import {
   PUSHUP_ELBOW_ASYMMETRY_RATIO,
