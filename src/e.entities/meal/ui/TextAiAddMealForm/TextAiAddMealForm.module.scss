@@ -1,6 +1,6 @@
 @use '@/a.app/styles/variables';
 
-.aiForm, {
+.aiForm {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-m);

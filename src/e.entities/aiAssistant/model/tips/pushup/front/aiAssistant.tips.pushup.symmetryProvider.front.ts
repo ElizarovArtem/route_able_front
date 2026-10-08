@@ -1,15 +1,24 @@
-import { RepPhase, type ProviderTip } from '../../aiAssistant.tips.shared.types.ts';
+import {
+  RepPhase,
+  type ProviderTip,
+} from '../../aiAssistant.tips.shared.types.ts';
 import {
   PUSHUP_ELBOW_ASYMMETRY_RATIO,
   PUSHUP_SHOULDER_TILT_RATIO,
 } from '../aiAssistant.tips.pushup.constants.ts';
-import type { PushupTipContext, PushupTipProvider } from '../aiAssistant.tips.pushup.types.ts';
+import type {
+  PushupTipContext,
+  PushupTipProvider,
+} from '../aiAssistant.tips.pushup.types.ts';
 
 export const pushupSymmetryFrontProvider: PushupTipProvider = (
   context: PushupTipContext,
 ): ProviderTip[] => {
   if (context.view !== 'front') return [];
-  if (context.phase !== RepPhase.Bottom && context.phase !== RepPhase.Ascending) {
+  if (
+    context.phase !== RepPhase.Bottom &&
+    context.phase !== RepPhase.Ascending
+  ) {
     return [];
   }
   if (context.metrics.view !== 'front') return [];

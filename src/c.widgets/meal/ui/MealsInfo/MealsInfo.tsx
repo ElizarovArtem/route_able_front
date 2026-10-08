@@ -38,7 +38,11 @@ export const MealsInfo = () => {
       <UiSectionHeader
         icon={<AppleIcon size={18} />}
         title="Питание"
-        subtitle={calorieGoal ? `${calories} из ${calorieGoal} ккал` : `${calories} ккал сегодня`}
+        subtitle={
+          calorieGoal
+            ? `${calories} из ${calorieGoal} ккал`
+            : `${calories} ккал сегодня`
+        }
         action={
           <UiFlex gap="xs" align="center">
             <UiButton
@@ -66,7 +70,9 @@ export const MealsInfo = () => {
           {data?.meals?.length ? (
             data.meals.map((meal) => <MealItem key={meal.id} meal={meal} />)
           ) : (
-            <UiTypography type="label">Приёмов пищи пока нет — добавь первый.</UiTypography>
+            <UiTypography type="label">
+              Приёмов пищи пока нет — добавь первый.
+            </UiTypography>
           )}
         </UiFlex>
       </div>

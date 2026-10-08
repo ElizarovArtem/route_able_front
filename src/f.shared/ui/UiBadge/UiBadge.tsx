@@ -19,7 +19,9 @@ export const UiBadge = ({
   className,
 }: UiBadgeProps) => {
   return (
-    <span className={classNames(styles.badge, styles[`tone-${tone}`], className)}>
+    <span
+      className={classNames(styles.badge, styles[`tone-${tone}`], className)}
+    >
       {icon && <span className={styles.icon}>{icon}</span>}
       {children}
     </span>

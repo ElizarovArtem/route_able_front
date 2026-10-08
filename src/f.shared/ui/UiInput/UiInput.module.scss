@@ -1,15 +1,18 @@
-@use "@/a.app/styles/variables";
+@use '@/a.app/styles/variables';
 
 [class*='ant-input-outlined'] {
   border-color: var(--border-color);
 }
 
-[class*='ant-input-outlined'], [class*='ant-input-outlined']:focus, [class*='ant-input-outlined']:hover {
+[class*='ant-input-outlined'],
+[class*='ant-input-outlined']:focus,
+[class*='ant-input-outlined']:hover {
   background-color: var(--border-color);
   color: var(--text-color-1);
 }
 
-[class*='ant-input-outlined']:hover, [class*='ant-input-outlined']:focus {
+[class*='ant-input-outlined']:hover,
+[class*='ant-input-outlined']:focus {
   border-color: var(--accent-color-1);
 }
 

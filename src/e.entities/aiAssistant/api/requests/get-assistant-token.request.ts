@@ -17,4 +17,3 @@ export const getAssistantToken = async (roomId: string) => {
 
   return data;
 };
-

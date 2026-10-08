@@ -8,7 +8,9 @@
   border-radius: var(--border-radius-s);
   background: var(--surface-2);
   border: 1px solid var(--border-color);
-  transition: border-color .15s ease, background .15s ease;
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease;
 
   &:hover {
     border-color: var(--border-color-strong);

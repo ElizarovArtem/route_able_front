@@ -4,7 +4,14 @@ import { CalculateTDEEModal } from '@/d.features/user/ui/CalculateTDEEModal/Calc
 import { UpdateUserModal } from '@/d.features/user/ui/UpdateUserModal/UpdateUserModal.tsx';
 import { userSelector } from '@/e.entities/user';
 import { useSelector } from '@/f.shared/lib';
-import { PencilIcon, TargetIcon, UiBadge, UiButton, UiCard, UiFlex } from '@/f.shared/ui';
+import {
+  PencilIcon,
+  TargetIcon,
+  UiBadge,
+  UiButton,
+  UiCard,
+  UiFlex,
+} from '@/f.shared/ui';
 import { UiAvatar } from '@/f.shared/ui/UiAvatar/UiAvatar.tsx';
 
 import styles from './UserInfo.module.scss';

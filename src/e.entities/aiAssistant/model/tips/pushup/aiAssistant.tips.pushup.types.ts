@@ -34,7 +34,9 @@ export type PushupFrameMetricsFront = {
   averageScore: number | null;
 };
 
-export type PushupFrameMetrics = PushupFrameMetricsSide | PushupFrameMetricsFront;
+export type PushupFrameMetrics =
+  | PushupFrameMetricsSide
+  | PushupFrameMetricsFront;
 
 export type PushupTipContext = BaseTipContext<PushupFrameMetrics>;
 

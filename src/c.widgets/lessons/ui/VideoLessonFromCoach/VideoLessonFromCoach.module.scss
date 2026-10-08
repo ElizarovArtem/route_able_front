@@ -50,7 +50,9 @@
   flex: 1;
   min-height: 320px;
 
-  & [class*='lk-button'], & [class*='lk-disconnect-button'], & [class*='lk-participant-metadata'] {
+  & [class*='lk-button'],
+  & [class*='lk-disconnect-button'],
+  & [class*='lk-participant-metadata'] {
     color: var(--text-color-1);
   }
 

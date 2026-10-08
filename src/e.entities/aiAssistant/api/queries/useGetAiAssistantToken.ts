@@ -14,4 +14,3 @@ export const useGetAiAssistantToken = (roomId?: string) => {
     staleTime: 0,
   });
 };
-

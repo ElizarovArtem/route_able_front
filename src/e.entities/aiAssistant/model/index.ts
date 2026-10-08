@@ -13,8 +13,15 @@ export {
 export { usePoseDetectorController } from './aiAssistant.usePoseDetection';
 export { speakText } from './aiAssistant.voice-helpers';
 export { getTracker, type TrackerController } from './tips/aiAssistant.tips';
-export { RepPhase, type Tip, type TrackerUpdateResult } from './tips/aiAssistant.tips.shared.types';
-export { pushupDepthProvider, pushupFrontDepthProvider } from './tips/pushup/aiAssistant.tips.pushup.depthProvider';
+export {
+  RepPhase,
+  type Tip,
+  type TrackerUpdateResult,
+} from './tips/aiAssistant.tips.shared.types';
+export {
+  pushupDepthProvider,
+  pushupFrontDepthProvider,
+} from './tips/pushup/aiAssistant.tips.pushup.depthProvider';
 export { pushupCameraQualityProvider } from './tips/pushup/aiAssistant.tips.pushup.qualityProvider';
 export { pushupTempoProvider } from './tips/pushup/aiAssistant.tips.pushup.tempoProvider';
 export { PushupRepTracker } from './tips/pushup/aiAssistant.tips.pushup.tracker';

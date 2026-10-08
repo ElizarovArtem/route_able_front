@@ -1,16 +1,24 @@
-import { RepPhase, type ProviderTip } from '../aiAssistant.tips.shared.types.ts';
+import {
+  RepPhase,
+  type ProviderTip,
+} from '../aiAssistant.tips.shared.types.ts';
 import {
   PUSHUP_DEPTH_SOFT_ELBOW_DEG,
   PUSHUP_DEPTH_SOFT_FRONT_RATIO,
   PUSHUP_DEPTH_TARGET_ELBOW_DEG,
   PUSHUP_DEPTH_TARGET_FRONT_RATIO,
 } from './aiAssistant.tips.pushup.constants.ts';
-import type { PushupTipContext, PushupTipProvider } from './aiAssistant.tips.pushup.types.ts';
+import type {
+  PushupTipContext,
+  PushupTipProvider,
+} from './aiAssistant.tips.pushup.types.ts';
 
 export const pushupDepthProvider: PushupTipProvider = (
   context: PushupTipContext,
 ): ProviderTip[] => {
-  if (!(context.phase === RepPhase.Ascending && context.isFirstFrameInAscending)) {
+  if (
+    !(context.phase === RepPhase.Ascending && context.isFirstFrameInAscending)
+  ) {
     return [];
   }
 

@@ -1,9 +1,15 @@
-import { RepPhase, type ProviderTip } from '../aiAssistant.tips.shared.types.ts';
+import {
+  RepPhase,
+  type ProviderTip,
+} from '../aiAssistant.tips.shared.types.ts';
 import {
   PUSHUP_FAST_VELOCITY_ANGLE,
   PUSHUP_FAST_VELOCITY_DEPTH,
 } from './aiAssistant.tips.pushup.constants.ts';
-import type { PushupTipContext, PushupTipProvider } from './aiAssistant.tips.pushup.types.ts';
+import type {
+  PushupTipContext,
+  PushupTipProvider,
+} from './aiAssistant.tips.pushup.types.ts';
 
 export const pushupTempoProvider: PushupTipProvider = (
   context: PushupTipContext,

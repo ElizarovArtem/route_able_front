@@ -64,4 +64,3 @@ export type FeatureUsageItem = {
   createdAt: string;
   updatedAt: string;
 };
-

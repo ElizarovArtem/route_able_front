@@ -19,7 +19,13 @@ export enum RepPhase {
 
 export type TrackerUpdateResult =
   | { phase: RepPhase; tips: Tip[]; event: 'none' | 'phase-change' }
-  | { phase: RepPhase; tips: Tip[]; event: 'praise'; praise: string; rep: number };
+  | {
+      phase: RepPhase;
+      tips: Tip[];
+      event: 'praise';
+      praise: string;
+      rep: number;
+    };
 
 export type BaseTipContext<TMetrics> = {
   keypoints: Keypoint[];
