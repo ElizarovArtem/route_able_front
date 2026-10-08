@@ -65,9 +65,3 @@ export type FeatureUsageItem = {
   updatedAt: string;
 };
 
-export type GetMySubscriptionResponse = {
-  subscription: MyUserSubscription | null;
-  plan: MySubscriptionPlan | null;
-  features: SubscriptionFeatures;
-  usage: FeatureUsageItem[];
-};
