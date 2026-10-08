@@ -27,7 +27,7 @@ export type MySubscriptionPlan = {
   code: SubscriptionPlanCode;
   name: string;
   description: string | null;
-  price: string;
+  price: number;
   currency: string;
   period: SubscriptionPeriod;
   features: SubscriptionFeatures;
