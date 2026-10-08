@@ -1,4 +1,4 @@
-import type { TCreateFeedbackFormData } from '@/e.entities/feedback/model/resolvers/feedback.create-feedback-resolver.ts';
+import type { TCreateFeedbackFormData } from '@/e.entities/feedback';
 import { api } from '@/f.shared/api';
 
 export const createFeedback = async (params: TCreateFeedbackFormData) => {

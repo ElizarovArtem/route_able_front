@@ -5,7 +5,7 @@ import {
   CreateLessonSlotModal,
 } from '@/d.features/user';
 import { useGetMySlots } from '@/e.entities/lessons';
-import { LessonSlot } from '@/e.entities/user';
+import { LessonSlot } from '@/e.entities/lessons';
 import { formatDateForServer } from '@/f.shared/lib/formatDateForServer.ts';
 import {
   UiButton,

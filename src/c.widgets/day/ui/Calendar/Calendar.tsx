@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { format } from 'date-fns';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 
-import { DayInfoModal } from '@/e.entities/day/ui/DayInfoModal/DayInfoModal.tsx';
+import { DayInfoModal } from '@/e.entities/day';
 import { UiCard, UiFlex, UiTypography } from '@/f.shared/ui';
 
 import styles from './Calendar.module.scss';

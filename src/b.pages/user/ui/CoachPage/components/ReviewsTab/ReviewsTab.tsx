@@ -4,9 +4,9 @@ import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { useAddReview } from '@/d.features/review/api/queries/useAddReview.ts';
-import { useGetCoachReviews } from '@/e.entities/review/api/queries/useGetCoachReviews.ts';
-import { useGetMyCoachReview } from '@/e.entities/review/api/queries/useGetMyCoachReview.ts';
-import type { ReviewForm } from '@/e.entities/review/model/review.model.ts';
+import type { ReviewForm } from '@/e.entities/review';
+import { useGetCoachReviews } from '@/e.entities/review';
+import { useGetMyCoachReview } from '@/e.entities/review';
 import {
   FormSelect,
   FormTextarea,

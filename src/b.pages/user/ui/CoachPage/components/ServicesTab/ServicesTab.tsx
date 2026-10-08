@@ -3,9 +3,9 @@ import React, { useState } from 'react';
 
 import { PayForOfferModal } from '@/d.features/coachBilling/ui/PayForOfferModal/PayForOfferModal.tsx';
 import { CreateVideoLessonModal } from '@/d.features/video';
-import { useGetCoachOffers } from '@/e.entities/coachBilling/api/queries/useGetCoachOffers.ts';
-import type { CoachOffer } from '@/e.entities/coachBilling/model/coachBilling.model.ts';
-import { CoachOfferItem } from '@/e.entities/coachBilling/ui';
+import type { CoachOffer } from '@/e.entities/coachBilling';
+import { useGetCoachOffers } from '@/e.entities/coachBilling';
+import { CoachOfferItem } from '@/e.entities/coachBilling';
 import { LessonSlot, useGetCoachSlots } from '@/e.entities/lessons';
 import { formatDateForServer } from '@/f.shared/lib/formatDateForServer.ts';
 import { UiCard, UiDatepicker, UiFlex, UiTypography } from '@/f.shared/ui';

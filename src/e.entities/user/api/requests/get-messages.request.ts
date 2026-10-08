@@ -2,13 +2,9 @@ import type { AxiosResponse } from 'axios';
 
 import { api } from '@/f.shared/api';
 
-export type GetMessagesResponse = {
-  id: string;
-  chatId: string;
-  authorId: string;
-  text: string;
-  createdAt: string;
-};
+import type { GetMessagesResponse } from '../../model/user.types.ts';
+
+export type { GetMessagesResponse };
 
 export const getMessages = async (
   chatId: string,

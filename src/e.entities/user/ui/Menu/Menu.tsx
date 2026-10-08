@@ -2,7 +2,7 @@ import { Link } from '@tanstack/react-router';
 import classNames from 'classnames';
 import React, { type RefObject, useEffect, useRef } from 'react';
 
-import { feedbackSelector } from '@/e.entities/feedback/model/feedback.store.ts';
+import { feedbackSelector } from '@/e.entities/feedback';
 import { useSelector } from '@/f.shared/lib';
 import { UiTypography } from '@/f.shared/ui';
 

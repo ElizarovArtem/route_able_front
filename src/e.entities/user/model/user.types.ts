@@ -95,3 +95,11 @@ export type MyConnectionsItemSessions = {
   remaining: number;
   reserved: number;
 };
+
+export type GetMessagesResponse = {
+  id: string;
+  chatId: string;
+  authorId: string;
+  text: string;
+  createdAt: string;
+};

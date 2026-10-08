@@ -1,8 +1,8 @@
 import type { StateCreator } from 'zustand/index';
 
 import type { TRootStore } from '@/a.app/store/store.ts';
-import { api } from '@/f.shared/api';
 
+import { getUserById } from '../api/requests/get-user.request.ts';
 import type { User } from './user.types.ts';
 
 // Types
@@ -28,9 +28,9 @@ export const createUserSlice: StateCreator<TRootStore, [], [], TUserStore> = (
   },
 
   getUser: async (id: string) => {
-    const user = await api.get(`user/byId/${id}`);
+    const user = await getUserById(id);
 
-    setState({ user: user.data });
+    setState({ user });
   },
 });
 

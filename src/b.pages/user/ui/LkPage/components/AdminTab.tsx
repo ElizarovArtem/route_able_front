@@ -2,7 +2,7 @@ import { format } from 'date-fns';
 import React from 'react';
 
 import { useRequestCoachVerification } from '@/d.features/user/api/queries/useReviewCoachVerification.ts';
-import { useGetFeedbacksByAdmin } from '@/e.entities/feedback/api/queries/useGetFeedbacksByAdmin.ts';
+import { useGetFeedbacksByAdmin } from '@/e.entities/feedback';
 import { useGetCoachVerificationRequests } from '@/e.entities/user/api/queries/useGetCoachVerificationRequests.ts';
 import { VERIFICATION_STATUS } from '@/e.entities/user/model/user.constants.tsx';
 import {

@@ -2,28 +2,12 @@ import type { AxiosResponse } from 'axios';
 
 import { api } from '@/f.shared/api';
 
-export type TGetWorkoutExercisesRequest = {
-  relationId?: string;
-  date: string;
-};
+import type {
+  TGetWorkoutExercisesRequest,
+  TGetWorkoutExercisesResponse,
+} from '../../model/workout.types.ts';
 
-export type TGetWorkoutExercisesResponse = {
-  authorId: string;
-  clientCoachId: string;
-  clientId: string;
-  coachId: string;
-  createdAt: string;
-  date: string;
-  id: string;
-  name: string;
-  notes: null;
-  order: number;
-  reps: number;
-  sets: number;
-  completed: boolean;
-  updatedAt: string;
-  workingWeight: number;
-}[];
+export type { TGetWorkoutExercisesRequest, TGetWorkoutExercisesResponse };
 
 export const getWorkoutExercisesApi = async ({
   relationId,

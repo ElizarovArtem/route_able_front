@@ -3,9 +3,9 @@ import React, { useEffect, useState } from 'react';
 
 import { useCreateOrder } from '@/d.features/coachBilling/api/queries/useCreateOrder.ts';
 import { useMakePayment } from '@/d.features/coachBilling/api/queries/useMakePayment.ts';
-import { useGetOrderStatus } from '@/e.entities/coachBilling/api/queries/useGetOrderStatus.ts';
-import { CoachOrderStatus } from '@/e.entities/coachBilling/model/coachBilling.constants.ts';
-import type { CoachOffer } from '@/e.entities/coachBilling/model/coachBilling.model.ts';
+import type { CoachOffer } from '@/e.entities/coachBilling';
+import { useGetOrderStatus } from '@/e.entities/coachBilling';
+import { CoachOrderStatus } from '@/e.entities/coachBilling';
 import {
   UiButton,
   UiCard,
