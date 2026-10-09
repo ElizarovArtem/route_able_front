@@ -81,7 +81,8 @@ export const Connections = ({ connectionsType }: ConnectionsProps) => {
         <UiTypography type="label">
           {isCoaches ? (
             <>
-              У вас пока нет тренера. <UiLink to="/">Найти тренера</UiLink>
+              У вас пока нет тренера.{' '}
+              <UiLink to="/coaches">Найти тренера</UiLink>
             </>
           ) : (
             'Нет подопечных'

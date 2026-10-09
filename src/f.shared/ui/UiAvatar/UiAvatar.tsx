@@ -5,15 +5,17 @@ import { config } from '@/f.shared/config';
 
 import styles from './UiAvatar.module.scss';
 
-type TUserAvatarProps = {} & ImageProps;
+type TUserAvatarProps = { src?: string | null } & Omit<ImageProps, 'src'>;
+
+const NO_PHOTO = '/no_photo.png';
 
 export const UiAvatar = ({ src, ...props }: TUserAvatarProps) => {
   return (
     <Image
       {...props}
       className={styles.avatar}
-      src={`${config.API_URL}/uploads/${src}`}
-      fallback="/no_photo.png"
+      src={src ? `${config.API_URL}/uploads/${src}` : NO_PHOTO}
+      fallback={NO_PHOTO}
     />
   );
 };
