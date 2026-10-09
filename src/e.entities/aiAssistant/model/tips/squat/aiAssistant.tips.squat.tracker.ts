@@ -1,7 +1,10 @@
 import type { Keypoint } from '@tensorflow-models/pose-detection';
 
 import { RepTracker } from '../aiAssistant.tips.repTracker.ts';
-import type { CameraView, TipProvider } from '../aiAssistant.tips.shared.types.ts';
+import type {
+  CameraView,
+  TipProvider,
+} from '../aiAssistant.tips.shared.types.ts';
 import { RepPhase } from '../aiAssistant.tips.shared.types.ts';
 import { DEFAULT_THRESHOLDS } from './aiAssistant.tips.squat.constants.ts';
 import {
@@ -16,7 +19,11 @@ import type {
   TipContext,
 } from './aiAssistant.tips.squat.types.ts';
 
-export class SquatRepTracker extends RepTracker<FrameMetrics, TipContext, Thresholds> {
+export class SquatRepTracker extends RepTracker<
+  FrameMetrics,
+  TipContext,
+  Thresholds
+> {
   private sideState: SideTrendState = {
     emaAngle: null,
     prevAngle: null,
@@ -38,7 +45,11 @@ export class SquatRepTracker extends RepTracker<FrameMetrics, TipContext, Thresh
 
   protected resetState(): void {
     this.sideState = { emaAngle: null, prevAngle: null, repMinKneeAngle: null };
-    this.frontState = { emaDepth: null, prevDepth: null, repMaxDepthRatio: null };
+    this.frontState = {
+      emaDepth: null,
+      prevDepth: null,
+      repMaxDepthRatio: null,
+    };
   }
 
   protected onTopReached(): void {
@@ -46,9 +57,10 @@ export class SquatRepTracker extends RepTracker<FrameMetrics, TipContext, Thresh
     this.frontState.repMaxDepthRatio = null;
   }
 
-  protected measure(
-    keypoints: Keypoint[],
-  ): { metrics: FrameMetrics; velocity: number | null } {
+  protected measure(keypoints: Keypoint[]): {
+    metrics: FrameMetrics;
+    velocity: number | null;
+  } {
     if (this.currentView === 'side') {
       const res = measureMetricsForSide(keypoints, this.sideState, {
         emaAlpha: 0.4,

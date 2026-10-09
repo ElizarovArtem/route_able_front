@@ -42,3 +42,30 @@ export type NutritionBlock = {
     }[];
   };
 };
+
+export type DayMealsSummary = NutritionBlock & {
+  meals: TMeal[];
+};
+
+export type GetPlannedMealsRequest = {
+  date: string;
+  relationId?: string;
+};
+
+export type GetPlannedMealsResponse = {
+  authorId: string;
+  calories: number;
+  carbs: number;
+  clientCoachId: string;
+  clientId: string;
+  coachId: string;
+  completedAt: string;
+  createdAt: string;
+  date: string;
+  fat: number;
+  id: string;
+  isCompleted: false;
+  protein: number;
+  text: string;
+  updatedAt: string;
+}[];

@@ -5,8 +5,8 @@
   gap: var(--spacing-s);
   align-items: center;
 
-  & [class*='ant-switch'][class*='ant-switch-checked'], & [class*='ant-switch'][class*='ant-switch-checked']:hover {
+  & [class*='ant-switch'][class*='ant-switch-checked'],
+  & [class*='ant-switch'][class*='ant-switch-checked']:hover {
     background: var(--accent-color-1);
   }
 }
-

@@ -16,10 +16,7 @@ type BodySide = 'left' | 'right';
 
 const scoreOf = (keypoint?: Keypoint) => keypoint?.score ?? 0;
 
-const buildQuality = (
-  map: Map<string, Keypoint>,
-  requiredNames: string[],
-) => {
+const buildQuality = (map: Map<string, Keypoint>, requiredNames: string[]) => {
   const visibleKeypoints = requiredNames.filter((name) => map.has(name));
   const missingKeypoints = requiredNames.filter((name) => !map.has(name));
   const averageScore =

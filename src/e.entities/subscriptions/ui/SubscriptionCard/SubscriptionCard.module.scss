@@ -1,12 +1,12 @@
 .proButton {
-  $gold: #FFC107;
+  $gold: #ffc107;
 
   &[class*='button'][class*='ant-btn'][class*='ant-btn-default'] {
     background: $gold;
     border-color: $gold;
   }
 
-  &[class*='button'][class*='ant-btn'][class*='ant-btn-default']:hover  {
+  &[class*='button'][class*='ant-btn'][class*='ant-btn-default']:hover {
     color: $gold;
     border-color: $gold;
     background: transparent;

@@ -9,7 +9,7 @@
   font-size: 12px;
   font-weight: var(--font-weight-semibold);
   line-height: 1;
-  letter-spacing: .02em;
+  letter-spacing: 0.02em;
   white-space: nowrap;
   border: 1px solid transparent;
 }
@@ -28,13 +28,13 @@
 .tone-warn {
   background: var(--warn-soft);
   color: var(--warn-color);
-  border-color: rgba(245, 165, 36, .25);
+  border-color: rgba(245, 165, 36, 0.25);
 }
 
 .tone-danger {
   background: var(--danger-soft);
   color: var(--danger-color);
-  border-color: rgba(232, 50, 66, .25);
+  border-color: rgba(232, 50, 66, 0.25);
 }
 
 .tone-neutral {

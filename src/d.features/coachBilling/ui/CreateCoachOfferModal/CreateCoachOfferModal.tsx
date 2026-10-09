@@ -3,7 +3,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 
 import { useCreateCoachOffer } from '@/d.features/coachBilling/api/queries/useCreateCoachOffer.ts';
-import { createCoachOfferFormResolver } from '@/e.entities/coachBilling/model/resolvers/create-coach-offer.resolver.ts';
+import { createCoachOfferFormResolver } from '@/e.entities/coachBilling';
 import {
   FormInput,
   FormTextarea,

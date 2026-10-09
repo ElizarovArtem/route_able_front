@@ -15,10 +15,7 @@ type BodySide = 'left' | 'right';
 
 const scoreOf = (keypoint?: Keypoint) => keypoint?.score ?? 0;
 
-const buildQuality = (
-  map: Map<string, Keypoint>,
-  requiredNames: string[],
-) => {
+const buildQuality = (map: Map<string, Keypoint>, requiredNames: string[]) => {
   const visibleKeypoints = requiredNames.filter((name) => map.has(name));
   const missingKeypoints = requiredNames.filter((name) => !map.has(name));
   const averageScore =
@@ -50,8 +47,7 @@ const pickBestSide = (map: Map<string, Keypoint>): BodySide | null => {
   return leftScore >= rightScore ? 'left' : 'right';
 };
 
-const distance = (a: Keypoint, b: Keypoint) =>
-  Math.hypot(a.x - b.x, a.y - b.y);
+const distance = (a: Keypoint, b: Keypoint) => Math.hypot(a.x - b.x, a.y - b.y);
 
 export function measurePushupMetricsForSide(
   keypoints: Keypoint[],
@@ -113,7 +109,9 @@ export function measurePushupMetricsForSide(
   const bodyLineAngleDegrees =
     hip && ankle ? computeAngleInDegrees(shoulder, hip, ankle) : null;
   const shoulderToWristDistanceRatio =
-    hip && ankle ? distance(shoulder, wrist) / (distance(shoulder, ankle) || 1) : null;
+    hip && ankle
+      ? distance(shoulder, wrist) / (distance(shoulder, ankle) || 1)
+      : null;
 
   return {
     metrics: {
@@ -203,7 +201,8 @@ export function measurePushupMetricsForFront(
       repMaxDepthRatio,
       shoulderWidth,
       wristWidthRatio,
-      elbowSymmetryRatio: Math.abs(leftElbowDepth - rightElbowDepth) / shoulderWidth,
+      elbowSymmetryRatio:
+        Math.abs(leftElbowDepth - rightElbowDepth) / shoulderWidth,
       shoulderTiltRatio: Math.abs(ls.y - rs.y) / shoulderWidth,
       ...quality,
     },

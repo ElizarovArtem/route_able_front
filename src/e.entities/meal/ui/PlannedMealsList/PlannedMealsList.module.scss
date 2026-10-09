@@ -1,4 +1,4 @@
-@use "@/a.app/styles/variables";
+@use '@/a.app/styles/variables';
 
 .plannedMealsListWrapper {
   display: flex;
@@ -32,7 +32,7 @@
 .tableTemplate {
   display: grid;
   gap: var(--spacing-s);
-  grid-template-columns: 1.7fr 1fr 1fr 1fr 1fr 1fr ;
+  grid-template-columns: 1.7fr 1fr 1fr 1fr 1fr 1fr;
   align-items: center;
   min-width: 440px;
 }

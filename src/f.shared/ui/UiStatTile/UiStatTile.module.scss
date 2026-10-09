@@ -5,7 +5,7 @@
   flex-direction: column;
   gap: var(--spacing-xxs);
   padding: var(--spacing-s);
-  background: rgba(255, 255, 255, .02);
+  background: rgba(255, 255, 255, 0.02);
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius-s);
   min-width: 0;
@@ -23,13 +23,17 @@
   align-items: center;
 }
 
-.tone-accent .icon { color: var(--accent-color-1); }
-.tone-warn .icon { color: var(--warn-color); }
+.tone-accent .icon {
+  color: var(--accent-color-1);
+}
+.tone-warn .icon {
+  color: var(--warn-color);
+}
 
 .label {
   font-size: 12px;
   font-weight: var(--font-weight-medium);
-  letter-spacing: .04em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
 }
 

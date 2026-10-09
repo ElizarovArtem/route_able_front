@@ -12,7 +12,6 @@ export {
 } from './model/user.store.ts';
 export { type CoachListItem, type User } from './model/user.types.ts';
 export {
-  LessonSlot,
   Menu,
   UserAuthCodeForm,
   UserAuthEmailForm,

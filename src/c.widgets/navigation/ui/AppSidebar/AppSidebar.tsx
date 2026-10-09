@@ -3,12 +3,12 @@ import classNames from 'classnames';
 import React, { useState } from 'react';
 
 import { SendCoachCooperationRequestModal } from '@/d.features/user/ui/SendCoachCooperationRequestModal/SendCoachCooperationRequestModal.tsx';
-import { feedbackSelector } from '@/e.entities/feedback/model/feedback.store.ts';
+import { feedbackSelector } from '@/e.entities/feedback';
+import { userSelector } from '@/e.entities/user';
 import {
   LkContentTypeTabKeys,
   Roles,
 } from '@/e.entities/user/model/user.enums.ts';
-import { userSelector } from '@/e.entities/user';
 import { useSelector } from '@/f.shared/lib';
 import { useMobile } from '@/f.shared/lib/useMobile.ts';
 import {

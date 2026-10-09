@@ -3,12 +3,12 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 
 import { useCreateFeedback } from '@/d.features/feedback/api/queries/useCreateFeedback.ts';
-import { FeedbackType } from '@/e.entities/feedback/model/feedback.constants.ts';
-import { feedbackSelector } from '@/e.entities/feedback/model/feedback.store.ts';
+import { FeedbackType } from '@/e.entities/feedback';
+import { feedbackSelector } from '@/e.entities/feedback';
 import {
   createFeedbackFormResolver,
   type TCreateFeedbackFormData,
-} from '@/e.entities/feedback/model/resolvers/feedback.create-feedback-resolver.ts';
+} from '@/e.entities/feedback';
 import { useSelector } from '@/f.shared/lib';
 import {
   FormInput,

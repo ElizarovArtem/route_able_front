@@ -16,7 +16,9 @@
 .videoContainer {
   flex: 1;
 
-  & [class*='lk-button'], & [class*='lk-disconnect-button'], & [class*='lk-participant-metadata'] {
+  & [class*='lk-button'],
+  & [class*='lk-disconnect-button'],
+  & [class*='lk-participant-metadata'] {
     color: var(--text-color-1);
   }
 
@@ -49,4 +51,3 @@
   flex-direction: column;
   gap: var(--spacing-m);
 }
-

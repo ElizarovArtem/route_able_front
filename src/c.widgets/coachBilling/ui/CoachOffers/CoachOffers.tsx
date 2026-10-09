@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
 import { CreateCoachOfferModal } from '@/d.features/coachBilling/ui/CreateCoachOfferModal/CreateCoachOfferModal.tsx';
-import { useGetCoachOffers } from '@/e.entities/coachBilling/api/queries/useGetCoachOffers.ts';
-import { CoachOfferItem } from '@/e.entities/coachBilling/ui';
+import { useGetCoachOffers } from '@/e.entities/coachBilling';
+import { CoachOfferItem } from '@/e.entities/coachBilling';
 import { userSelector } from '@/e.entities/user';
 import { useSelector } from '@/f.shared/lib';
 import { UiButton, UiCard, UiFlex, UiTypography } from '@/f.shared/ui';

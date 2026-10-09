@@ -3,15 +3,14 @@ import type { AxiosError } from 'axios';
 
 import type { AiWorkoutSession } from '@/e.entities/aiAssistant';
 
-import { getAiWorkoutContinueSession } from '../requests/get-continue-workout-session.request.ts';
+import { getAiWorkoutSession } from '../requests/get-workout-session.request.ts';
 
 export const useContinueAiWorkoutSession = (sessionId: string | null) => {
   return useQuery<AiWorkoutSession, AxiosError>({
     queryKey: ['aiWorkoutContinue', sessionId],
     queryFn: () => {
-      console.log(sessionId);
       if (!sessionId) throw new Error('sessionId is required');
-      return getAiWorkoutContinueSession(sessionId);
+      return getAiWorkoutSession(sessionId);
     },
     enabled: false,
     staleTime: 0,

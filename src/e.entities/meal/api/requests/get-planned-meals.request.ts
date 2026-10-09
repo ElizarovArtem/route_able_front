@@ -2,28 +2,12 @@ import type { AxiosResponse } from 'axios';
 
 import { api } from '@/f.shared/api';
 
-export type GetPlannedMealsRequest = {
-  date: string;
-  relationId?: string;
-};
+import type {
+  GetPlannedMealsRequest,
+  GetPlannedMealsResponse,
+} from '../../model/meal.model.ts';
 
-export type GetPlannedMealsResponse = {
-  authorId: string;
-  calories: number;
-  carbs: number;
-  clientCoachId: string;
-  clientId: string;
-  coachId: string;
-  completedAt: string;
-  createdAt: string;
-  date: string;
-  fat: number;
-  id: string;
-  isCompleted: false;
-  protein: number;
-  text: string;
-  updatedAt: string;
-}[];
+export type { GetPlannedMealsRequest, GetPlannedMealsResponse };
 
 export const getPlannedMeals = async ({
   relationId,

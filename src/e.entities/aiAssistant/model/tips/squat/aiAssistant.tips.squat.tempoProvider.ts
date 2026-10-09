@@ -1,11 +1,17 @@
-import { RepPhase, type ProviderTip, type TipProvider } from '../aiAssistant.tips.shared.types.ts';
+import {
+  type ProviderTip,
+  RepPhase,
+  type TipProvider,
+} from '../aiAssistant.tips.shared.types.ts';
 import {
   SQUAT_FAST_VELOCITY_ANGLE,
   SQUAT_FAST_VELOCITY_DEPTH,
 } from './aiAssistant.tips.squat.constants.ts';
 import type { TipContext } from './aiAssistant.tips.squat.types.ts';
 
-export const tempoProvider: TipProvider<TipContext> = (context): ProviderTip[] => {
+export const tempoProvider: TipProvider<TipContext> = (
+  context,
+): ProviderTip[] => {
   if (
     context.phase !== RepPhase.Descending &&
     context.phase !== RepPhase.Ascending

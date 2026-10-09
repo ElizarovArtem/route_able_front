@@ -1,13 +1,21 @@
-import { RepPhase, type ProviderTip, type TipProvider } from '../../aiAssistant.tips.shared.types.ts';
+import {
+  type ProviderTip,
+  RepPhase,
+  type TipProvider,
+} from '../../aiAssistant.tips.shared.types.ts';
 import {
   SQUAT_PARALLEL_SOFT_DEPTH,
   SQUAT_PARALLEL_TARGET_DEPTH,
 } from '../aiAssistant.tips.squat.constants.ts';
 import type { TipContext } from '../aiAssistant.tips.squat.types.ts';
 
-export const parallelFrontProvider: TipProvider<TipContext> = (context): ProviderTip[] => {
+export const parallelFrontProvider: TipProvider<TipContext> = (
+  context,
+): ProviderTip[] => {
   if (context.view !== 'front') return [];
-  if (!(context.phase === RepPhase.Ascending && context.isFirstFrameInAscending)) {
+  if (
+    !(context.phase === RepPhase.Ascending && context.isFirstFrameInAscending)
+  ) {
     return [];
   }
 

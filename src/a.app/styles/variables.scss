@@ -1,21 +1,21 @@
 /* dark premium dashboard */
-$mainColor:        #121A25;
-$accentColor1:     #22C8A7;        // единый акцент (мятный)
+$mainColor: #121a25;
+$accentColor1: #22c8a7; // единый акцент (мятный)
 
-$backgroundColor1: #1A2433;        // surface-1 (карточки) — чуть светлее main
-$backgroundColor2: #202C3B;        // surface-2 (поля/вторичные)
+$backgroundColor1: #1a2433; // surface-1 (карточки) — чуть светлее main
+$backgroundColor2: #202c3b; // surface-2 (поля/вторичные)
 
-$textColor1:       #EEF2F7;        // основной текст
-$textColor2:       #B0BAC8;        // вторичный текст
-$textColor3:       #0D1319;        // текст на акценте
-$textColor4:       #e83242;        // текст ошибки
+$textColor1: #eef2f7; // основной текст
+$textColor2: #b0bac8; // вторичный текст
+$textColor3: #0d1319; // текст на акценте
+$textColor4: #e83242; // текст ошибки
 
-$borderColor:      rgba(255,255,255,.06);
-$borderRadius:  16px;
+$borderColor: rgba(255, 255, 255, 0.06);
+$borderRadius: 16px;
 
-$boxShadow: 0 8px 22px rgba(3,10,18,.22);
+$boxShadow: 0 8px 22px rgba(3, 10, 18, 0.22);
 
-$focusRing: 0 0 0 4px rgba(34,200,167,.15);
+$focusRing: 0 0 0 4px rgba(34, 200, 167, 0.15);
 
 $spacingXS: 8px;
 $spacingS: 16px;
@@ -30,26 +30,26 @@ $fontSizeXL: 32px;
 
 :root {
   /* Brand */
-  --main-color: #121A25;
-  --accent-color-1: #22C8A7;            // единый акцент
-  --accent-color-hover: #33D9B8;        // hover (чуть светлее)
-  --accent-soft: rgba(34, 200, 167, .12); // подложка для бейджей/чипов
-  --accent-soft-border: rgba(34, 200, 167, .25);
+  --main-color: #121a25;
+  --accent-color-1: #22c8a7; // единый акцент
+  --accent-color-hover: #33d9b8; // hover (чуть светлее)
+  --accent-soft: rgba(34, 200, 167, 0.12); // подложка для бейджей/чипов
+  --accent-soft-border: rgba(34, 200, 167, 0.25);
 
   /* Семантика */
-  --warn-color: #F5A524;                // streak / PR / янтарь
-  --warn-soft: rgba(245, 165, 36, .12);
+  --warn-color: #f5a524; // streak / PR / янтарь
+  --warn-soft: rgba(245, 165, 36, 0.12);
   --danger-color: #e83242;
-  --danger-soft: rgba(232, 50, 66, .12);
-  --success-color: #22C8A7;
-  --success-soft: rgba(34, 200, 167, .12);
+  --danger-soft: rgba(232, 50, 66, 0.12);
+  --success-color: #22c8a7;
+  --success-soft: rgba(34, 200, 167, 0.12);
 
   /* Поверхности (4 уровня контраста) */
-  --surface-0: #121A25;                 // фон страницы
-  --surface-1: #1A2433;                 // обычные карточки
-  --surface-2: #202C3B;                 // поля/secondary
-  --surface-3: #26354A;                 // hero / elevated / активный таб
-  --surface-hover: rgba(255, 255, 255, .04);
+  --surface-0: #121a25; // фон страницы
+  --surface-1: #1a2433; // обычные карточки
+  --surface-2: #202c3b; // поля/secondary
+  --surface-3: #26354a; // hero / elevated / активный таб
+  --surface-hover: rgba(255, 255, 255, 0.04);
 
   /* Legacy aliases (для обратной совместимости) */
   --background-color-1: var(--surface-1);
@@ -59,24 +59,24 @@ $fontSizeXL: 32px;
   --background-color-5: var(--surface-3);
 
   /* Текст */
-  --text-color-1: #EEF2F7;              // основной
-  --text-color-2: #B0BAC8;              // вторичный
-  --text-color-3: #0D1319;              // на акценте
-  --text-color-4: #e83242;              // ошибка
-  --text-color-muted: #7C8696;          // приглушённый (caption)
+  --text-color-1: #eef2f7; // основной
+  --text-color-2: #b0bac8; // вторичный
+  --text-color-3: #0d1319; // на акценте
+  --text-color-4: #e83242; // ошибка
+  --text-color-muted: #7c8696; // приглушённый (caption)
 
   /* Бордеры и радиусы */
-  --border-color: rgba(255, 255, 255, .06);
-  --border-color-strong: rgba(255, 255, 255, .12);
+  --border-color: rgba(255, 255, 255, 0.06);
+  --border-color-strong: rgba(255, 255, 255, 0.12);
   --border-radius: 16px;
   --border-radius-s: 12px;
   --border-radius-pill: 999px;
 
   /* Тени */
-  --box-shadow: 0 8px 22px rgba(3, 10, 18, .22);
-  --shadow-elevated: 0 12px 32px rgba(3, 10, 18, .32);
-  --shadow-soft: 0 4px 12px rgba(3, 10, 18, .16);
-  --focus-ring: 0 0 0 4px rgba(34, 200, 167, .15);
+  --box-shadow: 0 8px 22px rgba(3, 10, 18, 0.22);
+  --shadow-elevated: 0 12px 32px rgba(3, 10, 18, 0.32);
+  --shadow-soft: 0 4px 12px rgba(3, 10, 18, 0.16);
+  --focus-ring: 0 0 0 4px rgba(34, 200, 167, 0.15);
 
   /* Spacing — 4-pt scale */
   --spacing-xxs: 4px;
@@ -92,7 +92,7 @@ $fontSizeXL: 32px;
   --font-size-m: 16px;
   --font-size-l: 20px;
   --font-size-xl: 30px;
-  --font-size-display: 40px;            // hero-заголовки
+  --font-size-display: 40px; // hero-заголовки
 
   --font-weight-regular: 400;
   --font-weight-medium: 500;
@@ -109,8 +109,8 @@ $fontSizeXL: 32px;
   :root {
     --border-radius: 14px;
 
-    --box-shadow: 0 6px 18px rgba(3,10,18,.20);
-    --shadow-elevated: 0 10px 26px rgba(3,10,18,.28);
+    --box-shadow: 0 6px 18px rgba(3, 10, 18, 0.2);
+    --shadow-elevated: 0 10px 26px rgba(3, 10, 18, 0.28);
 
     --spacing-xxs: 4px;
     --spacing-xs: 8px;
@@ -134,8 +134,8 @@ $fontSizeXL: 32px;
   :root {
     --border-radius: 12px;
 
-    --box-shadow: 0 4px 14px rgba(3,10,18,.18);
-    --shadow-elevated: 0 8px 22px rgba(3,10,18,.24);
+    --box-shadow: 0 4px 14px rgba(3, 10, 18, 0.18);
+    --shadow-elevated: 0 8px 22px rgba(3, 10, 18, 0.24);
 
     --spacing-xxs: 4px;
     --spacing-xs: 6px;

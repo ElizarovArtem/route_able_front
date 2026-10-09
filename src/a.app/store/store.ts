@@ -5,7 +5,7 @@ import { createAuthSlice, type TAuthStore } from '@/d.features/user';
 import {
   createFeedbackSlice,
   type TFeedbackStore,
-} from '@/e.entities/feedback/model/feedback.store.ts';
+} from '@/e.entities/feedback';
 import { createUserSlice, type TUserStore } from '@/e.entities/user';
 
 export type TRootStore = TUserStore & TAuthStore & TFeedbackStore;

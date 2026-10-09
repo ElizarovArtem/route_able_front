@@ -1,11 +1,14 @@
-@use  '@/a.app/styles/variables';
+@use '@/a.app/styles/variables';
 
 .uiTabs div[role='tablist'] [class*='ant-tabs'][class*='ant-tabs-tab'] {
   color: var(--text-color-1);
   font-weight: bold;
 }
 
-div.uiTabs div[role='tablist'] [class*='ant-tabs-tab'][class*='ant-tabs-tab-active'] div {
+div.uiTabs
+  div[role='tablist']
+  [class*='ant-tabs-tab'][class*='ant-tabs-tab-active']
+  div {
   color: var(--accent-color-1);
 }
 
@@ -13,7 +16,9 @@ div.uiTabs div[role='tablist'] [class*='ant-tabs-tab'][class*='ant-tabs-tab-acti
   color: var(--accent-color-1);
 }
 
-.uiTabs div[role='tablist'] [class*='ant-tabs-ink-bar'][class*='ant-tabs-ink-bar-animated'] {
+.uiTabs
+  div[role='tablist']
+  [class*='ant-tabs-ink-bar'][class*='ant-tabs-ink-bar-animated'] {
   background: var(--accent-color-1);
   transition: none;
 }
@@ -22,7 +27,10 @@ div.uiTabs div[role='tablist'] [class*='ant-tabs-tab'][class*='ant-tabs-tab-acti
   border-bottom-color: transparent;
 }
 
-.uiTabs div[role='tablist'] [class*='ant-tabs-tab'][class*='ant-tabs-tab-disabled'] [class*='ant-tabs-tab'] {
+.uiTabs
+  div[role='tablist']
+  [class*='ant-tabs-tab'][class*='ant-tabs-tab-disabled']
+  [class*='ant-tabs-tab'] {
   color: var(--text-color-2);
   opacity: 0.3;
 }

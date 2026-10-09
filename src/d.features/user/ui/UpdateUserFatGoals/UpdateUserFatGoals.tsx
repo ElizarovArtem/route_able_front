@@ -40,7 +40,16 @@ export const UpdateUserFatGoals = ({
   };
 
   useEffect(() => {
-    reset(goals);
+    reset(
+      goals
+        ? {
+            calories: goals.calories ?? undefined,
+            protein: goals.protein ?? undefined,
+            fat: goals.fat ?? undefined,
+            carbs: goals.carbs ?? undefined,
+          }
+        : undefined,
+    );
   }, [goals]);
 
   return (

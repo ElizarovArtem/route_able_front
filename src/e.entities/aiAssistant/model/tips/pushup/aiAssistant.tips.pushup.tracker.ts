@@ -49,9 +49,10 @@ export class PushupRepTracker extends RepTracker<
     this.state.repMaxDepthRatio = null;
   }
 
-  protected measure(
-    keypoints: Keypoint[],
-  ): { metrics: PushupFrameMetrics; velocity: number | null } {
+  protected measure(keypoints: Keypoint[]): {
+    metrics: PushupFrameMetrics;
+    velocity: number | null;
+  } {
     if (this.currentView === 'side') {
       const res = measurePushupMetricsForSide(keypoints, this.state, {
         emaAlpha: 0.4,

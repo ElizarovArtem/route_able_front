@@ -1,4 +1,4 @@
-@use  '@/a.app/styles/variables';
+@use '@/a.app/styles/variables';
 
 .formWrapper {
   display: flex;
@@ -12,7 +12,7 @@
   gap: var(--spacing-m);
 
   @media (max-width: 640px) {
-   display: grid;
+    display: grid;
     grid-template-columns: 1fr 1fr;
   }
 }
@@ -31,10 +31,10 @@
   gap: var(--spacing-m);
 
   & input {
-   flex: 2;
+    flex: 2;
   }
 
   & [class*='ant-picker'] {
-    flex:1;
+    flex: 1;
   }
 }

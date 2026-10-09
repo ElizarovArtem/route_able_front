@@ -10,7 +10,15 @@ import type {
   TrackerUpdateResult,
 } from '../aiAssistant.tips.shared.types.ts';
 
-export type { CameraView, ProviderTip, RepPhase, Tip, TipProvider, TipSeverity, TrackerUpdateResult };
+export type {
+  CameraView,
+  ProviderTip,
+  RepPhase,
+  Tip,
+  TipProvider,
+  TipSeverity,
+  TrackerUpdateResult,
+};
 
 export type FrameMetricsSide = {
   view: 'side';

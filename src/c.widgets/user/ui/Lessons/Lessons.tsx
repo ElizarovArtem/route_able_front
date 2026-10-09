@@ -29,7 +29,11 @@ export const Lessons = ({ forRole, className }: LessonsProps) => {
       <UiSectionHeader
         icon={<VideoIcon size={18} />}
         title="Занятия"
-        subtitle={items.length ? `На выбранную дату: ${items.length}` : 'На выбранную дату нет занятий'}
+        subtitle={
+          items.length
+            ? `На выбранную дату: ${items.length}`
+            : 'На выбранную дату нет занятий'
+        }
         action={
           <UiDatepicker
             defaultValue={date}
@@ -45,7 +49,9 @@ export const Lessons = ({ forRole, className }: LessonsProps) => {
             <PlannedVideoLesson key={lesson.id} lesson={lesson} />
           ))
         ) : (
-          <UiTypography type="label">Свободный день — выбери другую дату или забронируй занятие.</UiTypography>
+          <UiTypography type="label">
+            Свободный день — выбери другую дату или забронируй занятие.
+          </UiTypography>
         )}
       </UiFlex>
     </UiCard>

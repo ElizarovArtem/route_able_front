@@ -27,7 +27,7 @@ export type MySubscriptionPlan = {
   code: SubscriptionPlanCode;
   name: string;
   description: string | null;
-  price: string;
+  price: number;
   currency: string;
   period: SubscriptionPeriod;
   features: SubscriptionFeatures;
@@ -63,11 +63,4 @@ export type FeatureUsageItem = {
   limit: number;
   createdAt: string;
   updatedAt: string;
-};
-
-export type GetMySubscriptionResponse = {
-  subscription: MyUserSubscription | null;
-  plan: MySubscriptionPlan | null;
-  features: SubscriptionFeatures;
-  usage: FeatureUsageItem[];
 };

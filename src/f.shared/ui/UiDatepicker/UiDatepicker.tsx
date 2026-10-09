@@ -9,7 +9,6 @@ import { withForm } from '@/f.shared/lib';
 
 import { UiFlex } from '../UiFlex/UiFlex';
 import { UiTypography } from '../UiTypography/UiTypography';
-
 import styles from './UiDatepicker.module.scss';
 
 type UiDatepickerProps = {

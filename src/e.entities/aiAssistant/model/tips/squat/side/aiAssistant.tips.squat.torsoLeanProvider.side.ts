@@ -1,10 +1,19 @@
-import { RepPhase, type ProviderTip, type TipProvider } from '../../aiAssistant.tips.shared.types.ts';
+import {
+  type ProviderTip,
+  RepPhase,
+  type TipProvider,
+} from '../../aiAssistant.tips.shared.types.ts';
 import { SQUAT_TORSO_LEAN_WARN_DEG } from '../aiAssistant.tips.squat.constants.ts';
 import type { TipContext } from '../aiAssistant.tips.squat.types.ts';
 
-export const torsoLeanSideProvider: TipProvider<TipContext> = (context): ProviderTip[] => {
+export const torsoLeanSideProvider: TipProvider<TipContext> = (
+  context,
+): ProviderTip[] => {
   if (context.view !== 'side') return [];
-  if (context.phase !== RepPhase.Descending && context.phase !== RepPhase.Bottom) {
+  if (
+    context.phase !== RepPhase.Descending &&
+    context.phase !== RepPhase.Bottom
+  ) {
     return [];
   }
 
